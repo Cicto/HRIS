@@ -26,7 +26,7 @@ class Users extends BaseController
         return DataTable::of(
             $this->masterModel->getDataTables(
                 'user_info',
-                'user_id, username, firstname, middlename, lastname, birthdate, role, user_photo, email, status, active, dept_name, user_info.dept_id, birthdate', 
+                'user_id, username, firstname, middlename, lastname, birthdate, role, user_photo, email, status, active, dept_name, dept_alias, user_info.dept_id, birthdate', 
                 [], 
                 [
                     ['users', 'users.id = user_info.user_id', 'left'],
