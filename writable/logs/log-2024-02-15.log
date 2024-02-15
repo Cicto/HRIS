@@ -1,0 +1,79 @@
+CRITICAL - 2024-02-15 13:53:32 --> Attempt to read property "dept_id" on bool
+#0 C:\xampp\htdocs\HRIS\app\Views\plantilla\dashboard.php(143): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read...', 'C:\\xampp\\htdocs...', 143)
+#1 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('plantilla/dashb...', Array, true)
+#4 C:\xampp\htdocs\HRIS\app\Controllers\Plantilla.php(22): view('plantilla/dashb...', Array)
+#5 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Plantilla->index()
+#6 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Plantilla))
+#7 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\HRIS\index.php(38): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2024-02-15 13:53:50 --> Undefined variable $roles
+#0 C:\xampp\htdocs\HRIS\app\Views\plantilla\dashboard.php(143): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 143)
+#1 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('plantilla/dashb...', Array, true)
+#4 C:\xampp\htdocs\HRIS\app\Controllers\Plantilla.php(22): view('plantilla/dashb...', Array)
+#5 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Plantilla->index()
+#6 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Plantilla))
+#7 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\HRIS\index.php(38): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2024-02-15 14:36:13 --> Attempt to read property "dept_id" on bool
+#0 C:\xampp\htdocs\HRIS\app\Views\plantilla\dashboard.php(128): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read...', 'C:\\xampp\\htdocs...', 128)
+#1 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('plantilla/dashb...', Array, true)
+#4 C:\xampp\htdocs\HRIS\app\Controllers\Plantilla.php(22): view('plantilla/dashb...', Array)
+#5 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Plantilla->index()
+#6 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Plantilla))
+#7 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\HRIS\index.php(38): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2024-02-15 15:09:55 --> Undefined variable $row
+#0 C:\xampp\htdocs\HRIS\app\Views\plantilla\dashboard.php(237): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 237)
+#1 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('plantilla/dashb...', Array, true)
+#4 C:\xampp\htdocs\HRIS\app\Controllers\Plantilla.php(22): view('plantilla/dashb...', Array)
+#5 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Plantilla->index()
+#6 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Plantilla))
+#7 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\HRIS\index.php(38): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2024-02-15 15:10:07 --> Undefined variable $plantilla_id
+#0 C:\xampp\htdocs\HRIS\app\Views\plantilla\dashboard.php(237): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 237)
+#1 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('plantilla/dashb...', Array, true)
+#4 C:\xampp\htdocs\HRIS\app\Controllers\Plantilla.php(22): view('plantilla/dashb...', Array)
+#5 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Plantilla->index()
+#6 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Plantilla))
+#7 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\HRIS\index.php(38): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2024-02-15 16:24:34 --> Too few arguments to function App\Models\MasterModel::update(), 2 passed in C:\xampp\htdocs\HRIS\app\Controllers\Plantilla.php on line 39 and exactly 3 expected
+#0 C:\xampp\htdocs\HRIS\app\Controllers\Plantilla.php(39): App\Models\MasterModel->update('plantilla', '')
+#1 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Plantilla->archivePlantilla('39')
+#2 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Plantilla))
+#3 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\HRIS\index.php(38): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2024-02-15 16:30:30 --> Undefined variable $filename
+#0 C:\xampp\htdocs\HRIS\app\Controllers\Plantilla.php(39): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 39)
+#1 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Plantilla->archivePlantilla('39')
+#2 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Plantilla))
+#3 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\HRIS\index.php(38): CodeIgniter\CodeIgniter->run()
+#5 {main}
+CRITICAL - 2024-02-15 16:33:45 --> __clone method called on non-object
+#0 C:\xampp\htdocs\HRIS\vendor\hermawan\codeigniter4-datatables\src\DataTableColumnDefs.php(17): Hermawan\DataTables\DataTableColumnDefs->initFromBuilder(Array)
+#1 C:\xampp\htdocs\HRIS\vendor\hermawan\codeigniter4-datatables\src\DataTable.php(35): Hermawan\DataTables\DataTableColumnDefs->__construct(Array)
+#2 C:\xampp\htdocs\HRIS\vendor\hermawan\codeigniter4-datatables\src\DataTable.php(46): Hermawan\DataTables\DataTable->__construct(Array)
+#3 C:\xampp\htdocs\HRIS\app\Controllers\Plantilla.php(42): Hermawan\DataTables\DataTable::of(Array)
+#4 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Plantilla->archivePlantilla('39')
+#5 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Plantilla))
+#6 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\HRIS\index.php(38): CodeIgniter\CodeIgniter->run()
+#8 {main}
