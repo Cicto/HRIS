@@ -22,7 +22,11 @@
             <button type="button" id="add-user-btn" data-bs-toggle="modal" data-bs-target="#add_modal"
                 class="btn btn-primary btn-sm waves-effect waves-light float-right "><span
                     class="align-middle"></span>Add Plantilla</button>
-            <!-- <a href="#" class="btn btn-sm fw-bold btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app">New System</a> -->
+
+            <input type="checkbox" class="btn-check" id="archive-toggle" autocomplete="off">
+            <label class="btn btn-primary btn-sm btn-danger btn-icon" for="archive-toggle"><i
+                    class="bi bi-trash fs-4 "></i></label>
+
         </div>
     </div>
 </div>
@@ -70,79 +74,85 @@
             </div>
             <!-- End Plantilla Table -->
 
-            <!-- Start Add Plantilla Modal -->
+            <!-- Start Plantilla Modal -->
             <div class="modal fade" tabindex="-1" id="add_modal">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3 class="modal-title">Plantilla Information</h3>
                         </div>
+                        <form id="add_plantilla" method="post">
+                            <input type="text" name="plantilla_id" id="plantilla-id" hidden>
+                            <div class="modal-body">
+                                <div class="col-md-12">
 
-                        <div class="modal-body">
-                            <div class="col-md-12">
-                                <div class="w-100 mb-5">
-                                    <label class="d-flex align-items-center fs-6 fw-semibold">
-                                        <span class="">Position Title: </span>
-                                    </label>
-                                    <input type="text" class="form-control w-100 fw-bold"
-                                        placeholder="Enter a Position Title" name="position_title" id="position_title"
-                                        value="" required>
-                                    <div class="fv-plugins-message-container invalid-feedback"></div>
-                                </div>
-
-                                <div class="w-100 mb-5">
-                                    <label class="fs-6 fw-semibold mb-1">Salary Grade: </label>
-                                    <input type="text" class="form-control w-100 fw-bold"
-                                        placeholder="Enter Salary Grade" name="salary_grade" id="salary_grade" value=""
-                                        required>
-                                    <div class="fv-plugins-message-container invalid-feedback"></div>
-                                </div>
-
-                                <div class="w-100 mb-5">
-                                    <label class="fs-6 fw-semibold mb-1">Authorized: </label>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">₱</span>
-                                        <input type="text" class="form-control" name="authorized" id="authorized"
-                                            placeholder="Enter Authorized" aria-label="" aria-describedby="basic-addon1"
-                                            required>
+                                    <div class="w-100 mb-5">
+                                        <label class="d-flex align-items-center fs-6 fw-semibold">
+                                            <span class="">Position Title: </span>
+                                        </label>
+                                        <input type="text" class="form-control w-100 fw-bold"
+                                            placeholder="Enter a Position Title" name="position_title"
+                                            id="position_title" value="" required>
+                                        <div class="fv-plugins-message-container invalid-feedback"></div>
                                     </div>
-                                    <div class="fv-plugins-message-container invalid-feedback"></div>
-                                </div>
 
-                                <div class="w-100 mb-5">
-                                    <label class="fs-6 fw-semibold mb-1">Actual: </label>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="basic-addon1">₱</span>
-                                        <input type="text" class="form-control" name="actual" id="actual"
-                                            placeholder="Enter Actual" aria-label="" aria-describedby="basic-addon1"
-                                            required>
+                                    <div class="w-100 mb-5">
+                                        <label class="fs-6 fw-semibold mb-1">Salary Grade: </label>
+                                        <input type="number" class="form-control w-100 fw-bold"
+                                            placeholder="Enter Salary Grade" name="salary_grade" id="salary_grade"
+                                            value="" required>
+                                        <div class="fv-plugins-message-container invalid-feedback"></div>
                                     </div>
-                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+
+                                    <div class="w-100 mb-5">
+                                        <label class="fs-6 fw-semibold mb-1">Authorized: </label>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">₱</span>
+                                            <input type="text" class="form-control" name="authorized" id="authorized"
+                                                placeholder="Enter Authorized" aria-label="">
+                                            <div class="fv-plugins-message-container invalid-feedback"></div>
+                                        </div>
+
+                                        <div class="w-100 mb-5">
+                                            <label class="fs-6 fw-semibold mb-1">Actual: </label>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="basic-addon1">₱</span>
+                                                <input type="text" class="form-control" name="actual" id="actual"
+                                                    placeholder="Enter Actual" aria-label=""
+                                                    aria-describedby="basic-addon1" required>
+                                            </div>
+                                            <div class="fv-plugins-message-container invalid-feedback"></div>
+                                        </div>
+
+                                        <div class="w-100 mb-5">
+                                            <label class="fs-6 fw-semibold mb-1">Department: </label>
+                                            <select name="dept_id" id="dept_id" class="form-select d" required>
+                                                <option value="" selected disabled>Select Department</option>
+                                                <?php foreach ($departments as $department) : ?>
+                                                <option value="<?= $department->dept_id ?>">
+                                                    <?= $department->dept_name ?>
+                                                </option>
+                                                <?php endforeach ?>
+                                            </select>
+                                            </select>
+                                        </div>
+
+                                    </div>
                                 </div>
 
-                                <div class="w-100 mb-5">
-                                    <label class="fs-6 fw-semibold mb-1">Department: </label>
-                                    <select name="dept_id" id="dept_id" class="form-select d" required>
-                                        <option value="" selected disabled>Select Department</option>
-                                    </select>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-success submit_btn">Submit</button>
                                 </div>
-
-                            </div>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success">Submit</button>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
-            
-<!-- End Add Plantilla Modal -->
+            <!-- End Plantilla Modal -->
 
 
-</div>
-</div>
+        </div>
+    </div>
 </div>
 <?= $this->endSection(); ?>
 
@@ -185,7 +195,7 @@
                 },
                 {
                     data: 'plantilla_id',
-                    "mRender": function (data, type, full) {
+                    "mRender": function (data, type, row) {
                         return `
                         <div class="dropdown ms-2">
                             
@@ -199,11 +209,12 @@
                                 </span>
                             </button>
                             <div class="dropdown-menu menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-150px py-4" aria-labelledby="dropdownMenuButton" style="">
+
                                 <div class="menu-item px-3">
                                     <span class="menu-link px-3 edit-btn"  data-id = "${data}" >Edit</span>
                                 </div>
                                 <div class="menu-item px-3">
-                                    <span class="menu-link px-3 delete-btn" data-id = "${data}" >Delete</span>
+                                    <span class="menu-link px-3 ${row.deleted_at ? 'restore' : 'delete'}-btn" data-id = "${data}" >${row.deleted_at ? 'Restore' : 'Delete'}</span>
                                 </div>
                             </div>
                         </div>`;
@@ -233,27 +244,147 @@
             }
         });
 
-        $('#plantilla_table').on('click','.delete-btn', function(){
+        $('#plantilla_table').on('click', '.delete-btn', function () {
             let plantilla_id = this.dataset.id;
             console.log(plantilla_id);
-            confirm('Are you sure you want to delete?','Are you sure you want to the Plantilla?','question',);
+            confirm('Are you sure you want to delete?',
+                'Are you sure you want to delete the Plantilla?',
+                'question', "<?= base_url()?>/plantilla/archivePlantilla/" + plantilla_id, null,
+                function (response) {
+                    console.log(response);
+                    if (!response.error) {
+                        Swal.fire({
+                            text: "Plantilla is deleted.",
+                            icon: "warning",
+                            buttonsStyling: false,
+                            confirmButtonText: "Confirm",
+                            customClass: {
+                                confirmButton: "btn btn-warning"
+                            }
+                        });
+                        table.ajax.reload()
+                    } else {
+                        errorAlert('Error',
+                            'There is an error during deleting the plantilla.',
+                            'warning');
+                    }
+                });
+            // $.ajax({
+            //     type: "post",
+            //     url: "<?= base_url()?>/plantilla/archivePlantilla/" + plantilla_id,
+            //     dataType: "json",
+            //     success: function (response) {
+            //         console.log(response);
+            //         if (!response.error) {
+            //             table.ajax.reload()
+            //         } else {
+            //             errorAlert('Error',
+            //                 'There is an error during deleting the plantilla.',
+            //                 'warning');
+            //         }
+            //     }
+            // });
+        });
+
+        $('#add_plantilla').submit(function (e) {
+            let endpoint = "<?= base_url()?>/plantilla/addPlantilla";
+            e.preventDefault();
+            console.table($(this).serializeArray());
+            if ($('#plantilla-id').val()) {
+                endpoint = "<?= base_url()?>/plantilla/updatePlantilla/" + $('#plantilla-id').val()
+            }
             $.ajax({
-                type: "post",
-                url: "<?= base_url()?>/plantilla/archivePlantilla/"+ plantilla_id,
+                type: 'post',
+                url: endpoint,
+                data: $(this).serializeArray(),
+                dataType: 'json',
+                success: function (data) {
+
+                    console.log(data);
+
+                    successAlert('Success', 'Your Information has been saved.', 'success');
+
+                    reloadDataTable(table);
+
+                    $("#add_plantilla")[0].reset();
+                }
+            });
+        });
+
+        $('#plantilla_table').on('click', '.edit-btn', function () {
+            const info_modal = bootstrap.Modal.getOrCreateInstance('#add_modal');
+            let plantilla_id = this.dataset.id;
+            console.log(plantilla_id);
+            $.ajax({
+                type: "get",
+                url: "<?= base_url()?>/plantilla/getPlantilla/" + plantilla_id,
                 dataType: "json",
                 success: function (response) {
-                    console.log(response);
-                    if(!response.error){
-                        table.ajax.reload()
-                    }else{
-                        errorAlert('Error','There is an error during deleting the plantilla.','warning');
+                    if (!response.error) {
+                        console.log(response);
+                        const plantilla_info = response.data[0];
+                        $('#plantilla-id').val(plantilla_info.plantilla_id);
+                        $('#position_title').val(plantilla_info.position_title);
+                        $('#salary_grade').val(plantilla_info.salary_grade);
+                        $('#authorized').val(plantilla_info.authorized);
+                        $('#actual').val(plantilla_info.actual);
+                        $('#dept_id').val(plantilla_info.dept_id);
+                    } else {
+                        errorAlert('Error in retrieving data.', 'Error in retrieving data.',
+                            'error');
                     }
                 }
             });
-        })
+            info_modal.show();
+        });
+
+        $('#archive-toggle').change(function (e) {
+
+            if (this.checked) {
+                reloadDataTable(table, "<?= base_url()?>/plantilla/plantillaDataTables/1");
+            } else {
+                reloadDataTable(table, "<?= base_url()?>/plantilla/plantillaDataTables/");
+            }
+
+        });
+
+        $("#plantilla_table").on('click', '.restore-btn', function () {
+            let plantilla_id = this.dataset.id;
+            console.log(plantilla_id);
+            confirm('Are you sure you want to restore?',
+                'Are you sure you want to restore the Plantilla?', 'question',
+                "<?= base_url()?>/plantilla/restorePlantilla/" + plantilla_id, null,
+                function (response) {
+                    console.log(response);
+                    if (!response.error) {
+                        successAlert('Restoring Plantilla', 'Plantilla successfully restored.',
+                            'success');
+                        table.ajax.reload()
+                    } else {
+                        errorAlert('Error',
+                            'There is an error during restoring the plantilla.',
+                            'warning');
+                    }
+                });
+            // $.ajax({
+            //     type: "post",
+            //     url: "<?= base_url()?>/plantilla/restorePlantilla/" + plantilla_id,
+            //     dataType: "json",
+            //     success: function (response) {
+            //         console.log(response);
+            //         if (!response.error) {
+
+            //             table.ajax.reload()
+            //         } else {
+            //             errorAlert('Error',
+            //                 'There is an error during restoring the plantilla.',
+            //                 'warning');
+            //         }
+            //     }
+            // });
+        });
+
+
     });
-    
-
-
 </script>
 <?= $this->endSection(); ?>
