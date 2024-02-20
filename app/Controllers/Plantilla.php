@@ -56,8 +56,8 @@ class Plantilla extends BaseController
     
                'position_title' => $this->request->getPost('position_title'),
                'salary_grade' => $this->request->getPost('salary_grade'),
-               'authorized' => $this->request->getPost('authorized'),
-               'actual' => $this->request->getPost('actual'),
+               'authorized' => str_replace(',', '', $this->request->getPost('authorized')),
+               'actual' => str_replace(',', '', $this->request->getPost('actual')),
                'dept_id' => $this->request->getPost('dept_id')
             
             ];
@@ -85,8 +85,8 @@ class Plantilla extends BaseController
             'plantilla_id' => $this->request->getPost('plantilla_id'),
             'position_title' => $this->request->getPost('position_title'),
             'salary_grade' => $this->request->getPost('salary_grade'),
-            'authorized' => $this->request->getPost('authorized'),
-            'actual' => $this->request->getPost('actual'),
+            'authorized' => str_replace(',', '',$this->request->getPost('authorized')),
+            'actual' => str_replace(',', '',$this->request->getPost('actual')),
             'dept_id' => $this->request->getPost('dept_id')
          
          ];

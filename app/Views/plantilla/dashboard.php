@@ -158,6 +158,7 @@
 <?= $this->endSection(); ?>
 
 <?= $this->section('javascript'); ?>
+<script src="<?= base_url()?>/public/assets/js/form-misc.js"></script>
 <script>
     $(document).ready(function () {
         let table = $('#plantilla_table').DataTable({
@@ -392,15 +393,15 @@
             $('.modal-title').text('Add New Plantilla');
         });
 
-        // Inputmask("currency", {
-        //     radixPoint: '.',
-        //     inputtype: "text"
-        // }).mask("#authorized");
+        Inputmask("currency", {
+            radixPoint: '.',
+            inputtype: "text"
+        }).mask("#authorized");
 
-        // Inputmask("currency", {
-        //     radixPoint: '.',
-        //     inputtype: "text"
-        // }).mask("#actual");
+        Inputmask("currency", {
+            radixPoint: '.',
+            inputtype: "text"
+        }).mask("#actual");
 
     });
 </script>
