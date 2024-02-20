@@ -4,17 +4,17 @@
 <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
     <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex flex-stack">
         <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
-            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Plantilla
+            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Manage Plantilla
             </h1>
             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                 <li class="breadcrumb-item text-muted">
-                    <a href="<?= base_url()?>" class="text-muted text-hover-primary">Home</a>
+                    <a href="<?= base_url()?>" class="text-muted text-hover-primary">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item">
                     <span class="bullet bg-gray-400 w-5px h-2px"></span>
                 </li>
                 <li class="breadcrumb-item text-muted">
-                    <a href="<?= current_url()?>" class="text-muted text-hover-primary">Plantilla</a>
+                    <a class="text-muted">Plantilla</a>
                 </li>
             </ul>
         </div>
@@ -65,7 +65,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -91,15 +91,17 @@
                                         <label class="d-flex align-items-center fs-6 fw-semibold">
                                             <span class="">Position Title: </span>
                                         </label>
-                                        <input type="text" class="form-control w-100 fw-bold"
+                                        <input type="text" class="form-control form-control-solid w-100 fw-bold"
                                             placeholder="Enter a Position Title" name="position_title"
                                             id="position_title" value="" required>
                                         <div class="fv-plugins-message-container invalid-feedback"></div>
                                     </div>
 
                                     <div class="w-100 mb-5">
-                                        <label class="fs-6 fw-semibold mb-1">Salary Grade: </label>
-                                        <input type="number" class="form-control w-100 fw-bold"
+                                        <label class="fs-6 fw-semibold mb-1">
+                                            <span class="">Salary: </span>
+                                        </label>
+                                        <input type="number" class="form-control form-control-solid w-100 fw-bold"
                                             placeholder="Enter Salary Grade" name="salary_grade" id="salary_grade"
                                             value="" required>
                                         <div class="fv-plugins-message-container invalid-feedback"></div>
@@ -127,7 +129,7 @@
 
                                         <div class="w-100 mb-5">
                                             <label class="fs-6 fw-semibold mb-1">Department: </label>
-                                            <select name="dept_id" id="dept_id" class="form-select d" required>
+                                            <select name="dept_id" id="dept_id" class="form-select form-select-solid " required>
                                                 <option value="" selected disabled>Select Department</option>
                                                 <?php foreach ($departments as $department) : ?>
                                                 <option value="<?= $department->dept_id ?>">

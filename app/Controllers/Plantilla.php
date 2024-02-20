@@ -20,7 +20,7 @@ class Plantilla extends BaseController
     {   
         $this->viewData['departments'] = $this->masterModel->get('departments', 'dept_id');
         $this->viewData['departments'] = $this->getDepartments();
-        return view('plantilla/dashboard', $this->viewData);
+        return view('plantilla/plantillaDashboard', $this->viewData);
         
     }
 
