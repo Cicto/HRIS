@@ -78,10 +78,11 @@
             <div class="modal fade" tabindex="-1" id="add_modal">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title">Plantilla Information</h3>
+                        <div class="modal-header flex-column">
+                            <h3 class="modal-title"></h3>
+                            <span class="text-muted">Plantilla Information</span>
                         </div>
-                        <form id="add_plantilla" method="post">
+                        <form id="add_plantilla" class="form-vessel" method="post">
                             <input type="text" name="plantilla_id" id="plantilla-id" hidden>
                             <div class="modal-body">
                                 <div class="col-md-12">
@@ -179,6 +180,7 @@
                             style: 'currency',
                             currency: 'PHP',
                         });
+                        // return '<p>₱ ' + data + '</p> ';
                     }
                 },
                 {
@@ -312,6 +314,7 @@
         });
 
         $('#plantilla_table').on('click', '.edit-btn', function () {
+            $('.modal-title').text('Edit Plantilla Information');
             const info_modal = bootstrap.Modal.getOrCreateInstance('#add_modal');
             let plantilla_id = this.dataset.id;
             console.log(plantilla_id);
@@ -384,6 +387,20 @@
             // });
         });
 
+        $(document).on('click', '#add-user-btn', function () {
+            $('.form-vessel').trigger('reset');
+            $('.modal-title').text('Add New Plantilla');
+        });
+
+        // Inputmask("currency", {
+        //     radixPoint: '.',
+        //     inputtype: "text"
+        // }).mask("#authorized");
+
+        // Inputmask("currency", {
+        //     radixPoint: '.',
+        //     inputtype: "text"
+        // }).mask("#actual");
 
     });
 </script>
