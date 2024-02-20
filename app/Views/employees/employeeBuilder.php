@@ -143,16 +143,14 @@
                         <div class="col-md-8 col-lg-8 col-xl-9">
                             <div class="flex-row-fluid">
                                 <div class="form">
-                                    <div class="mb-5">
+                                    <div class="mb-5" id="employee-forms-container">
                                         <div class="flex-column current" data-kt-stepper-element="content">
                                             <form class="ps-3">
                                                 <div class="text-center border-bottom pb-4 mb-6">
-                                                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0" id="employee-form">Employee Form</h1>
+                                                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Personal Information</h1>
                                                     <p class="text-gray-600 m-0">Upload employee's information to the database.</p>
                                                 </div>
                                                 
-                                                <div class="separator flex-grow-1 my-6 separator-dashed d-block d-md-none"></div>                                                    
-
                                                 <!-- Full name -->
                                                 <div class="row mb-6">
                                                     <div class="col-4 pt-2">
@@ -373,8 +371,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="pt-3" id="citizenship-country-container" style="display: none;">
-                                                            <select name="citizenship_country" id="citizenship-country" class="form-select form-select-solid">
+                                                        <div id="citizenship-country-container" style="display: none;">
+                                                            <select name="citizenship_country" id="citizenship-country" class="form-select form-select-solid mt-3">
                                                                 <option></option>
                                                             </select>
                                                         </div>
@@ -496,14 +494,14 @@
                                                 <!-- Email Address -->
                                                 <div class="row mb-6">
                                                     <div class="col-4 pt-2">
-                                                        <label for="email-address" class="form-label required">Email Address</label>
+                                                        <label for="email-address" class="form-label">Email Address</label>
                                                     </div>
                                                     <div class="col-8">
                                                         <div class="input-group input-group-solid">
                                                             <span class="input-group-text w-50px d-inline-block text-center">
                                                                 <i class="fas fa-at fs-4"></i>
                                                             </span>
-                                                            <input type="email" name="email_address" id="email-address" class="form-control form-control-solid mask-contact-number" placeholder="example@">
+                                                            <input type="email" name="email_address" id="email-address" class="form-control form-control-solid mask-contact-number" placeholder="example@email.com">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -549,11 +547,374 @@
                                         </div>
 
                                         <div class="flex-column" data-kt-stepper-element="content">
-                                            2
+                                            <form class="ps-3">
+                                                <div class="text-center border-bottom pb-4 mb-6">
+                                                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Family Background</h1>
+                                                    <p class="text-gray-600 m-0">Upload employee's information to the database.</p>
+                                                </div>
+
+                                                <!-- Spouse's name -->
+                                                <div class="row mb-6" id="spouse-container">
+                                                    <div class="col-4 pt-2">
+                                                        <label for="spouse-firstname" class="form-label">Spouse's Name</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div class="mb-3">
+                                                            <input type="text" id="spouse-firstname" name="spouse_firstname" class="form-control form-control-solid" placeholder="First Name"/>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <input type="text" id="spouse-middlename" name="spouse_middlename" class="form-control form-control-solid" placeholder="Middle Name"/>
+                                                        </div>
+                                                        <div class="d-flex">
+                                                            <div class="flex-grow-1 me-3">
+                                                                <input type="text" id="spouse-lastname" name="spouse_lastname" class="form-control form-control-solid" placeholder="Last Name"/>
+                                                            </div>
+                                                            <div class="">
+                                                                <input type="text" id="spouse-suffix" name="spouse_suffix" class="form-control form-control-solid" placeholder="Suffix: Jr."/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Occupation -->
+                                                <div class="row mb-6">
+                                                    <div class="col-4 pt-2">
+                                                        <label for="spouse-occupation" class="form-label">Occupation</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="text" name="spouse_occupation" id="spouse-occupation" class="form-control form-control-solid" placeholder="Occupation">
+                                                    </div>
+                                                </div>
+                                                <!-- Employer/Business Name -->
+                                                <div class="row mb-6">
+                                                    <div class="col-4 pt-2">
+                                                        <label for="spouse-employer_business_name" class="form-label">Employer/Business Name</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="text" name="spouse_employer_business_name" id="spouse-employer-business-name" class="form-control form-control-solid" placeholder="Employer/Business Name">
+                                                    </div>
+                                                </div>
+                                                <!-- Business Address -->
+                                                <div class="row mb-6">
+                                                    <div class="col-4 pt-2">
+                                                        <label for="spouse-business_address" class="form-label">Business Address</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="text" name="spouse_business_address" id="spouse-business-address" class="form-control form-control-solid" placeholder="Business Address">
+                                                    </div>
+                                                </div>
+                                                <!-- Telephone No. -->
+                                                <div class="row mb-6">
+                                                    <div class="col-4 pt-2">
+                                                        <label for="spouse-telephone-number" class="form-label">Telephone Number</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div class="input-group input-group-solid">
+                                                            <span class="input-group-text w-50px d-inline-block text-center">
+                                                                <i class="fas fa-phone-alt"></i>
+                                                            </span>
+                                                            <input type="text" name="spouse-telephone_number" id="spouse-telephone-number" class="form-control form-control-solid" placeholder="00-0000-0000">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="separator flex-grow-1 mb-6 separator-dashed"></div>  
+                                                
+                                                <!-- Father's name -->
+                                                <div class="row mb-6">
+                                                    <div class="col-4 pt-2">
+                                                        <label for="father-firstname" class="form-label">Father's Name</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div class="mb-3">
+                                                            <input type="text" id="father-firstname" name="father_firstname" class="form-control form-control-solid" placeholder="First Name"/>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <input type="text" id="father-middlename" name="father_middlename" class="form-control form-control-solid" placeholder="Middle Name"/>
+                                                        </div>
+                                                        <div class="d-flex">
+                                                            <div class="flex-grow-1 me-3">
+                                                                <input type="text" id="father-lastname" name="father_lastname" class="form-control form-control-solid" placeholder="Last Name"/>
+                                                            </div>
+                                                            <div class="">
+                                                                <input type="text" id="father-suffix" name="father_suffix" class="form-control form-control-solid" placeholder="Suffix: Jr."/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Mother's name -->
+                                                <div class="row mb-6">
+                                                    <div class="col-4 pt-2">
+                                                        <label for="mother-firstname" class="form-label">Mother's Maiden Name</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div class="mb-3">
+                                                            <input type="text" id="mother-firstname" name="mother_firstname" class="form-control form-control-solid" placeholder="First Name"/>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <input type="text" id="mother-middlename" name="mother_middlename" class="form-control form-control-solid" placeholder="Middle Name"/>
+                                                        </div>
+                                                        <div>
+                                                            <input type="text" id="mother-lastname" name="mother_lastname" class="form-control form-control-solid" placeholder="Last Name"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="separator flex-grow-1 mb-6 separator-dashed"></div>
+
+                                                <!-- Name of Children -->
+                                                <div class="row mb-6">
+                                                    <div class="col-4 pt-2">
+                                                        <label for="children" class="form-label">Name of Children</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div id="children-form-repeater-container">
+                                                            <div class="d-flex flex-wrap form-repeater-container mb-3">
+                                                                <div class="flex-grow-1 me-0 me-md-5 mb-5 mb-md-0 w-100 w-md-auto">
+                                                                    <input type="text" class="form-control form-control-solid" data-name="child_name" data-required="" placeholder="Full Name"/>
+                                                                </div>
+                                                                <div class="flex-grow-1 flex-md-grow-0 w-md-25 me-5 mb-5 mb-md-0">
+                                                                    <input type="date" class="form-control form-control-solid" data-required="" data-name="child_birthdate"/>
+                                                                </div>
+                                                                <div class="d-flex align-items-center mb-5 mb-md-0">
+                                                                    <button type="button" href="#" class="btn btn-icon btn-light-danger border border-danger form-repeater-remove">
+                                                                        <i class="bi bi-trash fs-3"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <button type="button" class="btn btn-light-primary btn-outline btn-outline-primary float-end form-repeater-add">Add a Child</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
                                         </div>
 
                                         <div class="flex-column" data-kt-stepper-element="content">
-                                            3
+                                            <form class="ps-3">
+                                                <div class="text-center border-bottom pb-4 mb-6">
+                                                    <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Educational Background</h1>
+                                                    <p class="text-gray-600 m-0">Please write the Name of School and/or Basic Education / Degree / Course in full.</p>
+                                                </div>
+
+                                                <!-- Elementary -->
+                                                <div class="row mb-6">
+                                                    <div class="col-4 pt-2">
+                                                        <label for="elementary-school-name" class="form-label">Elementary</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div class="row g-3">
+                                                            <div class="col-12">
+                                                                <input type="text" id="elementary-school-name" name="elementary_school_name" class="form-control form-control-solid" placeholder="Name of School"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input type="text" id="elementary-basic-education" name="elementary_basic_education" class="form-control form-control-solid" placeholder="Basic Education / Degree / Course"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <label for="elementary-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                    Period of Attendance
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-md-6 d-flex align-items-center">
+                                                                <label for="elementary-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                    From:
+                                                                </label>
+                                                                <input type="date" id="elementary-period-of-attendance-from" name="elementary_period_of_attendance_from" class="form-control form-control-solid ms-3"/>
+                                                            </div>
+                                                            <div class="col-md-6 d-flex align-items-center">
+                                                                <label for="elementary-period-of-attendance-to" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                    To:
+                                                                </label>
+                                                                <input type="date" id="elementary-period-of-attendance-to" name="elementary_period_of_attendance_to" class="form-control form-control-solid ms-3"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input type="text" id="elementary-highest-level" name="elementary_highest_level" class="form-control form-control-solid" placeholder="Highest Level / Units Earned (if not graduated)"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input type="text" id="elementary-year-graduated" name="elementary_year_graduated" class="form-control form-control-solid mask-number" placeholder="Year Graduated"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input type="text" id="elementary-scholarship-academic-honors-received" name="elementary_scholarship_academic_honors_received" class="form-control form-control-solid" placeholder="Scholarship / Academic Honors Received"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="separator flex-grow-1 mb-6 separator-dashed"></div>  
+
+                                                <!-- Secondary -->
+                                                <div class="row mb-6">
+                                                    <div class="col-4 pt-2">
+                                                        <label for="secondary-school-name" class="form-label">Secondary</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div class="row g-3">
+                                                            <div class="col-12">
+                                                                <input type="text" id="secondary-school-name" name="secondary_school_name" class="form-control form-control-solid" placeholder="Name of School"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input type="text" id="secondary-basic-education" name="secondary_basic_education" class="form-control form-control-solid" placeholder="Basic Education / Degree / Course"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <label for="secondary-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                    Period of Attendance
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-md-6 d-flex align-items-center">
+                                                                <label for="secondary-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                    From:
+                                                                </label>
+                                                                <input type="date" id="secondary-period-of-attendance-from" name="secondary_period_of_attendance_from" class="form-control form-control-solid ms-3"/>
+                                                            </div>
+                                                            <div class="col-md-6 d-flex align-items-center">
+                                                                <label for="secondary-period-of-attendance-to" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                    To:
+                                                                </label>
+                                                                <input type="date" id="secondary-period-of-attendance-to" name="secondary_period_of_attendance_to" class="form-control form-control-solid ms-3"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input type="text" id="secondary-highest-level" name="secondary_highest_level" class="form-control form-control-solid" placeholder="Highest Level / Units Earned (if not graduated)"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input type="text" id="secondary-year-graduated" name="secondary_year_graduated" class="form-control form-control-solid mask-number" placeholder="Year Graduated"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input type="text" id="secondary-scholarship-academic-honors-received" name="secondary_scholarship_academic_honors_received" class="form-control form-control-solid" placeholder="Scholarship / Academic Honors Received"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="separator flex-grow-1 mb-6 separator-dashed"></div>  
+
+                                                <!-- Vocational / Trade Course -->
+                                                <div class="row mb-6">
+                                                    <div class="col-4 pt-2">
+                                                        <label for="vocational-school-name" class="form-label">Vocational / Trade Course</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div class="row g-3">
+                                                            <div class="col-12">
+                                                                <input type="text" id="vocational-school-name" name="vocational_school_name" class="form-control form-control-solid" placeholder="Name of School"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input type="text" id="vocational-degree_course" name="vocational_degree_course" class="form-control form-control-solid" placeholder="Basic Education / Degree / Course"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <label for="vocational-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                    Period of Attendance
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-md-6 d-flex align-items-center">
+                                                                <label for="vocational-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                    From:
+                                                                </label>
+                                                                <input type="date" id="vocational-period-of-attendance-from" name="vocational_period_of_attendance_from" class="form-control form-control-solid ms-3"/>
+                                                            </div>
+                                                            <div class="col-md-6 d-flex align-items-center">
+                                                                <label for="vocational-period-of-attendance-to" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                    To:
+                                                                </label>
+                                                                <input type="date" id="vocational-period-of-attendance-to" name="vocational_period_of_attendance_to" class="form-control form-control-solid ms-3"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input type="text" id="vocational-highest-level" name="vocational_highest_level" class="form-control form-control-solid" placeholder="Highest Level / Units Earned (if not graduated)"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input type="text" id="vocational-year-graduated" name="vocational_year_graduated" class="form-control form-control-solid mask-number" placeholder="Year Graduated"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input type="text" id="vocational-scholarship-academic-honors-received" name="vocational_scholarship_academic_honors_received" class="form-control form-control-solid" placeholder="Scholarship / Academic Honors Received"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="separator flex-grow-1 mb-6 separator-dashed"></div>  
+                                                
+                                                <!-- College -->
+                                                <div class="row mb-6">
+                                                    <div class="col-4 pt-2">
+                                                        <label for="college-school-name" class="form-label">College</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div class="row g-3">
+                                                            <div class="col-12">
+                                                                <input type="text" id="college-school-name" name="college_school_name" class="form-control form-control-solid" placeholder="Name of School"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input type="text" id="college-degree_course" name="college_degree_course" class="form-control form-control-solid" placeholder="Basic Education / Degree / Course"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <label for="college-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                    Period of Attendance
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-md-6 d-flex align-items-center">
+                                                                <label for="college-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                    From:
+                                                                </label>
+                                                                <input type="date" id="college-period-of-attendance-from" name="college_period_of_attendance_from" class="form-control form-control-solid ms-3"/>
+                                                            </div>
+                                                            <div class="col-md-6 d-flex align-items-center">
+                                                                <label for="college-period-of-attendance-to" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                    To:
+                                                                </label>
+                                                                <input type="date" id="college-period-of-attendance-to" name="college_period_of_attendance_to" class="form-control form-control-solid ms-3"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input type="text" id="college-highest-level" name="college_highest_level" class="form-control form-control-solid" placeholder="Highest Level / Units Earned (if not graduated)"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input type="text" id="college-year-graduated" name="college_year_graduated" class="form-control form-control-solid mask-number" placeholder="Year Graduated"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input type="text" id="college-scholarship-academic-honors-received" name="college_scholarship_academic_honors_received" class="form-control form-control-solid" placeholder="Scholarship / Academic Honors Received"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="separator flex-grow-1 mb-6 separator-dashed"></div>  
+
+                                                <!-- Graduate Studies -->
+                                                <div class="row mb-6">
+                                                    <div class="col-4 pt-2">
+                                                        <label for="graduate-studies-school-name" class="form-label">Graduate Studies</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div class="row g-3">
+                                                            <div class="col-12">
+                                                                <input type="text" id="graduate-studies-school-name" name="graduate_studies_school_name" class="form-control form-control-solid" placeholder="Name of School"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input type="text" id="graduate-studies-degree_course" name="graduate_studies_degree_course" class="form-control form-control-solid" placeholder="Basic Education / Degree / Course"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <label for="graduate-studies-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                    Period of Attendance
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-md-6 d-flex align-items-center">
+                                                                <label for="graduate-studies-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                    From:
+                                                                </label>
+                                                                <input type="date" id="graduate-studies-period-of-attendance-from" name="graduate_studies_period_of_attendance_from" class="form-control form-control-solid ms-3"/>
+                                                            </div>
+                                                            <div class="col-md-6 d-flex align-items-center">
+                                                                <label for="graduate-studies-period-of-attendance-to" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                    To:
+                                                                </label>
+                                                                <input type="date" id="graduate-studies-period-of-attendance-to" name="graduate_studies_period_of_attendance_to" class="form-control form-control-solid ms-3"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input type="text" id="graduate-studies-highest-level" name="graduate_studies_highest_level" class="form-control form-control-solid" placeholder="Highest Level / Units Earned (if not graduated)"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input type="text" id="graduate-studies-year-graduated" name="graduate_studies_year_graduated" class="form-control form-control-solid mask-number" placeholder="Year Graduated"/>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <input type="text" id="graduate-studies-scholarship-academic-honors-received" name="graduate_studies_scholarship_academic_honors_received" class="form-control form-control-solid" placeholder="Scholarship / Academic Honors Received"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </form>
                                         </div>
                                     </div>
 
@@ -601,11 +962,19 @@
 
         stepper.on("kt.stepper.next", function (stepper) {
             stepper.goNext(); // go next step
+            $("#employee-forms-container").find(`.current[data-kt-stepper-element="content"] > form`);
+            console.log(stepper)
+            console.log(stepper.getElement())
         });
 
         stepper.on("kt.stepper.previous", function (stepper) {
             stepper.goPrevious(); // go previous step
         });
+
+        $("#civil-status").change(function(){
+            const has_father = this.value == "Single" ? false : true ;
+            $("#spouse-container").toggle(has_spouse);
+        })
 
         $("#has-dual-citizenship").change(function(){
             if(this.checked){
@@ -709,7 +1078,7 @@
             $(this).parent().find(".address-text").val(barangay_text);
         });
 
-
+        const child_form_repeater = new formRepeater($("#children-form-repeater-container"));
 
     }); 
     
