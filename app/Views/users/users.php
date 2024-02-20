@@ -287,6 +287,17 @@
     let dataTables;
     $(document).ready(function () {
         
+        confirm(
+            'Wait!',
+            'Are you sure you want to add this record?', 
+            'warning',
+            false,
+            'GET',
+            $(this).serialize(),
+            function(data){
+                console.log(data)
+            }
+        );
         let _dataTablesObj;
         var target = document.querySelector("#modal-content");
         let blockElement = new KTBlockUI(target, {
@@ -389,6 +400,7 @@
                 'Are you sure you want to add this record?', 
                 'warning',
                 '<?= base_url()?>/users/addUser',
+                'POST',
                 $(this).serialize(),
                 function(data){
                     if(!data.error){
@@ -427,6 +439,7 @@
                 'Are you sure you want to update this record?', 
                 'question',
                 '<?= base_url()?>/users/updateUser',
+                'POST',
                 $(this).serialize(),
                 function(data){
                     if(!data.error){
@@ -449,6 +462,7 @@
                 'Are you sure you want to reset this <span class = "fw-bold">user\'s password</span>?', 
                 'question',
                 '<?= base_url()?>/users/resetUserPassword/'+userId,
+                'POST',
                 {},
                 function(data){
                     if(!data.error){

@@ -267,7 +267,17 @@ let confirm = (title, message, icon, url, type, formData, callBack) => {
         confirmButtonText: 'Yes, proceed.',
     }).then((result) => {
         if(result.isConfirmed){
-            ajaxRequest(url, type, formData, callBack);
+            if(url != false){
+                ajaxRequest(url, type, formData, callBack);
+            }
+            else{
+                callBack({
+                    error: false,
+                    message: 'Action is confirmed!',
+                    data: false
+                });
+            }
+            
         }
     })
 }
@@ -319,7 +329,7 @@ let errorAlert = (title, message, icon) => {
     });
 }
 
-let ajaxRequest = (url, type,formData, callBack) => {
+let ajaxRequest = (url, type, formData, callBack) => {
     $.ajax({
         url: url,
         type: type,
@@ -329,7 +339,7 @@ let ajaxRequest = (url, type,formData, callBack) => {
             callBack(data);
         },
         error: (error) => {
-            response =  false;
+            return error;
         }
     });
 }
