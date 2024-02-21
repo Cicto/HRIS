@@ -19,7 +19,16 @@
             </ul>
         </div>
         <div class="d-flex align-items-center gap-2 gap-lg-3">
-            <button type="button" id = "add-user-btn" class="btn btn-primary btn-sm waves-effect waves-light float-right"><span class = "ri-user-add-line"></span> Add User</button>
+            
+            <button type="button" id = "add-user-btn" class="btn btn-primary btn-sm waves-effect waves-light float-right">
+                <span class="svg-icon svg-icon-muted svg-icon-2 pe-0 me-0">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="0.3" d="M3 13V11C3 10.4 3.4 10 4 10H20C20.6 10 21 10.4 21 11V13C21 13.6 20.6 14 20 14H4C3.4 14 3 13.6 3 13Z" fill="currentColor"/>
+                        <path d="M13 21H11C10.4 21 10 20.6 10 20V4C10 3.4 10.4 3 11 3H13C13.6 3 14 3.4 14 4V20C14 20.6 13.6 21 13 21Z" fill="currentColor"/>
+                    </svg>
+                </span>
+            </button>
+            <?= $this->include('partials/dataTablesExportButton')?>
         </div>
     </div>
 </div>
@@ -32,17 +41,17 @@
                     <div class="card card-body">
 
                         <div class = "btn-actions-container">
-                            
+                        
                         </div>
 
                         <!-- <h5 class="card-title">Special title treatment</h5> -->
                         <div class = "table-responsive">
-
                             <table class = "table table-hover table-rounded border align-middle gs-7 gy-5 my-0" id = "data-table" style = "width: 100%">
                                 <thead class = "text-primary fw-bold border-bottom border-gray-200">
                                     <tr>
                                         <th>Email</th>
                                         <th>Username</th>
+                                        <th>Qrcode</th>
                                         <th>Firstname</th>
                                         <th>Lastname</th>
                                         <th>Department Name</th>
@@ -50,6 +59,7 @@
                                         <th>Actions</th>
                                     </tr>
                                     <tr>
+                                        <th class="filterhead"></th>
                                         <th class="filterhead"></th>
                                         <th class="filterhead"></th>
                                         <th class="filterhead"></th>
@@ -270,28 +280,24 @@
 <?= $this->endSection(); ?>
 <?= $this->section('javascript'); ?>
 
-<!-- third party js -->
-<script src="<?= base_url()?>/public/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="<?= base_url()?>/public/assets/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
-<script src="<?= base_url()?>/public/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="<?= base_url()?>/public/assets/libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
-<script src="<?= base_url()?>/public/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="<?= base_url()?>/public/assets/libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
-<script src="<?= base_url()?>/public/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="<?= base_url()?>/public/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
-<script src="<?= base_url()?>/public/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="<?= base_url()?>/public/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
-<script src="<?= base_url()?>/public/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
-<script src="<?= base_url()?>/public/assets/libs/pdfmake/build/pdfmake.min.js"></script>
-<script src="<?= base_url()?>/public/assets/libs/pdfmake/build/vfs_fonts.js"></script>
-
 <!-- CUSTOM JS FOR THIS PAGE -->
 <script src="<?= base_url()?>/public/assets/js/users/users.js"></script>
 
 <script>
     let dataTables;
     $(document).ready(function () {
-
+        
+        confirm(
+            'Wait!',
+            'Are you sure you want to add this record?', 
+            'warning',
+            false,
+            'GET',
+            $(this).serialize(),
+            function(data){
+                console.log(data)
+            }
+        );
         let _dataTablesObj;
         var target = document.querySelector("#modal-content");
         let blockElement = new KTBlockUI(target, {
@@ -323,6 +329,10 @@
                     render: (data, display, row) => {
                         return `<span class = "fw-bold text-gray-700">${data}</span>`
                     }
+                },
+                {
+                    data: 'user_qrcode',
+                    
                 },
                 {
                     data: 'firstname'
@@ -364,6 +374,8 @@
             }
         });
 
+        dataTablesButtonsHooks(dataTables);
+
         $(document).on('click', '#add-user-btn', function () {
 
             $('#user-form-modal').modal('show');
@@ -388,6 +400,7 @@
                 'Are you sure you want to add this record?', 
                 'warning',
                 '<?= base_url()?>/users/addUser',
+                'POST',
                 $(this).serialize(),
                 function(data){
                     if(!data.error){
@@ -426,6 +439,7 @@
                 'Are you sure you want to update this record?', 
                 'question',
                 '<?= base_url()?>/users/updateUser',
+                'POST',
                 $(this).serialize(),
                 function(data){
                     if(!data.error){
@@ -448,6 +462,7 @@
                 'Are you sure you want to reset this <span class = "fw-bold">user\'s password</span>?', 
                 'question',
                 '<?= base_url()?>/users/resetUserPassword/'+userId,
+                'POST',
                 {},
                 function(data){
                     if(!data.error){
