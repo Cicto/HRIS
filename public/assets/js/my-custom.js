@@ -241,11 +241,10 @@ let sendToForm = async(object) => {
     $.each(object, (key, val) => {
         $('#' + key).val(val);
     });
-
     return true;
 }
 
-let confirm = (title, message, icon, url, formData, callBack) => {
+let confirm = (title, message, icon, url, type, formData, callBack) => {
     Swal.fire({
         icon: icon,
         iconColor: 'var(--kt-white)',
@@ -268,16 +267,30 @@ let confirm = (title, message, icon, url, formData, callBack) => {
         confirmButtonText: 'Yes, proceed.',
     }).then((result) => {
         if(result.isConfirmed){
-            ajaxRequest(url, formData, callBack);
+            if(url != false){
+                ajaxRequest(url, type, formData, callBack);
+            }
+            else{
+                callBack({
+                    error: false,
+                    message: 'Action is confirmed!',
+                    data: false
+                });
+            }
+            
         }
     })
 }
-
 
 let successAlert = (title, message, icon) => {
     Swal.fire({
         icon: icon,
         iconColor: 'var(--kt-white)',
+        iconHtml: `<span class="svg-icon svg-icon-muted svg-icon-3hx text-white"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path opacity="0.5" d="M12.8956 13.4982L10.7949 11.2651C10.2697 10.7068 9.38251 10.7068 8.85731 11.2651C8.37559 11.7772 8.37559 12.5757 8.85731 13.0878L12.7499 17.2257C13.1448 17.6455 13.8118 17.6455 14.2066 17.2257L21.1427 9.85252C21.6244 9.34044 21.6244 8.54191 21.1427 8.02984C20.6175 7.47154 19.7303 7.47154 19.2051 8.02984L14.061 13.4982C13.7451 13.834 13.2115 13.834 12.8956 13.4982Z" fill="currentColor"/>
+        <path d="M7.89557 13.4982L5.79487 11.2651C5.26967 10.7068 4.38251 10.7068 3.85731 11.2651C3.37559 11.7772 3.37559 12.5757 3.85731 13.0878L7.74989 17.2257C8.14476 17.6455 8.81176 17.6455 9.20663 17.2257L16.1427 9.85252C16.6244 9.34044 16.6244 8.54191 16.1427 8.02984C15.6175 7.47154 14.7303 7.47154 14.2051 8.02984L9.06096 13.4982C8.74506 13.834 8.21146 13.834 7.89557 13.4982Z" fill="currentColor"/>
+        </svg>
+        </span>`,
         title: '<span class = "fw-semibold fs-1">SUCCESS</span>',
         html: '<span class = "text-gray-600">'+message+'</span>',
         background: `var(--kt-white)`,
@@ -316,17 +329,17 @@ let errorAlert = (title, message, icon) => {
     });
 }
 
-let ajaxRequest = (url, formData, callBack) => {
+let ajaxRequest = (url, type, formData, callBack) => {
     $.ajax({
         url: url,
-        type: 'POST',
+        type: type,
         dataType: 'json',
         data: formData,
         success: (data) => {
             callBack(data);
         },
         error: (error) => {
-            response =  false;
+            return error;
         }
     });
 }
@@ -369,6 +382,5 @@ function dataTablesButtonsHooks(tableElement){
         });
     });
 }
-
 
 // DATATABLES BUTTONS HOOK START
