@@ -370,5 +370,4 @@ function dataTablesButtonsHooks(tableElement){
     });
 }
 
-
 // DATATABLES BUTTONS HOOK START

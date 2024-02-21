@@ -314,12 +314,15 @@
                     render: function (data, display, row) {
                         return  `<div class="symbol symbol-50px me-2ddd">
                                     <img src = "${base_url}/public/assets/media/avatars/${row.user_photo?row.user_photo:'default-avatar.png'}" class="ms-5 me-8">
-                                </div>
-                            ${data}`
+                                </div><span class = "fw-bold text-gray-700">${data}</span>
+                            `
                     }
                 },
                 {
-                    data: 'username'
+                    data: 'username',
+                    render: (data, display, row) => {
+                        return `<span class = "fw-bold text-gray-700">${data}</span>`
+                    }
                 },
                 {
                     data: 'firstname'
@@ -328,7 +331,10 @@
                     data: 'lastname'
                 },
                 {
-                    data: 'dept_name',
+                    data: 'dept_alias',
+                    render: (data, display, row) => {
+                        return `<span class="badge badge-light-primary">${data}</span>`
+                    }
                 },
                 {
                     data: 'actions',

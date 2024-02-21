@@ -10,15 +10,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="<?=base_url()?>/public/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="<?=base_url()?>/public/favicon-16x16.png">
     <link rel="manifest" href="<?=base_url()?>/public/site.webmanifest">
-    <!-- App css -->
-    <!-- <link href="<?= base_url()?>/public/assets/css/corporate/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
-    <link href="<?= base_url()?>/assets/css/corporate/bootstrap-dark.min.css" rel="stylesheet" type="text/css" id="bs-dark-stylesheet" /> -->
-    <!-- <link href="<?= base_url()?>/public/assets/css/corporate/app.min.css" rel="stylesheet" type="text/css" id="app-default-stylesheet" />
-    <link href="<?= base_url()?>/assets/css/corporate/app-green.min.css" rel="stylesheet" type="text/css" id="app-dark-stylesheet" /> -->
+
     <link href="<?= base_url()?>/public/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
     <link href="<?= base_url()?>/public/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
-
-    <link href="<?= base_url()?>/public/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css"/>
 
     <!-- icons -->
     <link href="<?= base_url()?>/public/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
@@ -27,7 +21,6 @@
 
     <link href="<?= base_url()?>/public/assets/css/my-custom.css" rel="stylesheet" type="text/css" />
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <?= $this->renderSection('css'); ?>
 
 </head>
@@ -99,31 +92,12 @@
 
     <script src="<?= base_url()?>/public/assets/libs/jquery/jquery.min.js"></script>
 
-    <!-- PDFMake js -->
-    <script src="<?= base_url()?>/public/assets/libs/pdfmake/build/pdfmake.min.js"></script>
-    <script src="<?= base_url()?>/public/assets/libs/pdfmake/build/vfs_fonts.js"></script>
-
     <!-- App js -->
     <script src="<?= base_url()?>/public/assets/plugins/global/plugins.bundle.js"></script>
     <script src="<?= base_url()?>/public/assets/js/scripts.bundle.js"></script>
-
-    <!-- Apex js-->
-    <script src="<?= base_url()?>/public/assets/libs/apexcharts/apexcharts.min.js"></script>
-    <script src="<?= base_url()?>/public/assets/libs/moment/min/moment.min.js"></script>
-    <script src="<?= base_url()?>/public/assets/libs/jquery.scrollto/jquery.scrollTo.min.js"></script>
-
-    <!-- JMask -->
-    <script src="<?= base_url()?>/public/assets/libs/jquery-mask-plugin/jquery.mask.min.js"></script>
-
-    <!-- SweetAlert2 js -->
-    <script src="<?= base_url()?>/public/assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
-
-    <!-- DATATABLES -->
-    <script src="<?=base_url()?>/public/assets/plugins/custom/datatables/datatables.bundle.js"></script>
     
     <script src="<?=base_url()?>/public/assets/plugins/custom/cropper/cropper.bundle.js"></script>
     
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <!-- Custom js -->
     <script src="<?= base_url()?>/public/assets/js/my-custom.js"></script>
     <script src="<?= base_url()?>/public/assets/js/services/form-misc.js"></script>

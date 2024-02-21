@@ -58,7 +58,6 @@ class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
-
         
         $this->masterModel = New MasterModel();
         $this->userInformation = $this->masterModel->get('user_info', 
@@ -87,5 +86,5 @@ class BaseController extends Controller
              'dept_id, dept_alias, dept_name' //columns
         );
         return (!$dept['error'] ? $dept['data'] : false);
-     }
+    }
 }
