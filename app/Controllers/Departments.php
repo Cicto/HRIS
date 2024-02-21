@@ -86,13 +86,17 @@ class Departments extends BaseController
         }
     }
         
-    public function eployeesDataTable($id)
+    public function employeesDataTable($id)
     {
         $builder = $this->masterModel->getDataTables('employees', 'dept_id, firstname, lastname, middlename', ['dept_id'=> $id]);
         return DataTable::of($builder)->toJson(true);
 
         
     }
+
+    
+
+    
     
     // public function testest($username)
     // {

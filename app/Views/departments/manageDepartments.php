@@ -39,8 +39,8 @@
     <table id="dept-table" class="table table-row-bordered gy-5">
 		<thead>
 			<tr class="fw-semibold fs-6 text-muted">
-				<th class="w-80">Department Name</th>
-				<th class="w-49">Department Alias</th>
+            <th class="sorting" tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" style="width: 98.25px;" aria-label="Username: activate to sort column ascending">Department Name</th>
+			<th class="sorting " tabindex="0" aria-controls="data-table" rowspan="1" colspan="1" style="width: 98.25px;" aria-label="Username: activate to sort column ascending">Department Alias</th>
 				<th>Actions</th>
 
 			</tr>
@@ -184,7 +184,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" id ="close-employee">Close</button>
             </div>
         </div>
     </div>
@@ -197,6 +197,9 @@
     <script>
         let dept_data;
         let dept_table;
+        let employee_data;
+        let employee_table;
+
         $(document).ready(function () {
             //Data Table
             dept_table= $('#dept-table').DataTable({
@@ -344,7 +347,8 @@
 
             $(document).on('click', '#dept-employee', function () {
                 let dept_id = this.dataset.id;
-                dept_table= $('#employee-table').DataTable({
+                console.log(dept_id);
+                employee_table= $('#employee-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax:'<?= base_url()?>/departments/employeesDataTable/' + dept_id,
@@ -360,8 +364,19 @@
                 ]
                 }).on('xhr.dt', function (e, settings, json, xhr) {
                 console.log(json.data);
-                dept_data = json.data;
+                employee_data = json.data;
+                
             })
+            
+            });
+            
+            $(document).ready(function(){
+                $('#close-employee').click(function(){
+                let table = $('#employee-table').DataTable();
+                table.destroy();
+                table.empty();
+                });
+
             });
             
 
