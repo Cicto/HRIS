@@ -28,17 +28,24 @@ class Employees extends BaseController
         return view('employees/employeeBuilder', $this->viewData);
     }
     
-    public function getCityMun($prov_code){
-        
+    public function getCityMun($prov_code)
+    {
         $city_mun = $this->masterModel->get("refcitymun", "*", ["provCode" => $prov_code]);
         $this->response->setContentType('application/json');
         return json_encode($city_mun);
     }
     
-    public function getBarangay($citymun_code){
-        
+    public function getBarangay($citymun_code)
+    {
         $brgy = $this->masterModel->get("refbrgy", "*", ["citymunCode" => $citymun_code]);
         $this->response->setContentType('application/json');
         return json_encode($brgy);
+    }
+
+    public function addEmployeeData(){
+        $this->response->setContentType('application/json');
+        $data = $this->request->getPost();
+        $insert_employee = $this->masterModel->insert("employee_data", $data);
+        return json_encode($insert_employee);
     }
 }

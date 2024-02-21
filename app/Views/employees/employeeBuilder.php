@@ -60,6 +60,7 @@
             <div class="card-body">
                 <div class="stepper stepper-pills stepper-column" id="kt_stepper_example_vertical">
                     <div class="row">
+
                         <div class="col-md-4 col-lg-4 col-xl-3 border-end">
                             <div class="position-relative d-flex justify-content-center">
                                 <!-- <div class="position-absolute w-100 h-100 bg-danger rounded-4 pointer d-flex flex-column justify-content-center align-items-center">
@@ -143,9 +144,11 @@
                         <div class="col-md-8 col-lg-8 col-xl-9">
                             <div class="flex-row-fluid">
                                 <div class="form">
+
                                     <div class="mb-5" id="employee-forms-container">
                                         <div class="flex-column current" data-kt-stepper-element="content">
-                                            <form class="ps-3">
+                                            <!-- Personal Information -->
+                                            <form class="ps-3" id="personal-information-form">
                                                 <div class="text-center border-bottom pb-4 mb-6">
                                                     <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Personal Information</h1>
                                                     <p class="text-gray-600 m-0">Upload employee's information to the database.</p>
@@ -547,6 +550,7 @@
                                         </div>
 
                                         <div class="flex-column" data-kt-stepper-element="content">
+                                            <!-- Family Background -->
                                             <form class="ps-3">
                                                 <div class="text-center border-bottom pb-4 mb-6">
                                                     <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Family Background</h1>
@@ -689,6 +693,7 @@
                                         </div>
 
                                         <div class="flex-column" data-kt-stepper-element="content">
+                                            <!-- Educational Background -->
                                             <form class="ps-3">
                                                 <div class="text-center border-bottom pb-4 mb-6">
                                                     <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Educational Background</h1>
@@ -940,9 +945,11 @@
                                             </button>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -956,23 +963,29 @@
 <script src="<?=base_url()?>/public/assets/js/form-misc.js"></script>
 <script>
     $(function () {
+    // Stepper
         const element = document.querySelector("#kt_stepper_example_vertical");
 
         const stepper = new KTStepper(element);
 
         stepper.on("kt.stepper.next", function (stepper) {
-            stepper.goNext(); // go next step
-            $("#employee-forms-container").find(`.current[data-kt-stepper-element="content"] > form`);
-            console.log(stepper)
-            console.log(stepper.getElement())
+            const current_form = $("#employee-forms-container")
+                .find(`.current[data-kt-stepper-element="content"] > form`)[0];
+
+            if(current_form.reportValidity()){
+                $(current_form).trigger("submit");
+                stepper.goNext();
+            }
+
         });
 
         stepper.on("kt.stepper.previous", function (stepper) {
             stepper.goPrevious(); // go previous step
         });
-
+    //
+    // Personal Information
         $("#civil-status").change(function(){
-            const has_father = this.value == "Single" ? false : true ;
+            const has_spouse = this.value == "Single" ? false : true ;
             $("#spouse-container").toggle(has_spouse);
         })
 
@@ -1078,14 +1091,37 @@
             $(this).parent().find(".address-text").val(barangay_text);
         });
 
-        const child_form_repeater = new formRepeater($("#children-form-repeater-container"));
+        $("#personal-information-form").submit(function (e) { 
+            e.preventDefault();
+            // return;
+            const form_data = new FormData(this);
 
+            fetch("<?=base_url()?>/employees/addEmployeeData", {
+                method: 'post',
+                body: form_data,
+            })
+            .then(data => data.json())
+            .then(response => {
+                console.log(response);
+                if(!response.error){
+                    
+                }
+            });
+        });
+
+    //
+    // Family Background
+        const child_form_repeater = new formRepeater($("#children-form-repeater-container"));
+    //
+    // Educational Background
+    //
     }); 
     
     async function setCitizenshipCountry(){
         const loading_timeout = setTimeout(() => {
-            $("#loading-overlay").show()
+            pageLoader(true, 'Loading...');
         }, 500);
+
         fetch('https://restcountries.com/v3.1/all')
         .then(data => data.json())
         .then(response => {
@@ -1096,7 +1132,7 @@
             });
 
             clearTimeout(loading_timeout)
-            $("#loading-overlay").hide()
+            pageLoader(false, 'Loading...');
 
             $("#citizenship-country").select2({
                 placeholder: "Select a country"
