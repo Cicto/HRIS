@@ -4,7 +4,8 @@
 <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
     <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex flex-stack">
         <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
-            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Manage Plantilla
+            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Manage
+                Plantilla
             </h1>
             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                 <li class="breadcrumb-item text-muted">
@@ -19,13 +20,22 @@
             </ul>
         </div>
         <div class="d-flex align-items-center gap-2 gap-lg-3">
-            <button type="button" id="add-user-btn" data-bs-toggle="modal" data-bs-target="#add_modal"
-                class="btn btn-primary btn-sm waves-effect waves-light float-right "><span
-                    class="align-middle"></span>Add Plantilla</button>
+            <button id="add-user-btn" data-bs-toggle="modal" data-bs-target="#add_modal" class="btn btn-primary btn-sm"">
+                <span class="svg-icon svg-icon-muted svg-icon-2 pe-0 me-0">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="0.3" d="M3 13V11C3 10.4 3.4 10 4 10H20C20.6 10 21 10.4 21 11V13C21 13.6 20.6 14 20 14H4C3.4 14 3 13.6 3 13Z" fill="currentColor"/>
+                        <path d="M13 21H11C10.4 21 10 20.6 10 20V4C10 3.4 10.4 3 11 3H13C13.6 3 14 3.4 14 4V20C14 20.6 13.6 21 13 21Z" fill="currentColor"/>
+                    </svg>
+                </span>
+            </button>
+
+            <?= $this->include('partials/dataTablesExportButton')?>
 
             <input type="checkbox" class="btn-check" id="archive-toggle" autocomplete="off">
-            <label class="btn btn-primary btn-sm btn-danger btn-icon" for="archive-toggle"><i
-                    class="bi bi-trash fs-4 "></i></label>
+
+            <label class="btn btn-primary btn-sm btn-danger btn-icon" for="archive-toggle">
+                <i class="bi bi-trash fs-4 "></i>
+            </label>
 
         </div>
     </div>
@@ -38,16 +48,12 @@
             <!-- Start Plantilla Table -->
             <div class="mt-5">
                 <div class="card shadow-sm">
-                    <!-- <div class="card-header">
-                        <h3 class="card-title fw-bold">Plantilla List</h3>
-                        
-                    </div> -->
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="plantilla_table"
-                                class="table table-hover table-rounded border align-middle gs-7 gy-5 my-0">
+                            <table class="table table-hover table-rounded border align-middle gs-7 gy-5 my-0"
+                                id="plantilla_table" style="width: 100%">
                                 <thead class="text-primary fw-bold border-bottom border-gray-200">
-                                    <tr class="fs-6 text-muted">
+                                    <tr>
                                         <th>Position Title</th>
                                         <th>Salary Grade</th>
                                         <th>Authorized</th>
@@ -64,9 +70,6 @@
                                         <th class=""></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    
-                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -103,7 +106,7 @@
                                         </label>
                                         <input type="number" class="form-control form-control-solid w-100 fw-bold"
                                             placeholder="Enter Salary Grade" name="salary_grade" id="salary_grade"
-                                            value="" required>
+                                            value="" min="1" required>
                                         <div class="fv-plugins-message-container invalid-feedback"></div>
                                     </div>
 
@@ -111,8 +114,8 @@
                                         <label class="fs-6 fw-semibold mb-1">Authorized: </label>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="basic-addon1">₱</span>
-                                            <input type="text" class="form-control" name="authorized" id="authorized"
-                                                placeholder="Enter Authorized" aria-label="">
+                                            <input type="text" class="form-control fw-bold" name="authorized" id="authorized"
+                                                placeholder="Enter Authorized" aria-label="" required>
                                             <div class="fv-plugins-message-container invalid-feedback"></div>
                                         </div>
 
@@ -120,7 +123,7 @@
                                             <label class="fs-6 fw-semibold mb-1">Actual: </label>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text" id="basic-addon1">₱</span>
-                                                <input type="text" class="form-control" name="actual" id="actual"
+                                                <input type="text" class="form-control fw-bold" name="actual" id="actual"
                                                     placeholder="Enter Actual" aria-label=""
                                                     aria-describedby="basic-addon1" required>
                                             </div>
@@ -129,7 +132,8 @@
 
                                         <div class="w-100 mb-5">
                                             <label class="fs-6 fw-semibold mb-1">Department: </label>
-                                            <select name="dept_id" id="dept_id" class="form-select form-select-solid " required>
+                                            <select name="dept_id" id="dept_id" class="form-select form-select-solid "
+                                                required>
                                                 <option value="" selected disabled>Select Department</option>
                                                 <?php foreach ($departments as $department) : ?>
                                                 <option value="<?= $department->dept_id ?>">
@@ -160,7 +164,22 @@
 <?= $this->endSection(); ?>
 
 <?= $this->section('javascript'); ?>
-<script src="<?= base_url()?>/public/assets/js/form-misc.js"></script>
+<!-- <script src="<?= base_url()?>/public/assets/js/form-misc.js"></script> -->
+<script src="<?= base_url()?>/public/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?= base_url()?>/public/assets/libs/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+<script src="<?= base_url()?>/public/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?= base_url()?>/public/assets/libs/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js">
+</script>
+<script src="<?= base_url()?>/public/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="<?= base_url()?>/public/assets/libs/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
+<script src="<?= base_url()?>/public/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="<?= base_url()?>/public/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="<?= base_url()?>/public/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="<?= base_url()?>/public/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="<?= base_url()?>/public/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+<script src="<?= base_url()?>/public/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="<?= base_url()?>/public/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+
 <script>
     $(document).ready(function () {
         let table = $('#plantilla_table').DataTable({
@@ -171,7 +190,13 @@
             columns: [
 
                 {
-                    data: 'position_title'
+                    data: 'position_title',
+                    render: function (data, display, row) {
+                        return `<div class="symbol symbol-50px me-2ddd">
+                                    <img src = "${base_url}/public/assets/media/avatars/default-avatar.png" class="ms-5 me-8">
+                                </div><span class = "fw-bold text-gray-700">${data}</span>
+                            `
+                    }
                 },
                 {
                     data: 'salary_grade'
@@ -196,10 +221,14 @@
                     }
                 },
                 {
-                    data: 'dept_alias'
+                    data: 'dept_alias',
+                    render: (data, display, row) => {
+                        return `<span class="badge badge-light-primary">${data}</span>`
+                    }
                 },
                 {
                     data: 'plantilla_id',
+                    orderable: false,
                     "mRender": function (data, type, row) {
                         return `
                         <div class="dropdown ms-2">
@@ -249,12 +278,15 @@
             }
         });
 
+        dataTablesButtonsHooks(table);
+
         $('#plantilla_table').on('click', '.delete-btn', function () {
             let plantilla_id = this.dataset.id;
             console.log(plantilla_id);
             confirm('Are you sure you want to delete?',
                 'Are you sure you want to delete the Plantilla?',
-                'question', "<?= base_url()?>/plantilla/archivePlantilla/" + plantilla_id, null,
+                'question', "<?= base_url()?>/plantilla/archivePlantilla/" + plantilla_id, "post",
+                null,
                 function (response) {
                     console.log(response);
                     if (!response.error) {
@@ -274,21 +306,6 @@
                             'warning');
                     }
                 });
-            // $.ajax({
-            //     type: "post",
-            //     url: "<?= base_url()?>/plantilla/archivePlantilla/" + plantilla_id,
-            //     dataType: "json",
-            //     success: function (response) {
-            //         console.log(response);
-            //         if (!response.error) {
-            //             table.ajax.reload()
-            //         } else {
-            //             errorAlert('Error',
-            //                 'There is an error during deleting the plantilla.',
-            //                 'warning');
-            //         }
-            //     }
-            // });
         });
 
         $('#add_plantilla').submit(function (e) {
@@ -312,6 +329,8 @@
                     reloadDataTable(table);
 
                     $("#add_plantilla")[0].reset();
+
+                    $('#add_modal').modal('hide');
                 }
             });
         });
@@ -359,7 +378,7 @@
             console.log(plantilla_id);
             confirm('Are you sure you want to restore?',
                 'Are you sure you want to restore the Plantilla?', 'question',
-                "<?= base_url()?>/plantilla/restorePlantilla/" + plantilla_id, null,
+                "<?= base_url()?>/plantilla/restorePlantilla/" + plantilla_id, "post", null,
                 function (response) {
                     console.log(response);
                     if (!response.error) {
