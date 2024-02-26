@@ -177,43 +177,46 @@
                             </div>
                         </div>
                     </div>
-                    <div class="separator separator-dashed my-10"></div>
-                    <div class="row">
-                        <div class="col-md-3 ">
-                            <div class="mb-8 text-left">
-                                <!--begin::Title-->
-                                <h3 class="mb-3">Account Actions</h3>
+                    <div id="account-actions">
+                        <div class="separator separator-dashed my-10"></div>
+                        <div class="row">
+                            <div class="col-md-3 ">
+                                <div class="mb-8 text-left">
+                                    <!--begin::Title-->
+                                    <h3 class="mb-3">Account Actions</h3>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="d-flex" >
-                                <div class="col-md-4 col-lg-4 col-xxl-4 me-2" id = "reset-password">
-                                    <label class="btn btn-outline btn-outline-dashed btn-active-light-primary border-gray-500 d-flex text-start p-6 h-100 hover-elevate-up" data-kt-button="true">
-                                        <span class="ms-5">
-                                            <span class="fs-4 fw-bold mb-1 d-block">Reset Password</span>
-                                            <span class="fw-semibold fs-7 text-gray-600">Account password will be set to default password.</span>
-                                        </span>
-                                    </label>
-                                </div>
-                                <div class="col-md-4 col-lg-4 col-xxl-4 me-2 active-container" id = "user-status">
-                                    <label class="btn btn-outline btn-outline-dashed btn-active-light-primary border-gray-500 d-flex text-start p-6 h-100 hover-elevate-up" data-kt-button="true">
-                                        <span class="ms-5">
-                                            <span class="fs-4 fw-bold mb-1 d-block" id = "user-status-text">Deactivate Account</span>
-                                            <span class="fw-semibold fs-7 text-gray-600">Deactivate the current user account.</span>
-                                        </span>
-                                    </label>
-                                </div>
-                                <div class="col-md-4 col-lg-4 col-xxl-4 me-2 ban-container" id="ban-user">
-                                    <label class="btn btn-outline btn-outline-dashed btn-active-light-danger btn-hover-light-danger border-danger d-flex text-start p-6 h-100 hover-elevate-up" data-kt-button="true">
-                                        <span class="ms-5">
-                                            <span class="fs-4 fw-bold mb-1 d-block ban-text">Ban Account</span>
-                                            <span class="fw-semibold fs-7 text-gray-600">Completely ban the user from using the system.</span>
-                                        </span>
-                                    </label>
+                            <div class="col-md-9">
+                                <div class="d-flex" >
+                                    <div class="col-md-6 col-lg-6 col-xxl-6 me-2" id = "reset-password">
+                                        <label class="btn btn-outline btn-outline-dashed btn-active-light-primary border-gray-500 d-flex text-start p-6 h-100 hover-elevate-up" data-kt-button="true">
+                                            <span class="ms-5">
+                                                <span class="fs-4 fw-bold mb-1 d-block">Reset Password</span>
+                                                <span class="fw-semibold fs-7 text-gray-600">Account password will be set to default password.</span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 col-xxl-6 me-2" id="deactivate-user">
+                                        <label class="btn btn-outline btn-outline-dashed btn-active-light-danger btn-hover-light-danger border-danger d-flex text-start p-6 h-100 hover-elevate-up" data-kt-button="true">
+                                            <span class="ms-5">
+                                                <span class="fs-4 fw-bold mb-1 d-block ban-text">Deactivate Account</span>
+                                                <span class="fw-semibold fs-7 text-gray-600">Deactivate account temporarily.</span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6 col-xxl-6 me-2" id="reactivate-user">
+                                        <label class="btn btn-outline btn-outline-dashed btn-active-light-primary btn-hover-light-primary border-primary d-flex text-start p-6 h-100 hover-elevate-up" data-kt-button="true">
+                                            <span class="ms-5">
+                                                <span class="fs-4 fw-bold mb-1 d-block ban-text">Reactivate Account</span>
+                                                <span class="fw-semibold fs-7 text-gray-600">Reactivate disabled account and return its access.</span>
+                                            </span>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
                     <div class="separator separator-dashed my-10"></div>
                     
                     <div class="row">
@@ -287,17 +290,6 @@
     let dataTables;
     $(document).ready(function () {
         
-        confirm(
-            'Wait!',
-            'Are you sure you want to add this record?', 
-            'warning',
-            false,
-            'GET',
-            $(this).serialize(),
-            function(data){
-                console.log(data)
-            }
-        );
         let _dataTablesObj;
         var target = document.querySelector("#modal-content");
         let blockElement = new KTBlockUI(target, {
@@ -312,22 +304,22 @@
             responsive: true,
             createdRow: function (row, data, rowIndex) {
                 if(data['active'] != 1){
-                    $(row).addClass('bg-light-danger');
+                    $(row).addClass('bg-light-dangers text-danger');
                 }
             },
             columns: [{
                     data: 'email',
                     render: function (data, display, row) {
-                        return  `<div class="symbol symbol-50px me-2ddd">
+                        return  `<div class="symbol symbol-50px me-2">
                                     <img src = "${base_url}/public/assets/media/avatars/${row.user_photo?row.user_photo:'default-avatar.png'}" class="ms-5 me-8">
-                                </div><span class = "fw-bold text-gray-700">${data}</span>
+                                </div><span class = "fw-bold ${(row.active == 0) ? 'text-danger' : 'text-gray-700'}">${data}</span>
                             `
                     }
                 },
                 {
                     data: 'username',
                     render: (data, display, row) => {
-                        return `<span class = "fw-bold text-gray-700">${data}</span>`
+                        return `<span class = "fw-bold ${(row.active == 0) ? 'text-danger' : 'text-gray-700'}">${data}</span>`
                     }
                 },
                 {
@@ -369,7 +361,7 @@
 
 
                 });
-
+                console.log(json.data);
                 _dataTablesObj = json.data;
             }
         });
@@ -382,6 +374,7 @@
             $('.modal-title').text('Add New System User');
             $('.form-vessel').trigger('reset');
             $('.form-vessel').attr('id', 'add-user');
+            $('#account-actions').hide();
             // confirm(
             //     'Wait!', 
             //     'Are you sure you want to update this record?', 
@@ -419,10 +412,21 @@
             let filteredObj = await filterObject(_dataTablesObj, 'user_id', this.dataset.id)
             sendToForm(filteredObj[0]);
             
+            console.log(filteredObj[0]);
+            // (filteredObj.active == 0) ? $('#reactivate-user').show() : $('#deactivate-user').hide();
+            if(filteredObj[0].active == 0){
+                $('#reactivate-user').show();
+                $('#deactivate-user').hide()
+            }else{
+                $('#reactivate-user').hide();
+                $('#deactivate-user').show()
+            }
+
             blockElement.block();
             $('.form-vessel').attr('id', 'edit-user');
             $('.modal-title').text('Update User');
             $('.btn-vessel').text('Update');
+            $('#account-actions').show();
             
             setTimeout(() => {
                 blockElement.release();
@@ -462,6 +466,52 @@
                 'Are you sure you want to reset this <span class = "fw-bold">user\'s password</span>?', 
                 'question',
                 '<?= base_url()?>/users/resetUserPassword/'+userId,
+                'POST',
+                {},
+                function(data){
+                    if(!data.error){
+                        successAlert('Yey!', data.message, 'info');
+                        dataTables.ajax.reload();
+                        $('#user-form-modal').modal('hide');
+                    }
+                    else{
+                        errorAlert('Oop!', data.message, 'error');
+                    }
+                }
+            );
+        });
+
+        $(document).on('click', '#deactivate-user', function(){
+            let userId = $('#user_id').val();
+
+            confirm(    
+                'Wait!',
+                'Are you sure you want to  <span class = "fw-bold">deactivate</span> this <span class = "fw-bold">account</span>?', 
+                'question',
+                '<?= base_url()?>/users/deactivateUser/'+userId,
+                'POST',
+                {},
+                function(data){
+                    if(!data.error){
+                        successAlert('Yey!', data.message, 'info');
+                        dataTables.ajax.reload();
+                        $('#user-form-modal').modal('hide');
+                    }
+                    else{
+                        errorAlert('Oop!', data.message, 'error');
+                    }
+                }
+            );
+        });
+
+        $(document).on('click', '#reactivate-user', function(){
+            let userId = $('#user_id').val();
+
+            confirm(    
+                'Wait!',
+                'Are you sure you want to  <span class = "fw-bold">reactivate</span> this <span class = "fw-bold">account</span>?', 
+                'question',
+                '<?= base_url()?>/users/reactivateUser/'+userId,
                 'POST',
                 {},
                 function(data){

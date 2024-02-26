@@ -156,8 +156,7 @@ class Users extends BaseController
 
     public function resetUserPassword($id)
     {
-        if ($this->request->isAJAX())
-        {
+        if ($this->request->isAJAX()){
             $data = [
                 'password_hash' => Password::hash(TemplateLib::defaultPassword()),
             ];
@@ -174,6 +173,50 @@ class Users extends BaseController
             else{
                 return json_encode([
                     'error' => false,
+                    'message' => $updatePassword['message'],
+                    'data' => $updatePassword['data']
+                ]);
+            }
+        }
+    }
+
+    public function deactivateUser($id)
+    {
+        if ($this->request->isAJAX()){
+            $updatePassword = $this->masterModel->update('users', ['active' => 0], ['id' => $id]);
+
+            if(!$updatePassword['error']){
+                return json_encode([
+                    'error' => false,
+                    'message' => 'User Successfully Deactivated.',
+                    'data' => $updatePassword['data']
+                ]);
+            }
+            else{
+                return json_encode([
+                    'error' => false,
+                    'message' => $updatePassword['message'],
+                    'data' => $updatePassword['data']
+                ]);
+            }
+        }
+    }
+
+    public function reactivateUser($id)
+    {
+        if ($this->request->isAJAX()){
+            $updatePassword = $this->masterModel->update('users', ['active' => 1], ['id' => $id]);
+
+            if(!$updatePassword['error']){
+                return json_encode([
+                    'error' => false,
+                    'message' => 'User Successfully Reactivated.',
+                    'data' => $updatePassword['data']
+                ]);
+            }
+            else{
+                return json_encode([
+                    'error' => true,
                     'message' => $updatePassword['message'],
                     'data' => $updatePassword['data']
                 ]);
