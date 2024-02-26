@@ -225,7 +225,7 @@
                                 </button>
                                 <div class="dropdown-menu menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-150px py-4" aria-labelledby="dropdownMenuButton" style="">
                                     <div class="menu-item px-3">
-                                        <span class="menu-link px-3 edit-btn " data-id = "${data}" id ="dept-employee"  data-bs-toggle="modal" data-bs-target="#employee-modal"><i class="bi bi-person"></i> Employees</span>
+                                        <a class="menu-link px-3 edit-btn " data-id = "${data}" id ="dept-employee"  href="<?= base_url()?>/departments/deptEmployees/${data} target="_blank""  ><i class="bi bi-person"></i> Employees</a>
                                     </div>
                                     <div class="menu-item px-3">
                                         <span class="menu-link px-3 access-btn" data-id = "${data}" id ="dept-edit"><i class="bi bi-pencil-square "></i> Edit</span>

@@ -19,6 +19,14 @@ class Departments extends BaseController
         return view('departments/manageDepartments', $this->viewData);
         
     }
+    public function deptEmployees($deptID)
+    {   
+        $this->viewData['departments'] = $this->masterModel->get('departments', 'dept_id');
+        $this->viewData['employees'] = $this->masterModel->get('employees', 'dept_id, firstname, lastname, middlename', ['dept_id'=> $deptID]);
+        $this->viewData['departmentID'] = $deptID;
+        return view('departments/departmentEmployees', $this->viewData);
+        
+    }
     public function departmentsDataTable()
     {
         $builder = $this->masterModel->getDataTables('departments', 'dept_id, dept_name, dept_alias, deleted_at', ['deleted_at'=> NULL]);
@@ -86,9 +94,9 @@ class Departments extends BaseController
         }
     }
         
-    public function employeesDataTable($id)
+    public function employeesDataTable($employeeID)
     {
-        $builder = $this->masterModel->getDataTables('employees', 'dept_id, firstname, lastname, middlename', ['dept_id'=> $id]);
+        $builder = $this->masterModel->getDataTables('employees', 'dept_id, firstname, lastname, middlename, employment_status', ['dept_id'=> $employeeID]);
         return DataTable::of($builder)->toJson(true);
 
         
