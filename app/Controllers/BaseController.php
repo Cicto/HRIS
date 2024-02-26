@@ -61,7 +61,7 @@ class BaseController extends Controller
         
         $this->masterModel = New MasterModel();
         $this->userInformation = $this->masterModel->get('user_info', 
-            'user_id, username, firstname, middlename, lastname, birthdate, role, user_photo, email, dept_name, birthdate, role', 
+            'user_id, username, email, firstname, middlename, lastname, birthdate, role, user_photo, email, dept_name, birthdate, role', 
             ['user_id' => user_id()], 
             [
                 ['users', 'users.id = user_info.user_id', 'left'],

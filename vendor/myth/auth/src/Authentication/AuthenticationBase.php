@@ -214,33 +214,35 @@ class AuthenticationBase
     {   
         if($success)
         {
-            LogsModel::GeneralLogs('logs',
+            LogsModel::GeneralLogs('system_logs',
                 [
-                    'log_action' => "User logged in successfully: ".$email, 
+                    'log_action' => 'GET',
+                    'log_details' => "User logged in successfully: ".$email,
                     'log_data' => json_encode([   
                         "email" => $email,
                         "ip_address" => $ipAddress,
                         "user_id" => $userID,
                         "success" => $success
                     ]), 
-                    'user_id' => $userID, 
-                    'log_actor' => $email
+                    'actor' => $email,
+                    'created_by' => $userID,
                 ]
             );
         }
         else
         {
-            LogsModel::GeneralLogs('logs',
+            LogsModel::GeneralLogs('system_logs',
                 [
-                    'log_action' => "User log in failed: ".$email, 
+                    'log_action' => 'GET',
+                    'log_details' => "User log in failed: ".$email, 
                     'log_data' => json_encode([   
                         "email" => $email,
                         "ip_address" => $ipAddress,
                         "user_id" => $userID,
                         "success" => $success
                     ]), 
-                    'user_id' => $userID, 
-                    'log_actor' => $email
+                    'actor' => $email,
+                    'created_by' => $userID,
                 ]
             );
         }

@@ -7,12 +7,6 @@ use CodeIgniter\Database\ConnectionInterface;
 
 class LogsModel
 {
-
-    public function __construct()
-    {
-        
-    }
-
     //  ******************************************************  SELECT QUERY START *************************************************//
     public static function GeneralLogs($dbName, $data)
     {

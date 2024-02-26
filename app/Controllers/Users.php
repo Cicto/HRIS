@@ -5,9 +5,9 @@ use App\Controllers\UtilController;
 use App\Models\UsersModel;
 use App\Models\MasterModel;
 use Myth\Auth\Entities\User;
-use Myth\Auth\Password;
 use Hermawan\DataTables\DataTable;
-use App\Libraries\TemplateLib;
+use App\Models\LogsModel;
+
 
 class Users extends BaseController
 {
@@ -89,6 +89,15 @@ class Users extends BaseController
                 $insertUserInfo = $this->masterModel->insert('user_info', $userInfo);
                 
                 if(!$insertUserInfo['error']){
+                    LogsModel::GeneralLogs('system_logs',
+                        [
+                            'log_action' => 'ADD',
+                            'log_details' => $this->viewData['userInformation']->email.' added new record',
+                            'log_data' => json_encode($userInfo),
+                            'actor' => $this->viewData['userInformation']->firstname.' '.$this->viewData['userInformation']->lastname,
+                            'created_by' => user_id(),
+                        ]
+                    );
                     return json_encode([
                         'error' => false,
                         'message' => $insertUserInfo['message'],
@@ -114,7 +123,7 @@ class Users extends BaseController
     }
 
     public function updateUser()
-    {
+    {   
         if($this->request->isAJAX()){
             $message = '';
             $users = [
@@ -137,6 +146,15 @@ class Users extends BaseController
                 $updateUserInfo = $this->masterModel->update('user_info', $userInfo, ['user_id' => $this->request->getPost('user_id')]);
 
                 if(!$updateUserInfo['error']){
+                    LogsModel::GeneralLogs('system_logs',
+                        [
+                            'log_action' => 'UPDATE',
+                            'log_details' => $this->viewData['userInformation']->email.' updated record',
+                            'log_data' => json_encode($userInfo),
+                            'actor' => $this->viewData['userInformation']->firstname.' '.$this->viewData['userInformation']->lastname,
+                            'created_by' => user_id(),
+                        ]
+                    );
                     return json_encode([
                         'error' => false,
                         'message' => ($updateUser['data'] != false) ? $updateUser['message'] : $updateUserInfo['message'],
