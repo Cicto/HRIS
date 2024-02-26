@@ -108,7 +108,7 @@ async function setBarangaysCitiesAndPronvincesOnDOM(selected_barangay = false) {
 }
 
 const formRepeater = class {
-  constructor(element) {
+  constructor(element, options = {}) {
     this.parent = $(element);
     const parent = $(element);
     const form_repeat = parent.find(".form-repeater-container");
@@ -122,7 +122,10 @@ const formRepeater = class {
       if(!is_valid){
         return;
       }
-      form_repeat.clone().insertAfter(last_form_repeat).find("input, select, textarea").val("").trigger("change")
+      const new_form = form_repeat.clone();
+
+      new_form.find(".form-repeater-label").addClass("h-none");
+      new_form.insertAfter(last_form_repeat).find("input, select, textarea").val("").trigger("change")
       parent.find(".form-repeater-remove").removeAttr("disabled")
     })
 
@@ -131,8 +134,27 @@ const formRepeater = class {
         $(this).closest(".form-repeater-container").find("input, select, textarea").val("").trigger("change")
       }else{
         $(this).closest(".form-repeater-container").remove();
+        const has_hidden_label = $(this).closest(".form-repeater-container").find(".form-repeater-label").hasClass("h-none");
+        if(!has_hidden_label){
+          parent.find(".form-repeater-container").first().find(".form-repeater-label").removeClass("h-none")
+        }
       }
     })
+    
+    if(options.hasOwnProperty("labeled")){
+      if(options.labeled){
+        console.log(form_repeat)
+        form_repeat.find("[data-name]").each(function (index, element) {
+          const label = element.dataset.label ? element.dataset.label : "&nbsp;" ;
+          const is_required = element.dataset.required == "" ? element.dataset.label ? "required" : "" : "" ;
+          let classNames = "";
+          if(options.labeled.hasOwnProperty("className")){
+            classNames = options.labeled.className;
+          }
+          $(`<div class="form-repeater-label form-label ${classNames} ${is_required}" title="${label}">${label}</div>`).insertBefore(element);
+        });
+      }
+    }
   }
 
   #validateRepeat(form_repeat_element){
@@ -145,6 +167,7 @@ const formRepeater = class {
         $(element).addClass("form-invalid").on("keydown change", function(e){
           $(element).removeClass("form-invalid").off("keydown change")
         });
+        element.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
         result = false;
         return false
       }
