@@ -129,52 +129,7 @@
 </div>
 
 <!-- Department Members -->
-<div class="modal fade" tabindex="-1" id="employee-modal">
-    <div class="modal-dialog modal-dialog-scrollable modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="dept-name-emp"> Employees</h5>
 
-                <!--begin::Close-->
-                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
-                    aria-label="Close">
-                    <i class="ki-duotone ki-cross fs-2x"><span class="path1"></span><span class="path2"></span></i>
-                </div>
-                <!--end::Close-->
-            </div>
-
-            <div class="modal-body">
-                <section>
-                    <form class="white" id="update-form">
-                        <label class="form-label">Department Head:</label>
-                        <input type="text" name="department_head" id="dept-head" class="form-control mb-3" required>
-                        <label class="form-label">Assistant Aid:</label>
-                        <input type="text" name="department_alias" id="dept-aid" class="form-control mb-3"
-                            style="text-transform:uppercase" required>
-                        <table id="employee-table" class="table table-row-bordered gy-5">
-                            <thead>
-                                <label class="form-label">Department Employees</label>
-                                <tr class="fw-semibold fs-6 text-muted">
-                                    <th class="w-80">First Name</th>
-                                    <th class="w-49">Last Name</th>
-                                    <th class="w-49">Position</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-
-                        </table>
-                    </form>
-                </section>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal" id="close-employee">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 
@@ -367,51 +322,51 @@
                 });
         });
 
-        $(document).on('click', '#dept-employee', function () {
-            let dept_id = this.dataset.id;
-            console.log(dept_id);
-            employee_table = $('#employee-table').DataTable({
-                processing: true,
-                serverSide: true,
-                orderCellsTop: true,
-                ajax: '<?= base_url()?>/departments/employeesDataTable/' + dept_id,
-                columns: [{
-                        data: 'firstname',
-                    },
+        // $(document).on('click', '#dept-employee', function () {
+        //     let dept_id = this.dataset.id;
+        //     console.log(dept_id);
+        //     employee_table = $('#employee-table').DataTable({
+        //         processing: true,
+        //         serverSide: true,
+        //         orderCellsTop: true,
+        //         ajax: '<?= base_url()?>/departments/employeesDataTable/' + dept_id,
+        //         columns: [{
+        //                 data: 'firstname',
+        //             },
 
-                    {
-                        data: 'lastname',
-                    }
-                ]
-            }).on('xhr.dt', function (e, settings, json, xhr) {
-                console.log(json.data);
-                employee_data = json.data;
+        //             {
+        //                 data: 'lastname',
+        //             }
+        //         ]
+        //     }).on('xhr.dt', function (e, settings, json, xhr) {
+        //         console.log(json.data);
+        //         employee_data = json.data;
 
-            })
+        //     })
 
-        });
+        // });
 
-        $(document).ready(function () {
-            $('#close-employee').click(function () {
-                let table = $('#employee-table').DataTable();
-                table.destroy();
-            });
+        // $(document).ready(function () {
+        //     $('#close-employee').click(function () {
+        //         let table = $('#employee-table').DataTable();
+        //         table.destroy();
+        //     });
 
-        });
+        // });
 
-        $(document).on('click', '#dept-employee', function () {
-            let dept_id = this.dataset.id;
-            $.ajax({
-                type: "get",
-                url: "<?= base_url()?>/departments/getDepartment/" + dept_id,
-                dataType: "json",
-                success: function (response) {
-                    console.log(response);
-                    const dept_info = response.data[0];
-                    $('#dept-name-emp').val(dept_info.dept_alias);
-                }
-            });
-        })
+        // $(document).on('click', '#dept-employee', function () {
+        //     let dept_id = this.dataset.id;
+        //     $.ajax({
+        //         type: "get",
+        //         url: "<?= base_url()?>/departments/getDepartment/" + dept_id,
+        //         dataType: "json",
+        //         success: function (response) {
+        //             console.log(response);
+        //             const dept_info = response.data[0];
+        //             $('#dept-name-emp').val(dept_info.dept_alias);
+        //         }
+        //     });
+        // })
 
 
 
