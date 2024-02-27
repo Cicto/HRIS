@@ -42,10 +42,17 @@ class Employees extends BaseController
         return json_encode($brgy);
     }
 
-    public function addEmployeeData(){
+    public function createEmployeeData(){
         $this->response->setContentType('application/json');
         $data = $this->request->getPost();
         $insert_employee = $this->masterModel->insert("employee_data", $data);
         return json_encode($insert_employee);
+    }
+
+    public function createEmployeeFamilyBackground($employee_id){
+        $this->response->setContentType('application/json');
+        $data = $this->request->getPost();
+        // $insert_employee = $this->masterModel->insert("employee_data", $data);
+        return json_encode($data);
     }
 }

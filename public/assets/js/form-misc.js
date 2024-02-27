@@ -25,8 +25,10 @@ $(document).ready(function () {
 });
 
 $(".mask-number").mask("0", {
+  watchInputs: true,
   onChange: function(cep, e, field, options){
     let mask = "0";
+    console.log(mask)
     for (let i = 0; i < cep.length; i++) {
       mask += "0"
     }
@@ -143,7 +145,6 @@ const formRepeater = class {
     
     if(options.hasOwnProperty("labeled")){
       if(options.labeled){
-        console.log(form_repeat)
         form_repeat.find("[data-name]").each(function (index, element) {
           const label = element.dataset.label ? element.dataset.label : "&nbsp;" ;
           const is_required = element.dataset.required == "" ? element.dataset.label ? "required" : "" : "" ;
@@ -217,21 +218,20 @@ const formRepeater = class {
         form_repeat_values[name] = form_element.value;
       });
 
-      // let is_empty = true;
-      // for (const name in form_repeat_values) {
-      //   if (Object.hasOwnProperty.call(form_repeat_values, name)) {
-      //     const value = form_repeat_values[name];
-      //     is_empty = value=="" ? true : false;
-      //     if(!is_empty){
-      //       break;
-      //     }
-      //   }
-      // }
-      // if(!is_empty){
+      let is_empty = true;
+      for (const name in form_repeat_values) {
+        if (Object.hasOwnProperty.call(form_repeat_values, name)) {
+          const value = form_repeat_values[name];
+          is_empty = value=="" ? true : false;
+          if(!is_empty){
+            break;
+          }
+        }
+      }
+      if(!is_empty){
         result.push(form_repeat_values);
-      // }
+      }
     });
-    console.log(parent)
     return result;
   }
 
