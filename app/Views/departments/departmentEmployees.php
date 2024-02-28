@@ -7,7 +7,7 @@
             <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0 "><span class="label text-primary" id ='dept-label'></span>Department Employees</h1>
             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                 <li class="breadcrumb-item text-muted">
-                    <a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">Departments List</a>
+                    <a href="<?= base_url()?>/departments" class="text-muted text-hover-primary">Departments List</a>
                 </li>
             </ul>
         </div>
@@ -26,8 +26,8 @@
     <div class="symbol-label border" style="background-image:url('<?= base_url()?>/public/assets/media/avatars/300-7.jpg')"></div>
 </div>
 <div class="separator border-secondary my-5" style="padding: 5px; margin"></div>
-    <h5 class="card-title">Firstname & lastname</h5>
-    <p class="card-text">Department Head</p>
+    <h5 class="card-title d-flex justify-content-center" >Firstname & lastname</h5>
+    <p class="card-text d-flex justify-content-center" style="color:gray">Department Head</p>
   </div>
 </div>
 </div>
@@ -39,21 +39,26 @@
     <div class="symbol-label border" style="background-image:url('<?= base_url()?>/public/assets/media/avatars/default-avatar.png')"></div>
 </div>
 <div class="separator border-secondary my-5" style="padding: 5px; margin"></div>
-    <h5 class="card-title">Firstname & lastname</h5>
-    <p class="card-text">Assistant Aid</p>
+    <h5 class="card-title d-flex justify-content-center">Firstname & lastname</h5>
+    <p class="card-text d-flex justify-content-center" style="color:gray">Assistant Aid</p>
   </div>
 </div>
 </div>
-<div class="separator separator-dashed border-secondary my-10"></div>
+<div class="separator separator-dashed border-secondary my-5"></div>
 
-<div class="container">
+<div class="container px-10 pb-7">
     <div class="row">
-        <?php foreach ($employeesCards['data'] as $employee): ?>
+        <?php foreach ($employeesCards['data'] as $employee): ?> 
         <div class="col-md-4 mb-4">
             <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"><?=$employee->firstname?> <?=$employee->lastname?></h5>
-                    <p class="card-text"><?=$employee->employment_status?></p>
+                <div class="card-body d-flex">
+                    <div class="symbol symbol-70px d-flex top-50 start-20 me-8" >
+                       <div class="symbol-label border" style="background-image:url('<?= base_url()?>/public/assets/media/avatars/default-avatar.png')"></div>
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                        <h5 class="card-title "><?=$employee->firstname?> <?=$employee->lastname?></h5>
+                        <p class="card-text " style="color:gray"><?=$employee->employment_status?></p>
+                    </div>
                 </div>
             </div>
         </div>
