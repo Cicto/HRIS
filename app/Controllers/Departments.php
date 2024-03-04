@@ -23,7 +23,7 @@ class Departments extends BaseController
     {   
         $this->viewData['departments'] = $this->masterModel->get('departments', 'dept_id');
         $this->viewData['employees'] = $this->masterModel->get('employees', 'dept_id, firstname, lastname, middlename', ['dept_id'=> $deptID]);
-        $this->viewData['employeesCards'] =  $this->viewData['employees'] = $this->masterModel->get('employees', 'dept_id, firstname, lastname, middlename, employment_status', ['dept_id'=> $deptID]);
+        $this->viewData['employeesCards'] =  $this->viewData['employees'] = $this->masterModel->get('employees', 'dept_id, firstname, lastname, middlename, employment_status', ['dept_id ='=> $deptID]);
         $this->viewData['departmentID'] = $deptID;
         return view('departments/departmentEmployees', $this->viewData);
         

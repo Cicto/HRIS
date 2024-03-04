@@ -48,6 +48,7 @@
 
 <div class="container px-10 pb-7">
     <div class="row">
+        <?php if ( $employeesCards['data']): ?>
         <?php foreach ($employeesCards['data'] as $employee): ?> 
         <div class="col-md-4 mb-4">
             <div class="card">
@@ -56,13 +57,14 @@
                        <div class="symbol-label border" style="background-image:url('<?= base_url()?>/public/assets/media/avatars/default-avatar.png')"></div>
                     </div>
                     <div class="d-flex flex-column justify-content-center">
-                        <h5 class="card-title text-capitalized"><?=$employee->firstname?> <?=$employee->lastname?></h5>
+                        <h5 class="card-title "><?=$employee->firstname?> <?=$employee->lastname?></h5>
                         <p class="card-text " style="color:gray"><?=$employee->employment_status?></p>
                     </div>
                 </div>
             </div>
         </div>
         <?php endforeach; ?>
+        <?php endif; ?>
     </div>
 </div>
 
