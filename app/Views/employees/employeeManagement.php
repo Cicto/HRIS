@@ -38,9 +38,37 @@
 
 <div class="d-flex flex-column flex-column-fluid">
     <div id="kt_app_content_container" class="app-container container-fluid">
-        <div class="card">
-            <div class="card-body">
-                
+        <div class="card card-body">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-rounded border align-middle gs-7 gy-5 my-0 w-100" id="employees-table">
+                            <thead class="text-primary fw-bold border-bottom border-gray-200">
+                                <tr>
+                                    <th class="text-nowrap">Employee ID</th>
+                                    <th class="text-nowrap">First Name</th>
+                                    <th class="text-nowrap">Middle Name</th>
+                                    <th class="text-nowrap">Last Name</th>
+                                    <th class="text-nowrap">Employment Status</th>
+                                    <th class="text-nowrap">Department Name</th>
+                                    <th class="text-nowrap">Position</th>
+                                    <th class="text-nowrap">Actions</th>
+                                </tr>
+                                <tr>
+                                    <th class="filterhead"></th>
+                                    <th class="filterhead"></th>
+                                    <th class="filterhead"></th>
+                                    <th class="filterhead"></th>
+                                    <th class="filterhead"></th>
+                                    <th class="filterhead"></th>
+                                    <th class="filterhead"></th>
+                                    <th class=""></th>
+                                </tr>
+                            </thead>
+    
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -52,7 +80,93 @@
 <script>
     let employees_table, employees_table_data;
     $(function () {
-        employees_table = $()
+        employees_table = $("#employees-table").DataTable({
+            processing: true,
+            serverSide: true,
+            orderCellsTop: true,
+            ajax: '<?=base_url()?>/employees/getEmployees',
+            responsive: true,
+            columns: [
+                {
+                    data: 'employee_id',
+                    
+                },
+                {
+                    data: 'firstname',
+                    render: function(data, display, row){
+                        return `
+                        <div class="symbol symbol-50px me-2ddd">
+                            <img src="http://localhost/hris/public/assets/media/avatars/default-avatar.png" class="ms-5 me-8">
+                        </div>
+                        <span>${data}</span>
+                        `;
+                    }
+                },
+                {
+                    data: 'middlename',
+                },
+                {
+                    data: 'lastname'
+                },
+                {
+                    data: 'employee_id'
+                },
+                {
+                    data: 'employee_id',
+                },
+                {
+                    data: 'employee_id',
+                },
+                {
+                    data: 'employee_id',
+                    orderable: false,
+                    render: function(data, display, row){
+                        return `
+                        <div class="dropdown ms-2">
+                            <button class="btn btn-sm btn-icon btn-light-primary btn-active-primary me-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="svg-icon svg-icon-5 m-0">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="10" y="10" width="4" height="4" rx="2" fill="currentColor"></rect>
+                                        <rect x="17" y="10" width="4" height="4" rx="2" fill="currentColor"></rect>
+                                        <rect x="3" y="10" width="4" height="4" rx="2" fill="currentColor"></rect>
+                                    </svg>
+                                </span>
+                            </button>
+                            <div class="dropdown-menu menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-150px py-4" aria-labelledby="dropdownMenuButton" style="">
+                                <div class="menu-item px-3">
+                                    <a class="menu-link px-3 text-nowrap edit-btn" href="<?=base_url()?>/employees/edit_employee/${data}">Edit Employee</a>
+                                </div>
+                                <div class="menu-item px-3">
+                                    <span class="menu-link px-3 text-nowrap access-btn" data-id="${data}">Employment Data</span>
+                                </div>
+                            </div>
+                        </div>
+                        `
+                    }
+                }
+            ],
+            initComplete: function (settings, json) {
+                var indexColumn = 0;
+
+                this.api().columns().every(function () {
+                    var column = this;
+                    var input = document.createElement("input");
+
+                    $(input).attr('placeholder', 'Search')
+                        .addClass('form-control form-control-sm')
+                        .appendTo($('.filterhead:eq(' + indexColumn + ')').empty())
+                        .on('keyup', function () {
+                            column.search($(this).val(), false, false, true).draw();
+                        });
+
+                    indexColumn++;
+
+
+                });
+
+                _dataTablesObj = json.data;
+            }
+        });
     });
 </script>
 <?= $this->endSection(); ?>

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Feb 14, 2024 at 02:44 AM
--- Server version: 5.7.34
--- PHP Version: 8.0.8
+-- Host: 127.0.0.1
+-- Generation Time: Mar 04, 2024 at 06:29 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,7 +33,7 @@ CREATE TABLE `auth_activation_attempts` (
   `user_agent` varchar(255) NOT NULL,
   `token` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -45,7 +45,7 @@ CREATE TABLE `auth_groups` (
   `id` int(11) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -54,9 +54,9 @@ CREATE TABLE `auth_groups` (
 --
 
 CREATE TABLE `auth_groups_permissions` (
-  `group_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
-  `permission_id` int(11) UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `group_id` int(11) UNSIGNED NOT NULL DEFAULT 0,
+  `permission_id` int(11) UNSIGNED NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -65,9 +65,9 @@ CREATE TABLE `auth_groups_permissions` (
 --
 
 CREATE TABLE `auth_groups_users` (
-  `group_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
-  `user_id` int(11) UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `group_id` int(11) UNSIGNED NOT NULL DEFAULT 0,
+  `user_id` int(11) UNSIGNED NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -82,7 +82,7 @@ CREATE TABLE `auth_logins` (
   `user_id` int(11) UNSIGNED DEFAULT NULL,
   `date` datetime NOT NULL,
   `success` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `auth_logins`
@@ -682,7 +682,17 @@ INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `succ
 (591, '::1', 'egie.santos@baliwag.gov.ph', 1, '2024-02-08 20:42:37', 1),
 (592, '::1', 'egie.santos@baliwag.gov.ph', 1, '2024-02-13 09:10:06', 1),
 (593, '::1', 'egie.santos@baliwag.gov.ph', 1, '2024-02-13 16:06:53', 1),
-(594, '::1', 'egie.santos@baliwag.gov.ph', 1, '2024-02-14 10:11:07', 1);
+(594, '::1', 'egie.santos@baliwag.gov.ph', 1, '2024-02-14 10:11:07', 1),
+(595, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-02-21 08:51:12', 1),
+(596, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-02-21 14:03:50', 1),
+(597, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-02-22 15:30:42', 1),
+(598, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-02-26 08:28:14', 1),
+(599, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-02-27 08:38:59', 1),
+(600, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-02-27 15:05:54', 1),
+(601, '127.0.0.1', 'admin.darrel', NULL, '2024-02-29 08:53:08', 0),
+(602, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-02-29 08:53:13', 1),
+(603, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-02-29 13:35:59', 1),
+(604, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-03-04 09:08:03', 1);
 
 -- --------------------------------------------------------
 
@@ -694,7 +704,7 @@ CREATE TABLE `auth_permissions` (
   `id` int(11) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -709,7 +719,7 @@ CREATE TABLE `auth_reset_attempts` (
   `user_agent` varchar(255) NOT NULL,
   `token` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -723,7 +733,7 @@ CREATE TABLE `auth_tokens` (
   `hashedValidator` varchar(255) NOT NULL,
   `user_id` int(11) UNSIGNED NOT NULL,
   `expires` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -732,9 +742,9 @@ CREATE TABLE `auth_tokens` (
 --
 
 CREATE TABLE `auth_users_permissions` (
-  `user_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
-  `permission_id` int(11) UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `user_id` int(11) UNSIGNED NOT NULL DEFAULT 0,
+  `permission_id` int(11) UNSIGNED NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -746,12 +756,12 @@ CREATE TABLE `departments` (
   `dept_id` int(11) NOT NULL,
   `dept_alias` varchar(10) NOT NULL,
   `dept_name` varchar(100) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `created_by` int(11) NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
   `deleted_at` int(11) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `departments`
@@ -812,10 +822,10 @@ CREATE TABLE `employees` (
   `position` varchar(50) NOT NULL,
   `dept_id` int(11) NOT NULL,
   `photo` varchar(500) DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `employees`
@@ -1954,6 +1964,298 @@ INSERT INTO `employees` (`employee_id`, `employee_no`, `qrcode`, `lastname`, `fi
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `employee_attended_trainings`
+--
+
+CREATE TABLE `employee_attended_trainings` (
+  `employee_attended_training_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `training_program` varchar(255) NOT NULL,
+  `inclusive_dates_from` date NOT NULL,
+  `inclusive_dates_to` date NOT NULL,
+  `number_of_hours` varchar(255) NOT NULL,
+  `ld_type` varchar(255) NOT NULL,
+  `conducted_sponsored_by` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employee_attended_trainings`
+--
+
+INSERT INTO `employee_attended_trainings` (`employee_attended_training_id`, `employee_id`, `training_program`, `inclusive_dates_from`, `inclusive_dates_to`, `number_of_hours`, `ld_type`, `conducted_sponsored_by`) VALUES
+(1, 1, 'Aliquid officiis in ', '2010-07-22', '1976-02-15', '45', 'Sit quis reprehender', 'Velit proident nesc'),
+(2, 1, 'Dolores expedita nob', '1994-01-10', '1980-12-21', '76', 'Enim quos inventore ', 'Ad sed irure Nam vel'),
+(3, 5, 'Sapiente nesciunt m', '1991-07-13', '2008-08-24', '76', 'Ullam consequat Et ', 'Ipsa ad sed non non');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_educational_backgrounds`
+--
+
+CREATE TABLE `employee_educational_backgrounds` (
+  `employee_family_background_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `educational_level` int(11) NOT NULL,
+  `school_name` varchar(255) NOT NULL,
+  `degree_course` varchar(255) NOT NULL,
+  `period_of_attendance_from` date NOT NULL,
+  `period_of_attendance_to` date NOT NULL,
+  `highest_level` varchar(255) NOT NULL,
+  `year_graduated` int(11) NOT NULL,
+  `scholarship_academic_honors_received` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employee_educational_backgrounds`
+--
+
+INSERT INTO `employee_educational_backgrounds` (`employee_family_background_id`, `employee_id`, `educational_level`, `school_name`, `degree_course`, `period_of_attendance_from`, `period_of_attendance_to`, `highest_level`, `year_graduated`, `scholarship_academic_honors_received`) VALUES
+(1, 2, 1, 'Kenyon Mckay', 'Deserunt consequatur', '1977-03-03', '2009-10-14', 'Nulla occaecat ex vo', 1, 'Voluptas dolorum et '),
+(2, 2, 2, 'Kendall Byers', 'Esse voluptatum in v', '2000-05-16', '2010-08-18', 'Omnis aut id autem s', 19, 'Praesentium nulla id'),
+(3, 2, 3, 'Theodore Randall', 'Optio in laboriosam', '2021-01-19', '1994-06-17', 'Voluptas illum numq', 201, 'Fugiat aut eius repe'),
+(4, 2, 4, 'Tyler Cortez', 'Amet voluptas paria', '1981-10-02', '1995-12-06', 'Aliquam consequatur ', 1997, 'Ad lorem eum odio do'),
+(5, 2, 5, 'Denton Acosta', 'Tempora quisquam deb', '1972-10-24', '2008-07-27', 'Nam qui dolores volu', 1977, 'Voluptatum esse aut'),
+(6, 5, 1, 'Bell Langley', 'Quos aut incidunt a', '2014-01-28', '1999-05-23', 'Eius consequat Sit ', 2, 'Consequatur corporis'),
+(7, 5, 2, 'Lacey Berry', 'Doloribus dolores ad', '1975-08-05', '1991-10-22', 'Minus minus nostrud ', 20, 'Eveniet et dolor eu'),
+(8, 5, 3, 'Jackson Wong', 'Soluta dolor tempori', '1988-06-18', '2000-01-03', 'In cupiditate vel ab', 201, 'Do consequatur Tota'),
+(9, 5, 4, 'Dai Jones', 'Illo elit laborum ', '2019-06-09', '2022-11-20', 'Possimus corrupti ', 1998, 'Expedita ea tempore'),
+(10, 5, 5, 'Julian Sloan', 'Cillum iste omnis cu', '2020-04-05', '1977-10-13', 'Duis rerum nihil est', 1998, 'Ut aliquam reprehend');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_eligibilities`
+--
+
+CREATE TABLE `employee_eligibilities` (
+  `employee_eligibility_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `eligibility` varchar(255) NOT NULL,
+  `rating` varchar(255) NOT NULL,
+  `examination_date` date NOT NULL,
+  `examination_place` varchar(255) NOT NULL,
+  `license_number` varchar(255) NOT NULL,
+  `date_of_validity` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employee_eligibilities`
+--
+
+INSERT INTO `employee_eligibilities` (`employee_eligibility_id`, `employee_id`, `eligibility`, `rating`, `examination_date`, `examination_place`, `license_number`, `date_of_validity`) VALUES
+(1, 1, 'Ipsum in incididunt', 'Ut a labore quidem q', '1986-04-02', 'Magni aute corporis ', 'Officiis nisi nostru', '1978-06-03'),
+(2, 1, 'Consectetur est ve', 'Ea inventore nulla a', '2001-12-24', 'Obcaecati repudianda', 'Fugiat quaerat deser', '1996-03-22'),
+(3, 5, 'Labore vero reprehen', 'Fugit numquam quos ', '2021-02-07', 'Quia dolor nihil vol', 'Sint obcaecati cons', '1980-02-07'),
+(4, 5, 'Proident sint aut ', 'Officiis quia enim s', '1988-08-06', 'Consectetur expedita', 'Non quibusdam labori', '1982-03-09');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_family_backgrounds`
+--
+
+CREATE TABLE `employee_family_backgrounds` (
+  `employee_family_background_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `spouse_firstname` varchar(255) NOT NULL,
+  `spouse_middlename` varchar(255) NOT NULL,
+  `spouse_lastname` varchar(255) NOT NULL,
+  `spouse_suffix` varchar(255) NOT NULL,
+  `spouse_occupation` varchar(255) NOT NULL,
+  `spouse_employer_business_name` varchar(255) NOT NULL,
+  `spouse_business_address` varchar(255) NOT NULL,
+  `spouse_telephone_number` varchar(255) NOT NULL,
+  `father_firstname` varchar(255) NOT NULL,
+  `father_middlename` varchar(255) NOT NULL,
+  `father_lastname` varchar(255) NOT NULL,
+  `father_suffix` varchar(255) NOT NULL,
+  `mother_firstname` varchar(255) NOT NULL,
+  `mother_middlename` varchar(255) NOT NULL,
+  `mother_lastname` varchar(255) NOT NULL,
+  `children` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`children`))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employee_family_backgrounds`
+--
+
+INSERT INTO `employee_family_backgrounds` (`employee_family_background_id`, `employee_id`, `spouse_firstname`, `spouse_middlename`, `spouse_lastname`, `spouse_suffix`, `spouse_occupation`, `spouse_employer_business_name`, `spouse_business_address`, `spouse_telephone_number`, `father_firstname`, `father_middlename`, `father_lastname`, `father_suffix`, `mother_firstname`, `mother_middlename`, `mother_lastname`, `children`) VALUES
+(1, 1, '', '', '', '', '', '', '', '', 'father_firstname', 'father_middlename', 'father_lastname', 'father_suffix', 'mother_firstname', 'mother_middlename', 'mother_lastname', '[]'),
+(2, 2, '', '', '', '', '', '', '', '', 'father_firstname', 'father_middlename', 'father_lastname', 'father_suffix', 'mother_firstname', 'mother_middlename', 'mother_lastname', '[]'),
+(3, 3, '', '', '', '', '', '', '', '', 'father_firstname', 'father_middlename', 'father_lastname', 'father_suffix', 'mother_firstname', 'mother_middlename', 'mother_lastname', '[]'),
+(4, 4, '', '', '', '', '', '', '', '', 'father_firstname', 'father_middlename', 'father_lastname', 'father_suffix', 'mother_firstname', 'mother_middlename', 'mother_lastname', '[]'),
+(5, 5, 'Winifred', 'Calista Pate', 'Weeks', 'Et nulla dolore quos', 'Animi blanditiis am', 'Vaughan Sampson', 'Labore earum autem q', '+1 (599) 944-7567', 'Owen', 'Ferris Hill', 'Kinney', 'Voluptatem Voluptat', 'Tamara', 'Dillon Chan', 'Curry', '[{\"child_name\":\"Consectetur nihil du\",\"child_birthdate\":\"1975-04-15\"}]');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_info`
+--
+
+CREATE TABLE `employee_info` (
+  `employee_id` int(11) NOT NULL,
+  `firstname` varchar(255) NOT NULL,
+  `middlename` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `suffix` varchar(10) NOT NULL,
+  `birthdate` date DEFAULT NULL,
+  `sex` varchar(6) NOT NULL,
+  `civil_status` varchar(50) NOT NULL,
+  `height` float NOT NULL,
+  `weight` float NOT NULL,
+  `blood_type` varchar(10) NOT NULL,
+  `gsis_id` varchar(50) NOT NULL,
+  `pag_ibig_id` varchar(50) NOT NULL,
+  `philhealth_id` varchar(50) NOT NULL,
+  `sss_id` varchar(50) NOT NULL,
+  `tin_id` varchar(50) NOT NULL,
+  `agency_employee_id` varchar(50) NOT NULL,
+  `is_filipino` tinyint(1) NOT NULL,
+  `has_dual_citizenship` tinyint(1) NOT NULL,
+  `is_citizen_by_birth` tinyint(1) NOT NULL,
+  `is_citizen_by_naturalization` tinyint(1) NOT NULL,
+  `citizenship_country` varchar(255) NOT NULL,
+  `residential_house_number` varchar(255) NOT NULL,
+  `residential_street` varchar(255) NOT NULL,
+  `residential_barangay_code` varchar(10) NOT NULL,
+  `residential_barangay` varchar(255) NOT NULL,
+  `residential_city_mun_code` varchar(10) NOT NULL,
+  `residential_city_mun` varchar(255) NOT NULL,
+  `residential_province_code` varchar(10) NOT NULL,
+  `residential_province` varchar(255) NOT NULL,
+  `residential_zip_code` varchar(10) NOT NULL,
+  `permanent_house_number` varchar(255) NOT NULL,
+  `permanent_street` varchar(255) NOT NULL,
+  `permanent_barangay_code` varchar(10) NOT NULL,
+  `permanent_barangay` varchar(255) NOT NULL,
+  `permanent_city_mun_code` varchar(10) NOT NULL,
+  `permanent_city_mun` varchar(255) NOT NULL,
+  `permanent_province_code` varchar(10) NOT NULL,
+  `permanent_province` varchar(255) NOT NULL,
+  `permanent_zip_code` varchar(10) NOT NULL,
+  `telephone_number` varchar(20) NOT NULL,
+  `mobile_number` varchar(20) NOT NULL,
+  `email_address` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employee_info`
+--
+
+INSERT INTO `employee_info` (`employee_id`, `firstname`, `middlename`, `lastname`, `suffix`, `birthdate`, `sex`, `civil_status`, `height`, `weight`, `blood_type`, `gsis_id`, `pag_ibig_id`, `philhealth_id`, `sss_id`, `tin_id`, `agency_employee_id`, `is_filipino`, `has_dual_citizenship`, `is_citizen_by_birth`, `is_citizen_by_naturalization`, `citizenship_country`, `residential_house_number`, `residential_street`, `residential_barangay_code`, `residential_barangay`, `residential_city_mun_code`, `residential_city_mun`, `residential_province_code`, `residential_province`, `residential_zip_code`, `permanent_house_number`, `permanent_street`, `permanent_barangay_code`, `permanent_barangay`, `permanent_city_mun_code`, `permanent_city_mun`, `permanent_province_code`, `permanent_province`, `permanent_zip_code`, `telephone_number`, `mobile_number`, `email_address`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Darrel', 'Bayaras', 'Geslani', '', '2024-02-29', 'Male', 'Single', 1.67, 65, 'blood_type', 'gsis_id', 'pag_ibig_id', 'philhealth_id', 'sss_id', 'tin_id', 'agency_employee_id', 1, 0, 1, 0, '', 'residential_house_number', 'residential_street', '031403023', 'Sulivan', '031403', 'BALIWAG', '0314', 'BULACAN', '3006', 'permanent_house_number', 'permanent_street', '031403023', 'Sulivan', '031403', 'BALIWAG', '0314', 'BULACAN', '3006', '', '0905-672-0113', '', '2024-02-29 15:06:55', NULL, NULL),
+(2, 'Darrel', 'Bayaras', 'Geslani', '', '2024-02-29', 'Male', 'Single', 1.67, 65, 'blood_type', 'gsis_id', 'pag_ibig_id', 'philhealth_id', 'sss_id', 'tin_id', 'agency_employee_id', 1, 0, 1, 0, '', 'residential_house_number', 'residential_street', '031403023', 'Sulivan', '031403', 'BALIWAG', '0314', 'BULACAN', '3006', 'permanent_house_number', 'permanent_street', '031403023', 'Sulivan', '031403', 'BALIWAG', '0314', 'BULACAN', '3006', '', '0905-672-0113', '', '2024-02-29 15:52:03', NULL, NULL),
+(3, 'Wynter', 'Chanda Byers', 'Marshall', 'Totam cons', '2009-06-24', 'Male', 'Widowed', 0, 0, 'Autem dolo', 'Corrupti est conseq', 'Officiis laboriosam', 'Dolor vel quia sit s', 'Est dolorem digniss', 'Ut aut delectus odi', 'Non qui inventore et', 1, 1, 1, 0, 'Liberia', '614', 'Ullamco aperiam qui ', '036902003', 'Bangcu', '036902', 'BAMBAN', '0369', 'TARLAC', '8240', '614', 'Ullamco aperiam qui ', '036902003', 'Bangcu', '036902', 'BAMBAN', '0369', 'TARLAC', '8240', '+1 (921) 717-4068', '0', '', '2024-03-04 10:11:22', NULL, NULL),
+(4, 'Brendan', 'Keith Hood', 'Kidd', '', '2024-03-04', 'Male', 'Single', 1.67, 65, 'blood_type', 'gsis_id', 'pag_ibig_id', 'philhealth_id', 'sss_id', 'tin_id', 'agency_employee_id', 1, 0, 1, 0, '', 'residential_house_number', 'residential_street', '031404004', 'Batia', '031404', 'BOCAUE', '0314', 'BULACAN', '3006', 'residential_house_number', 'residential_street', '031404004', 'Batia', '031404', 'BOCAUE', '0314', 'BULACAN', '3006', '', '0905-672-0113', '', '2024-03-04 10:16:56', NULL, NULL),
+(5, 'Julie', 'Donna Morales', 'Rodriquez', 'Labore fac', '2016-07-05', 'Female', 'Live-in', 0, 0, 'Maiores ex', 'Reprehenderit facil', 'Ea et nihil dignissi', 'Saepe id autem repr', 'In consectetur est a', 'Exercitationem repel', 'Eligendi exercitatio', 1, 1, 0, 0, 'Liberia', '534', 'Molestiae et molesti', '034904002', 'Bagong Sikat', '034904', 'CABIAO', '0349', 'NUEVA ECIJA', '4480', '534', 'Molestiae et molesti', '034904002', 'Bagong Sikat', '034904', 'CABIAO', '0349', 'NUEVA ECIJA', '4480', '+1 (144) 434-9143', '0905-672-0113', 'geslanidarrel@gmail.com', '2024-03-04 10:21:56', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_other_info`
+--
+
+CREATE TABLE `employee_other_info` (
+  `employee_other_info_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `special_skills_and_hobbies` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`special_skills_and_hobbies`)),
+  `non_academic_distinctions_recognitions` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `membership_in_associations_organizations` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`membership_in_associations_organizations`)),
+  `related_within_the_third_degree` tinyint(1) NOT NULL,
+  `related_within_the_fourth_degree` tinyint(1) NOT NULL,
+  `related_within_the_fourth_degree_details` varchar(255) NOT NULL,
+  `found_guilty` tinyint(1) NOT NULL,
+  `found_guilty_details` varchar(255) NOT NULL,
+  `criminally_charged` tinyint(1) NOT NULL,
+  `criminally_charged_details` varchar(255) NOT NULL,
+  `criminally_charged_date_filed` date NOT NULL,
+  `criminally_charged_case_status` varchar(255) NOT NULL,
+  `convicted_of_crime` tinyint(1) NOT NULL,
+  `convicted_of_crime_details` varchar(255) NOT NULL,
+  `separated_from_the_service` tinyint(1) NOT NULL,
+  `separated_from_the_service_details` varchar(255) NOT NULL,
+  `election_candidate` tinyint(1) NOT NULL,
+  `election_candidate_details` varchar(255) NOT NULL,
+  `resigned_for_candidacy` tinyint(1) NOT NULL,
+  `resigned_for_candidacy_details` varchar(255) NOT NULL,
+  `resident_of_another_country` tinyint(1) NOT NULL,
+  `resident_of_another_country_details` varchar(255) NOT NULL,
+  `indigenous_member` tinyint(1) NOT NULL,
+  `indigenous_member_specify` varchar(255) NOT NULL,
+  `person_with_disability` tinyint(1) NOT NULL,
+  `person_with_disability_id` varchar(255) NOT NULL,
+  `solo_parent` tinyint(1) NOT NULL,
+  `solo_parent_id` varchar(255) NOT NULL,
+  `references` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employee_other_info`
+--
+
+INSERT INTO `employee_other_info` (`employee_other_info_id`, `employee_id`, `special_skills_and_hobbies`, `non_academic_distinctions_recognitions`, `membership_in_associations_organizations`, `related_within_the_third_degree`, `related_within_the_fourth_degree`, `related_within_the_fourth_degree_details`, `found_guilty`, `found_guilty_details`, `criminally_charged`, `criminally_charged_details`, `criminally_charged_date_filed`, `criminally_charged_case_status`, `convicted_of_crime`, `convicted_of_crime_details`, `separated_from_the_service`, `separated_from_the_service_details`, `election_candidate`, `election_candidate_details`, `resigned_for_candidacy`, `resigned_for_candidacy_details`, `resident_of_another_country`, `resident_of_another_country_details`, `indigenous_member`, `indigenous_member_specify`, `person_with_disability`, `person_with_disability_id`, `solo_parent`, `solo_parent_id`, `references`) VALUES
+(1, 5, '[{\"special_skill_or_hobby\":\"Special Skills and Hobbies\"}]', '[{\"non_academic_distinction_or_recognition\":\"Non-Academic Distinctions / Recognitions\"}]', '[{\"membership_in_association_organization\":\"Membership In Associations / Organizations\"}]', 0, 0, '', 0, '', 0, '', '0000-00-00', '', 0, '', 0, '', 0, '', 0, '', 0, '', 0, '', 1, '12345543', 0, '', '[{\"reference_name\":\"Darrel Geslani\",\"reference_address\":\"Somewhere\",\"reference_tel_no\":\"123456\"}]');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_voluntary_works`
+--
+
+CREATE TABLE `employee_voluntary_works` (
+  `employee_voluntary_work_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `organization_name_and_address` varchar(255) NOT NULL,
+  `inclusive_dates_from` date NOT NULL,
+  `inclusive_dates_to` date NOT NULL,
+  `number_of_hours` varchar(255) NOT NULL,
+  `position_nature_of_work` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employee_voluntary_works`
+--
+
+INSERT INTO `employee_voluntary_works` (`employee_voluntary_work_id`, `employee_id`, `organization_name_and_address`, `inclusive_dates_from`, `inclusive_dates_to`, `number_of_hours`, `position_nature_of_work`) VALUES
+(1, 1, 'Velit optio fuga V', '2003-07-17', '1975-01-06', '93', 'Ut est consequatur '),
+(2, 2, 'At debitis pariatur', '2018-01-15', '2017-04-17', '89', 'Ut ea delectus temp');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_work_experiences`
+--
+
+CREATE TABLE `employee_work_experiences` (
+  `employee_work_experience_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `inclusive_dates_from` date NOT NULL,
+  `inclusive_dates_to` date NOT NULL,
+  `position_title` varchar(255) NOT NULL,
+  `department_agency_office_company` varchar(255) NOT NULL,
+  `monthly_salary` varchar(255) NOT NULL,
+  `salary_job_pay_grade` varchar(255) NOT NULL,
+  `appointment_status` varchar(255) NOT NULL,
+  `is_govt_service` char(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employee_work_experiences`
+--
+
+INSERT INTO `employee_work_experiences` (`employee_work_experience_id`, `employee_id`, `inclusive_dates_from`, `inclusive_dates_to`, `position_title`, `department_agency_office_company`, `monthly_salary`, `salary_job_pay_grade`, `appointment_status`, `is_govt_service`) VALUES
+(1, 1, '2009-12-08', '2009-01-07', 'Qui consequat Id ve', 'Beatae in maiores fu', '39', 'Minim non eaque exce', 'Rerum hic quos verit', 'Y'),
+(2, 2, '1972-03-19', '1982-09-14', 'Odio sunt sit incid', 'Tenetur elit volupt', '86', 'Et laboris placeat ', 'Molestiae excepturi ', 'Y'),
+(3, 2, '2020-01-20', '2022-02-25', 'Ut aliquam veniam d', 'Dolore in est quo in', '16', 'Numquam deserunt ali', 'Est id amet debiti', 'N'),
+(4, 5, '1990-08-11', '1985-01-23', 'Et sint fugiat duci', 'Non ea anim eius id ', '100', 'Ratione aliqua Non ', 'Quos iste ea lorem a', 'Y');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `employment_status`
 --
 
@@ -1963,7 +2265,7 @@ CREATE TABLE `employment_status` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `employment_status`
@@ -1989,8 +2291,8 @@ CREATE TABLE `logs` (
   `log_data` longtext NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `log_actor` varchar(50) DEFAULT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `logs`
@@ -4615,7 +4917,17 @@ INSERT INTO `logs` (`log_id`, `log_action`, `log_data`, `user_id`, `log_actor`, 
 (2607, 'User logged in successfully: egie.santos@baliwag.gov.ph', '{\"email\":\"egie.santos@baliwag.gov.ph\",\"ip_address\":\"::1\",\"user_id\":1,\"success\":true}', 1, 'egie.santos@baliwag.gov.ph', '2024-02-08 20:42:37'),
 (2608, 'User logged in successfully: egie.santos@baliwag.gov.ph', '{\"email\":\"egie.santos@baliwag.gov.ph\",\"ip_address\":\"::1\",\"user_id\":1,\"success\":true}', 1, 'egie.santos@baliwag.gov.ph', '2024-02-13 09:10:06'),
 (2609, 'User logged in successfully: egie.santos@baliwag.gov.ph', '{\"email\":\"egie.santos@baliwag.gov.ph\",\"ip_address\":\"::1\",\"user_id\":1,\"success\":true}', 1, 'egie.santos@baliwag.gov.ph', '2024-02-13 16:06:53'),
-(2610, 'User logged in successfully: egie.santos@baliwag.gov.ph', '{\"email\":\"egie.santos@baliwag.gov.ph\",\"ip_address\":\"::1\",\"user_id\":1,\"success\":true}', 1, 'egie.santos@baliwag.gov.ph', '2024-02-14 10:11:07');
+(2610, 'User logged in successfully: egie.santos@baliwag.gov.ph', '{\"email\":\"egie.santos@baliwag.gov.ph\",\"ip_address\":\"::1\",\"user_id\":1,\"success\":true}', 1, 'egie.santos@baliwag.gov.ph', '2024-02-14 10:11:07'),
+(2611, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-02-21 08:51:12'),
+(2612, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-02-21 14:03:50'),
+(2613, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-02-22 15:30:42'),
+(2614, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-02-26 08:28:14'),
+(2615, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-02-27 08:38:59'),
+(2616, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-02-27 15:05:54'),
+(2617, 'User log in failed: admin.darrel', '{\"email\":\"admin.darrel\",\"ip_address\":\"127.0.0.1\",\"user_id\":null,\"success\":false}', NULL, 'admin.darrel', '2024-02-29 08:53:08'),
+(2618, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-02-29 08:53:13'),
+(2619, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-02-29 13:35:59'),
+(2620, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-03-04 09:08:03');
 
 -- --------------------------------------------------------
 
@@ -4631,7 +4943,7 @@ CREATE TABLE `migrations` (
   `namespace` varchar(255) NOT NULL,
   `time` int(11) NOT NULL,
   `batch` int(11) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -4653,10 +4965,10 @@ CREATE TABLE `plantilla` (
   `authorized` varchar(50) NOT NULL,
   `actual` varchar(50) NOT NULL,
   `dept_id` int(11) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `plantilla`
@@ -4990,10 +5302,10 @@ INSERT INTO `plantilla` (`plantilla_id`, `position_title`, `salary_grade`, `auth
 CREATE TABLE `refbrgy` (
   `id` int(11) NOT NULL,
   `brgyCode` varchar(255) DEFAULT NULL,
-  `brgyDesc` text,
+  `brgyDesc` text DEFAULT NULL,
   `citymunCode` varchar(255) DEFAULT NULL,
-  `is_deleted` int(1) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `is_deleted` int(1) NOT NULL DEFAULT 0
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `refbrgy`
@@ -47084,11 +47396,11 @@ INSERT INTO `refbrgy` (`id`, `brgyCode`, `brgyDesc`, `citymunCode`, `is_deleted`
 CREATE TABLE `refcitymun` (
   `id` int(255) NOT NULL,
   `psgcCode` varchar(255) DEFAULT NULL,
-  `citymunDesc` text,
+  `citymunDesc` text DEFAULT NULL,
   `provCode` varchar(255) DEFAULT NULL,
   `citymunCode` varchar(255) DEFAULT NULL,
-  `is_deleted` int(1) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `is_deleted` int(1) NOT NULL DEFAULT 0
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `refcitymun`
@@ -48754,11 +49066,11 @@ INSERT INTO `refcitymun` (`id`, `psgcCode`, `citymunDesc`, `provCode`, `citymunC
 CREATE TABLE `refprovince` (
   `id` int(11) NOT NULL,
   `psgcCode` varchar(255) DEFAULT NULL,
-  `provDesc` text,
+  `provDesc` text DEFAULT NULL,
   `regCode` varchar(255) DEFAULT NULL,
   `provCode` varchar(255) DEFAULT NULL,
-  `is_deleted` int(1) DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `is_deleted` int(1) DEFAULT 0
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `refprovince`
@@ -48864,10 +49176,10 @@ INSERT INTO `refprovince` (`id`, `psgcCode`, `provDesc`, `regCode`, `provCode`, 
 CREATE TABLE `roles` (
   `role_id` int(11) NOT NULL,
   `role_description` varchar(50) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `roles`
@@ -48900,12 +49212,12 @@ CREATE TABLE `users` (
   `activate_hash` varchar(255) DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   `status_message` varchar(255) DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '0',
-  `force_pass_reset` tinyint(1) NOT NULL DEFAULT '0',
+  `active` tinyint(1) NOT NULL DEFAULT 0,
+  `force_pass_reset` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `users`
@@ -48934,14 +49246,14 @@ CREATE TABLE `user_info` (
   `birthdate` date DEFAULT NULL,
   `contact_number` varchar(13) NOT NULL,
   `barangay` varchar(50) NOT NULL,
-  `role` int(11) NOT NULL DEFAULT '0',
+  `role` int(11) NOT NULL DEFAULT 0,
   `user_photo` text NOT NULL,
   `dept_id` int(11) NOT NULL,
   `system_access` longtext NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `user_info`
@@ -49031,6 +49343,54 @@ ALTER TABLE `employees`
   ADD PRIMARY KEY (`employee_id`);
 
 --
+-- Indexes for table `employee_attended_trainings`
+--
+ALTER TABLE `employee_attended_trainings`
+  ADD PRIMARY KEY (`employee_attended_training_id`);
+
+--
+-- Indexes for table `employee_educational_backgrounds`
+--
+ALTER TABLE `employee_educational_backgrounds`
+  ADD PRIMARY KEY (`employee_family_background_id`);
+
+--
+-- Indexes for table `employee_eligibilities`
+--
+ALTER TABLE `employee_eligibilities`
+  ADD PRIMARY KEY (`employee_eligibility_id`);
+
+--
+-- Indexes for table `employee_family_backgrounds`
+--
+ALTER TABLE `employee_family_backgrounds`
+  ADD PRIMARY KEY (`employee_family_background_id`);
+
+--
+-- Indexes for table `employee_info`
+--
+ALTER TABLE `employee_info`
+  ADD PRIMARY KEY (`employee_id`);
+
+--
+-- Indexes for table `employee_other_info`
+--
+ALTER TABLE `employee_other_info`
+  ADD PRIMARY KEY (`employee_other_info_id`);
+
+--
+-- Indexes for table `employee_voluntary_works`
+--
+ALTER TABLE `employee_voluntary_works`
+  ADD PRIMARY KEY (`employee_voluntary_work_id`);
+
+--
+-- Indexes for table `employee_work_experiences`
+--
+ALTER TABLE `employee_work_experiences`
+  ADD PRIMARY KEY (`employee_work_experience_id`);
+
+--
 -- Indexes for table `employment_status`
 --
 ALTER TABLE `employment_status`
@@ -49112,7 +49472,7 @@ ALTER TABLE `auth_groups`
 -- AUTO_INCREMENT for table `auth_logins`
 --
 ALTER TABLE `auth_logins`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=595;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=605;
 
 --
 -- AUTO_INCREMENT for table `auth_permissions`
@@ -49145,6 +49505,54 @@ ALTER TABLE `employees`
   MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1127;
 
 --
+-- AUTO_INCREMENT for table `employee_attended_trainings`
+--
+ALTER TABLE `employee_attended_trainings`
+  MODIFY `employee_attended_training_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `employee_educational_backgrounds`
+--
+ALTER TABLE `employee_educational_backgrounds`
+  MODIFY `employee_family_background_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `employee_eligibilities`
+--
+ALTER TABLE `employee_eligibilities`
+  MODIFY `employee_eligibility_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `employee_family_backgrounds`
+--
+ALTER TABLE `employee_family_backgrounds`
+  MODIFY `employee_family_background_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `employee_info`
+--
+ALTER TABLE `employee_info`
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `employee_other_info`
+--
+ALTER TABLE `employee_other_info`
+  MODIFY `employee_other_info_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `employee_voluntary_works`
+--
+ALTER TABLE `employee_voluntary_works`
+  MODIFY `employee_voluntary_work_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `employee_work_experiences`
+--
+ALTER TABLE `employee_work_experiences`
+  MODIFY `employee_work_experience_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `employment_status`
 --
 ALTER TABLE `employment_status`
@@ -49154,7 +49562,7 @@ ALTER TABLE `employment_status`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2611;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2621;
 
 --
 -- AUTO_INCREMENT for table `migrations`

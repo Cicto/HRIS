@@ -26,6 +26,25 @@
 
 <?= $this->section('content'); ?>
 
+<?php
+    $GLOBALS['is_edit'] = $is_edit;
+    
+    function is_edit($variable){
+        if($GLOBALS['is_edit']){
+            if(gettype($variable) != "object"){
+                return $variable;
+            }else{
+                return $variable();
+            }
+        }
+        return "";
+    }
+
+    function searchArrayById($array, $id, $id_name){
+
+    }
+?>
+
 <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
     <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex flex-stack">
         <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
@@ -271,7 +290,7 @@
                             <div class="flex-row-fluid h-100">
                                 <div class="form d-flex flex-column h-100">
                                     <div class="mb-5 flex-grow-1" id="employee-forms-container">
-                                        <div class="flex-column h-100 justify-content-between current" data-kt-stepper-element="content">
+                                        <div class="flex-column h-100 justify-content-between" data-kt-stepper-element="content">
                                             <!-- Personal Information -->
                                             <form class="ps-3" id="personal-information-form">
                                                 <div class="text-center border-bottom pb-4 mb-6">
@@ -286,17 +305,17 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="mb-3">
-                                                            <input type="text" id="firstname" name="firstname" value="Darrel" class="form-control form-control-solid" placeholder="First Name" required/>
+                                                            <input type="text" id="firstname" name="firstname" value="<?=is_edit($employee_info->firstname)?>" class="form-control form-control-solid" placeholder="First Name" required/>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <input type="text" id="middlename" name="middlename" value="Bayaras" class="form-control form-control-solid" placeholder="Middle Name"/>
+                                                            <input type="text" id="middlename" name="middlename" value="<?=is_edit($employee_info->middlename)?>" class="form-control form-control-solid" placeholder="Middle Name"/>
                                                         </div>
                                                         <div class="d-flex">
                                                             <div class="flex-grow-1 me-3">
-                                                                <input type="text" id="lastname" name="lastname" value="Geslani" class="form-control form-control-solid" placeholder="Last Name" required/>
+                                                                <input type="text" id="lastname" name="lastname" value="<?=is_edit($employee_info->lastname)?>" class="form-control form-control-solid" placeholder="Last Name" required/>
                                                             </div>
                                                             <div class="">
-                                                                <input type="text" id="suffix" name="suffix" class="form-control form-control-solid" placeholder="Suffix: Jr."/>
+                                                                <input type="text" id="suffix" name="suffix" value="<?=is_edit($employee_info->suffix)?>" class="form-control form-control-solid" placeholder="Suffix: Jr."/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -307,7 +326,7 @@
                                                         <label for="birthdate" class="required form-label">Birthdate</label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="date" id="birthdate" name="birthdate" value="<?= date('Y-m-d') ?>" class="form-control form-control-solid"/>
+                                                        <input type="date" id="birthdate" name="birthdate" value="<?=is_edit($employee_info->birthdate)?>" class="form-control form-control-solid"/>
                                                     </div>
                                                 </div>
                                                 <!-- Sex -->
@@ -318,8 +337,8 @@
                                                     <div class="col-md-8">
                                                         <select class="form-select form-select-solid" name="sex" id="sex" data-control="select2" data-placeholder="Select a sex">
                                                             <option></option>
-                                                            <option value="Male" selected>Male</option>
-                                                            <option value="Female">Female</option>
+                                                            <option value="Male"  <?=$is_edit ? $employee_info->sex == "Male" ? "selected" : "" : "" ?> selected>Male</option>
+                                                            <option value="Female" <?=$is_edit ? $employee_info->sex == "Female" ? "selected" : "" : "" ?> >Female</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -331,11 +350,9 @@
                                                     <div class="col-md-8">
                                                         <select class="form-select form-select-solid" name="civil_status" id="civil-status" data-control="select2" data-placeholder="Select a civil status">
                                                             <option></option>
-                                                            <option value="Single" selected>Single</option>
-                                                            <option value="Married">Married</option>
-                                                            <option value="Widowed">Widowed</option>
-                                                            <option value="Separated">Separated</option>
-                                                            <option value="Live-in">Live-in</option>
+                                                            <?php foreach (["Single", "Married", "Widowed", "Separated", "Live-in"] as $index => $value):?>
+                                                            <option value="<?=$value?>" <?=$is_edit ? ($employee_info->civil_status == $value ? "selected" : "") : (!$index ? "selected" : "")?>><?=$value?></option>
+                                                            <?php endforeach;?>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -346,11 +363,11 @@
                                                     </div>
                                                     <div class="col-8 d-flex">
                                                         <div class="input-group input-group-solid me-2">
-                                                            <input type="text" class="form-control mask-float" name="height" value="1.6764" id="height" placeholder="Height" min="0"/>
+                                                            <input type="text" class="form-control mask-float" name="height" value="<?=is_edit($employee_info->height)?>" id="height" placeholder="Height" min="0"/>
                                                             <span class="input-group-text">meters</span>
                                                         </div>
                                                         <div class="input-group input-group-solid ms-1">
-                                                            <input type="text" class="form-control mask-float" name="weight" value="65" id="weight" placeholder="Weight" min="0"/>
+                                                            <input type="text" class="form-control mask-float" name="weight" value="<?=is_edit($employee_info->weight)?>" id="weight" placeholder="Weight" min="0"/>
                                                             <span class="input-group-text">kilograms</span>
                                                         </div>
                                                     </div>
@@ -361,7 +378,7 @@
                                                         <label for="blood-type" class="form-label">Blood Type</label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" name="blood_type" value="blood_type" id="blood-type" class="form-control form-control-solid" placeholder="Blood Type">
+                                                        <input type="text" name="blood_type" value="<?=is_edit($employee_info->blood_type)?>" id="blood-type" class="form-control form-control-solid" placeholder="Blood Type">
                                                     </div>
                                                 </div>
 
@@ -377,7 +394,7 @@
                                                             <span class="input-group-text p-0 w-50px no-drag">
                                                                 <img src="<?=base_url()?>/public/assets/media/icons/gsis.svg" alt="GSIS" class="h-25px mx-auto grayscale opacity-50">
                                                             </span>
-                                                            <input type="text" name="gsis_id" value="gsis_id" id="gsis-id" class="form-control form-control-solid" placeholder="0000-0000000-0">
+                                                            <input type="text" name="gsis_id" value="<?=is_edit($employee_info->gsis_id)?>" id="gsis-id" class="form-control form-control-solid" placeholder="0000-0000000-0">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -391,7 +408,7 @@
                                                             <span class="input-group-text p-0 w-50px text-center no-drag">
                                                                 <img src="<?=base_url()?>/public/assets/media/icons/pag-ibig.svg" alt="Pag-Ibig" class="h-25px mx-auto grayscale opacity-50">
                                                             </span>
-                                                            <input type="text" name="pag_ibig_id" value="pag_ibig_id" id="pag-ibig-id" class="form-control form-control-solid" placeholder="0000-0000-0000">
+                                                            <input type="text" name="pag_ibig_id" value="<?=is_edit($employee_info->pag_ibig_id)?>" id="pag-ibig-id" class="form-control form-control-solid" placeholder="0000-0000-0000">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -405,7 +422,7 @@
                                                             <span class="input-group-text p-0 w-50px text-center no-drag">
                                                                 <img src="<?=base_url()?>/public/assets/media/icons/philhealth.svg" alt="PhilHealth" class="h-25px mx-auto grayscale opacity-50">
                                                             </span>
-                                                            <input type="text" name="philhealth_id" value="philhealth_id" id="philhealth-id" class="form-control form-control-solid" placeholder="00-000000000-0">
+                                                            <input type="text" name="philhealth_id" value="<?=is_edit($employee_info->philhealth_id)?>" id="philhealth-id" class="form-control form-control-solid" placeholder="00-000000000-0">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -419,7 +436,7 @@
                                                             <span class="input-group-text p-0 w-50px text-center no-drag">
                                                                 <img src="<?=base_url()?>/public/assets/media/icons/sss.svg" alt="SSS" class="h-15px mx-auto grayscale opacity-50">
                                                             </span>
-                                                            <input type="text" name="sss_id" value="sss_id" id="sss-id" class="form-control form-control-solid" placeholder="00-0000000-0">
+                                                            <input type="text" name="sss_id" value="<?=is_edit($employee_info->sss_id)?>" id="sss-id" class="form-control form-control-solid" placeholder="00-0000000-0">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -433,7 +450,7 @@
                                                             <span class="input-group-text p-0 w-50px text-center no-drag">
                                                                 <b class="d-block mx-auto text-gray-500">TIN</b>
                                                             </span>
-                                                            <input type="text" name="tin_id" value="tin_id" id="tin-id" class="form-control form-control-solid" placeholder="000-000-000-00000">
+                                                            <input type="text" name="tin_id" value="<?=is_edit($employee_info->tin_id)?>" id="tin-id" class="form-control form-control-solid" placeholder="000-000-000-00000">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -443,7 +460,7 @@
                                                         <label for="agency-employee-id" class="form-label">Agency Employee No.</label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" name="agency_employee_id" value="agency_employee_id" id="agency-employee-id" class="form-control form-control-solid" placeholder="00-0000">
+                                                        <input type="text" name="agency_employee_id" value="<?=is_edit($employee_info->agency_employee_id)?>" id="agency-employee-id" class="form-control form-control-solid" placeholder="00-0000">
                                                     </div>
                                                 </div>
 
@@ -460,7 +477,7 @@
                                                             <!-- Filipino -->
                                                             <div class="col-6">
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" value="1" name="is_filipino" id="is-filipino" checked/>
+                                                                    <input class="form-check-input" type="checkbox" value="1" name="is_filipino" id="is-filipino" <?=$is_edit ? $employee_info->is_filipino ? "checked" : "" : ""?>/>
                                                                     <label class="form-check-label" for="is-filipino">
                                                                         Filipino
                                                                     </label>
@@ -469,7 +486,7 @@
                                                             <!-- Dual Citizenship -->
                                                             <div class="col-6">
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" value="1" name="has_dual_citizenship" id="has-dual-citizenship" />
+                                                                    <input class="form-check-input" type="checkbox" value="1" name="has_dual_citizenship" id="has-dual-citizenship" <?=$is_edit ? $employee_info->has_dual_citizenship ? "checked" : "" : ""?>/>
                                                                     <label class="form-check-label" for="has-dual-citizenship">
                                                                         Dual Citizenship
                                                                     </label>
@@ -483,7 +500,7 @@
                                                             <!-- By birth -->
                                                             <div class="col-6">
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" value="1" name="is_citizen_by_birth" id="is-citizen-by-birth" checked/>
+                                                                    <input class="form-check-input" type="checkbox" value="1" name="is_citizen_by_birth" id="is-citizen-by-birth" <?=$is_edit ? $employee_info->is_citizen_by_birth ? "checked" : "" : ""?>/>
                                                                     <label class="form-check-label" for="is-citizen-by-birth">
                                                                         By birth
                                                                     </label>
@@ -492,7 +509,7 @@
                                                             <!-- By naturalization -->
                                                             <div class="col-6">
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" value="" name="is_citizen_by_naturalization" id="is-citizen-by-naturalization" />
+                                                                    <input class="form-check-input" type="checkbox" value="" name="is_citizen_by_naturalization" id="is-citizen-by-naturalization" <?=$is_edit ? $employee_info->is_citizen_by_naturalization ? "checked" : "" : ""?>/>
                                                                     <label class="form-check-label" for="is-citizen-by-naturalization">
                                                                         By naturalization
                                                                     </label>
@@ -515,10 +532,10 @@
                                                     <div class="col-md-8">
                                                         <div class="row g-3">
                                                             <div class="col-3">
-                                                                <input type="text" class="form-control form-control-solid" name="residential_house_number" value="residential_house_number" id="residential-house-number" placeholder="House/Block/Lot No." required>
+                                                                <input type="text" class="form-control form-control-solid" name="residential_house_number" value="<?=is_edit($employee_info->residential_house_number)?>" id="residential-house-number" placeholder="House/Block/Lot No." required>
                                                             </div>
                                                             <div class="col-9">
-                                                                <input type="text" class="form-control form-control-solid" name="residential_street" value="residential_street" id="residential-street" placeholder="Street" required>
+                                                                <input type="text" class="form-control form-control-solid" name="residential_street" value="<?=is_edit($employee_info->residential_street)?>" id="residential-street" placeholder="Street" required>
                                                             </div>
                                                             <div class="col-12">
                                                                 <select name="residential_barangay_code" id="residential-barangay-code" class="form-select form-select-solid" data-control="select2" data-placeholder="Select a barangay" required>
@@ -542,7 +559,7 @@
                                                                 <input type="text" name="residential_province" class="address-text d-none">
                                                             </div>
                                                             <div class="col-12">
-                                                                <input type="text" name="residential_zip_code" value="3006" id="residential-zip-code" class="form-control form-control-solid mask-zip-code" placeholder="ZIP Code">
+                                                                <input type="text" name="residential_zip_code" value="<?=is_edit($employee_info->residential_zip_code)?>" id="residential-zip-code" class="form-control form-control-solid mask-zip-code" placeholder="ZIP Code">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -556,10 +573,10 @@
                                                     <div class="col-md-8">
                                                         <div class="row g-3">
                                                             <div class="col-3">
-                                                                <input type="text" class="form-control form-control-solid" name="permanent_house_number" id="permanent-house-number" placeholder="House/Block/Lot No." required>
+                                                                <input type="text" class="form-control form-control-solid" name="permanent_house_number" value="<?=is_edit($employee_info->permanent_house_number)?>" id="permanent-house-number" placeholder="House/Block/Lot No." required>
                                                             </div>
                                                             <div class="col-9">
-                                                                <input type="text" class="form-control form-control-solid" name="permanent_street" id="permanent-street" placeholder="Street" required>
+                                                                <input type="text" class="form-control form-control-solid" name="permanent_street" value="<?=is_edit($employee_info->permanent_street)?>" id="permanent-street" placeholder="Street" required>
                                                             </div>
                                                             <div class="col-12">
                                                                 <select name="permanent_barangay_code" id="permanent-barangay-code" class="form-select form-select-solid" data-control="select2" data-placeholder="Select a barangay" required>
@@ -583,7 +600,7 @@
                                                                 <input type="text" name="permanent_province" class="address-text d-none">
                                                             </div>
                                                             <div class="col-12">
-                                                                <input type="text" name="permanent_zip_code" id="permanent-zip-code" class="form-control form-control-solid mask-zip-code" placeholder="ZIP Code">
+                                                                <input type="text" name="permanent_zip_code" id="permanent-zip-code" value="<?=is_edit($employee_info->permanent_zip_code)?>" class="form-control form-control-solid mask-zip-code" placeholder="ZIP Code">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -601,7 +618,7 @@
                                                             <span class="input-group-text w-50px d-inline-block text-center">
                                                                 <i class="fas fa-phone-alt"></i>
                                                             </span>
-                                                            <input type="text" name="telephone_number" id="telephone-number" class="form-control form-control-solid" placeholder="00-0000-0000">
+                                                            <input type="text" name="telephone_number" value="<?=is_edit($employee_info->telephone_number)?>" id="telephone-number" class="form-control form-control-solid" placeholder="00-0000-0000">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -615,7 +632,7 @@
                                                             <span class="input-group-text w-50px d-inline-block text-center">
                                                                 <i class="fas fa-mobile-alt fs-4"></i>
                                                             </span>
-                                                            <input type="text" name="mobile_number" value="0905-672-0113" id="mobile-number" class="form-control form-control-solid mask-contact-number" placeholder="0900-000-0000">
+                                                            <input type="text" name="mobile_number" value="<?=is_edit($employee_info->mobile_number)?>" id="mobile-number" class="form-control form-control-solid mask-contact-number" placeholder="0900-000-0000">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -629,7 +646,7 @@
                                                             <span class="input-group-text w-50px d-inline-block text-center">
                                                                 <i class="fas fa-at fs-4"></i>
                                                             </span>
-                                                            <input type="email" name="email_address" value="geslanidarrel@gmail.com" id="email-address" class="form-control form-control-solid mask-contact-number" placeholder="example@email.com">
+                                                            <input type="email" name="email_address" value="<?=is_edit($employee_info->email_address)?>" id="email-address" class="form-control form-control-solid" placeholder="example@email.com">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -689,17 +706,17 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="mb-3">
-                                                            <input type="text" id="spouse-firstname" name="spouse_firstname" value="" class="form-control form-control-solid" placeholder="First Name"/>
+                                                            <input type="text" id="spouse-firstname" name="spouse_firstname" value="<?=is_edit($employee_family_background->spouse_firstname)?>" class="form-control form-control-solid" placeholder="First Name"/>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <input type="text" id="spouse-middlename" name="spouse_middlename" value="" class="form-control form-control-solid" placeholder="Middle Name"/>
+                                                            <input type="text" id="spouse-middlename" name="spouse_middlename" value="<?=is_edit($employee_family_background->spouse_middlename)?>" class="form-control form-control-solid" placeholder="Middle Name"/>
                                                         </div>
                                                         <div class="d-flex">
                                                             <div class="flex-grow-1 me-3">
-                                                                <input type="text" id="spouse-lastname" name="spouse_lastname" value="" class="form-control form-control-solid" placeholder="Last Name"/>
+                                                                <input type="text" id="spouse-lastname" name="spouse_lastname" value="<?=is_edit($employee_family_background->spouse_lastname)?>" class="form-control form-control-solid" placeholder="Last Name"/>
                                                             </div>
                                                             <div class="">
-                                                                <input type="text" id="spouse-suffix" name="spouse_suffix" value="" class="form-control form-control-solid" placeholder="Suffix: Jr."/>
+                                                                <input type="text" id="spouse-suffix" name="spouse_suffix" value="<?=is_edit($employee_family_background->spouse_suffix)?>" class="form-control form-control-solid" placeholder="Suffix: Jr."/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -710,7 +727,7 @@
                                                         <label for="spouse-occupation" class="form-label">Occupation</label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" name="spouse_occupation" value="" id="spouse-occupation" class="form-control form-control-solid" placeholder="Occupation">
+                                                        <input type="text" name="spouse_occupation" value="<?=is_edit($employee_family_background->spouse_occupation)?>" id="spouse-occupation" class="form-control form-control-solid" placeholder="Occupation">
                                                     </div>
                                                 </div>
                                                 <!-- Employer/Business Name -->
@@ -719,7 +736,7 @@
                                                         <label for="spouse-employer_business_name" class="form-label">Employer/Business Name</label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" name="spouse_employer_business_name" value="" id="spouse-employer-business-name" class="form-control form-control-solid" placeholder="Employer/Business Name">
+                                                        <input type="text" name="spouse_employer_business_name" value="<?=is_edit($employee_family_background->spouse_employer_business_name)?>" id="spouse-employer-business-name" class="form-control form-control-solid" placeholder="Employer/Business Name">
                                                     </div>
                                                 </div>
                                                 <!-- Business Address -->
@@ -728,7 +745,7 @@
                                                         <label for="spouse-business_address" class="form-label">Business Address</label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" name="spouse_business_address" value="" id="spouse-business-address" class="form-control form-control-solid" placeholder="Business Address">
+                                                        <input type="text" name="spouse_business_address" value="<?=is_edit($employee_family_background->spouse_business_address)?>" id="spouse-business-address" class="form-control form-control-solid" placeholder="Business Address">
                                                     </div>
                                                 </div>
                                                 <!-- Telephone No. -->
@@ -741,7 +758,7 @@
                                                             <span class="input-group-text w-50px d-inline-block text-center">
                                                                 <i class="fas fa-phone-alt"></i>
                                                             </span>
-                                                            <input type="text" name="spouse_telephone_number" value="" id="spouse-telephone-number" class="form-control form-control-solid" placeholder="00-0000-0000">
+                                                            <input type="text" name="spouse_telephone_number" value="<?=is_edit($employee_family_background->spouse_telephone_number)?>" id="spouse-telephone-number" class="form-control form-control-solid" placeholder="00-0000-0000">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -755,17 +772,17 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="mb-3">
-                                                            <input type="text" id="father-firstname" name="father_firstname" value="father_firstname" class="form-control form-control-solid" placeholder="First Name" required/>
+                                                            <input type="text" id="father-firstname" name="father_firstname" value="<?=is_edit($employee_family_background->father_firstname)?>" class="form-control form-control-solid" placeholder="First Name" required/>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <input type="text" id="father-middlename" name="father_middlename" value="father_middlename" class="form-control form-control-solid" placeholder="Middle Name"/>
+                                                            <input type="text" id="father-middlename" name="father_middlename" value="<?=is_edit($employee_family_background->father_middlename)?>" class="form-control form-control-solid" placeholder="Middle Name"/>
                                                         </div>
                                                         <div class="d-flex">
                                                             <div class="flex-grow-1 me-3">
-                                                                <input type="text" id="father-lastname" name="father_lastname" value="father_lastname" class="form-control form-control-solid" placeholder="Last Name" required/>
+                                                                <input type="text" id="father-lastname" name="father_lastname" value="<?=is_edit($employee_family_background->father_lastname)?>" class="form-control form-control-solid" placeholder="Last Name" required/>
                                                             </div>
                                                             <div class="">
-                                                                <input type="text" id="father-suffix" name="father_suffix" value="father_suffix" class="form-control form-control-solid" placeholder="Suffix: Jr."/>
+                                                                <input type="text" id="father-suffix" name="father_suffix" value="<?=is_edit($employee_family_background->father_suffix)?>" class="form-control form-control-solid" placeholder="Suffix: Jr."/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -777,13 +794,13 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="mb-3">
-                                                            <input type="text" id="mother-firstname" name="mother_firstname" value="mother_firstname" class="form-control form-control-solid" placeholder="First Name" required/>
+                                                            <input type="text" id="mother-firstname" name="mother_firstname" value="<?=is_edit($employee_family_background->mother_firstname)?>" class="form-control form-control-solid" placeholder="First Name" required/>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <input type="text" id="mother-middlename" name="mother_middlename" value="mother_middlename" class="form-control form-control-solid" placeholder="Middle Name"/>
+                                                            <input type="text" id="mother-middlename" name="mother_middlename" value="<?=is_edit($employee_family_background->mother_middlename)?>" class="form-control form-control-solid" placeholder="Middle Name"/>
                                                         </div>
                                                         <div>
-                                                            <input type="text" id="mother-lastname" name="mother_lastname" value="mother_lastname" class="form-control form-control-solid" placeholder="Last Name" required/>
+                                                            <input type="text" id="mother-lastname" name="mother_lastname" value="<?=is_edit($employee_family_background->mother_lastname)?>" class="form-control form-control-solid" placeholder="Last Name" required/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -797,19 +814,38 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div id="children-form-repeater-container">
-                                                            <div class="d-flex flex-wrap form-repeater-container mb-3">
-                                                                <div class="flex-grow-1 me-0 me-md-5 mb-5 mb-md-0 w-100 w-md-auto">
-                                                                    <input type="text" class="form-control form-control-solid" data-name="child_name" data-required="" data-label="Name of Child" placeholder="Full Name"/>
+                                                            <?php if($is_edit):?>
+                                                                <?php $children = json_decode($employee_family_background->children);
+                                                                foreach ($children as $key => $child):?>
+                                                                    <div class="d-flex flex-wrap form-repeater-container mb-3">
+                                                                        <div class="flex-grow-1 me-0 me-md-5 mb-5 mb-md-0 w-100 w-md-auto">
+                                                                            <input type="text" class="form-control form-control-solid" data-name="child_name" value="<?=$child->child_name?>" data-required="" data-label="Name of Child" placeholder="Full Name"/>
+                                                                        </div>
+                                                                        <div class="flex-grow-1 flex-md-grow-0 w-md-25 me-5 mb-5 mb-md-0">
+                                                                            <input type="date" class="form-control form-control-solid" data-name="child_birthdate" value="<?=$child->child_birthdate?>" data-required="" data-label="Birthdate"/>
+                                                                        </div>
+                                                                        <div class="d-flex align-items-end mb-5 mb-md-0">
+                                                                            <button type="button" href="#" class="btn btn-icon btn-light-danger form-repeater-remove">
+                                                                                <i class="bi bi-trash fs-3"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                <?php endforeach;?>
+                                                            <?php else:?>
+                                                                <div class="d-flex flex-wrap form-repeater-container mb-3">
+                                                                    <div class="flex-grow-1 me-0 me-md-5 mb-5 mb-md-0 w-100 w-md-auto">
+                                                                        <input type="text" class="form-control form-control-solid" data-name="child_name" data-required="" data-label="Name of Child" placeholder="Full Name"/>
+                                                                    </div>
+                                                                    <div class="flex-grow-1 flex-md-grow-0 w-md-25 me-5 mb-5 mb-md-0">
+                                                                        <input type="date" class="form-control form-control-solid" data-required="" data-name="child_birthdate" data-label="Birthdate"/>
+                                                                    </div>
+                                                                    <div class="d-flex align-items-end mb-5 mb-md-0">
+                                                                        <button type="button" href="#" class="btn btn-icon btn-light-danger form-repeater-remove">
+                                                                            <i class="bi bi-trash fs-3"></i>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="flex-grow-1 flex-md-grow-0 w-md-25 me-5 mb-5 mb-md-0">
-                                                                    <input type="date" class="form-control form-control-solid" data-required="" data-name="child_birthdate" data-label="Birthdate"/>
-                                                                </div>
-                                                                <div class="d-flex align-items-end mb-5 mb-md-0">
-                                                                    <button type="button" href="#" class="btn btn-icon btn-light-danger form-repeater-remove">
-                                                                        <i class="bi bi-trash fs-3"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
+                                                            <?php endif;?>
                                                             <button type="button" class="btn btn-light-primary btn-outline btn-outline-primary float-end form-repeater-add">Add a Child</button>
                                                         </div>
                                                     </div>
@@ -824,226 +860,230 @@
                                                     <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Educational Background</h1>
                                                     <p class="text-gray-600 m-0">Please write the Name of School and/or Basic Education / Degree / Course in full.</p>
                                                 </div>
-
-                                                <!-- Elementary -->
-                                                <div class="row mb-6">
-                                                    <div class="col-md-4 pt-2">
-                                                        <label for="elementary-school-name" class="form-label">Elementary</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="row g-3 education-background-container" data-educational-level="1">
-                                                            <div class="col-12">
-                                                                <input type="text" id="elementary-school-name" name="school_name" class="form-control form-control-solid" placeholder="Name of School"/>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <input type="text" id="elementary-degree-course" name="degree_course" class="form-control form-control-solid" placeholder="Basic Education / Degree / Course"/>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <label for="period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
-                                                                    Period of Attendance
-                                                                </label>
-                                                            </div>
-                                                            <div class="col-md-6 d-flex align-items-center">
-                                                                <label for="period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
-                                                                    From:
-                                                                </label>
-                                                                <input type="date" id="elementary-period-of-attendance-from" name="period_of_attendance_from" class="form-control form-control-solid ms-3"/>
-                                                            </div>
-                                                            <div class="col-md-6 d-flex align-items-center">
-                                                                <label for="period-of-attendance-to" class="form-label ps-4 fs-6 m-0 text-gray-800">
-                                                                    To:
-                                                                </label>
-                                                                <input type="date" id="elementary-period-of-attendance-to" name="period_of_attendance_to" class="form-control form-control-solid ms-3"/>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <input type="text" id="elementary-highest-level" name="highest_level" class="form-control form-control-solid" placeholder="Highest Level / Units Earned (if not graduated)"/>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <input type="text" id="elementary-year-graduated" name="year_graduated" class="form-control form-control-solid mask-number" placeholder="Year Graduated"/>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <input type="text" id="elementary-scholarship-academic-honors-received" name="scholarship_academic_honors_received" class="form-control form-control-solid" placeholder="Scholarship / Academic Honors Received"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="separator flex-grow-1 mb-6 separator-dashed"></div>  
-
-                                                <!-- Secondary -->
-                                                <div class="row mb-6">
-                                                    <div class="col-md-4 pt-2">
-                                                        <label for="secondary-school-name" class="form-label">Secondary</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="row g-3 education-background-container" data-educational-level="2">
-                                                            <div class="col-12">
-                                                                <input type="text" id="secondary-school-name" name="school_name" class="form-control form-control-solid" placeholder="Name of School"/>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <input type="text" id="secondary-degree-course" name="degree_course" class="form-control form-control-solid" placeholder="Basic Education / Degree / Course"/>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <label for="period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
-                                                                    Period of Attendance
-                                                                </label>
-                                                            </div>
-                                                            <div class="col-md-6 d-flex align-items-center">
-                                                                <label for="period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
-                                                                    From:
-                                                                </label>
-                                                                <input type="date" id="secondary-period-of-attendance-from" name="period_of_attendance_from" class="form-control form-control-solid ms-3"/>
-                                                            </div>
-                                                            <div class="col-md-6 d-flex align-items-center">
-                                                                <label for="period-of-attendance-to" class="form-label ps-4 fs-6 m-0 text-gray-800">
-                                                                    To:
-                                                                </label>
-                                                                <input type="date" id="secondary-period-of-attendance-to" name="period_of_attendance_to" class="form-control form-control-solid ms-3"/>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <input type="text" id="secondary-highest-level" name="highest_level" class="form-control form-control-solid" placeholder="Highest Level / Units Earned (if not graduated)"/>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <input type="text" id="secondary-year-graduated" name="year_graduated" class="form-control form-control-solid mask-number" placeholder="Year Graduated"/>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <input type="text" id="secondary-scholarship-academic-honors-received" name="scholarship_academic_honors_received" class="form-control form-control-solid" placeholder="Scholarship / Academic Honors Received"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="separator flex-grow-1 mb-6 separator-dashed"></div>  
-
-                                                <!-- Vocational / Trade Course -->
-                                                <div class="row mb-6">
-                                                    <div class="col-md-4 pt-2">
-                                                        <label for="vocational-school-name" class="form-label">Vocational / Trade Course</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="row g-3 education-background-container" data-educational-level="3">
-                                                            <div class="col-12">
-                                                                <input type="text" id="vocational-school-name" name="school_name" class="form-control form-control-solid" placeholder="Name of School"/>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <input type="text" id="vocational-degree_course" name="degree_course" class="form-control form-control-solid" placeholder="Basic Education / Degree / Course"/>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <label for="vocational-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
-                                                                    Period of Attendance
-                                                                </label>
-                                                            </div>
-                                                            <div class="col-md-6 d-flex align-items-center">
-                                                                <label for="vocational-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
-                                                                    From:
-                                                                </label>
-                                                                <input type="date" id="vocational-period-of-attendance-from" name="period_of_attendance_from" class="form-control form-control-solid ms-3"/>
-                                                            </div>
-                                                            <div class="col-md-6 d-flex align-items-center">
-                                                                <label for="vocational-period-of-attendance-to" class="form-label ps-4 fs-6 m-0 text-gray-800">
-                                                                    To:
-                                                                </label>
-                                                                <input type="date" id="vocational-period-of-attendance-to" name="period_of_attendance_to" class="form-control form-control-solid ms-3"/>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <input type="text" id="vocational-highest-level" name="highest_level" class="form-control form-control-solid" placeholder="Highest Level / Units Earned (if not graduated)"/>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <input type="text" id="vocational-year-graduated" name="year_graduated" class="form-control form-control-solid mask-number" placeholder="Year Graduated"/>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <input type="text" id="vocational-scholarship-academic-honors-received" name="scholarship_academic_honors_received" class="form-control form-control-solid" placeholder="Scholarship / Academic Honors Received"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="separator flex-grow-1 mb-6 separator-dashed"></div>  
                                                 
-                                                <!-- College -->
+                                                <?php $educational_levels = ['1' => "Elementary", '2' => "Secondary", '3' => "Vocational / Trade Course", '4' => "College", '5' => "Graduate Studies"];?>
+                                                <?php foreach ($educational_levels as $level => $name):?>
+                                                <!-- <?=$name?> -->
                                                 <div class="row mb-6">
                                                     <div class="col-md-4 pt-2">
-                                                        <label for="college-school-name" class="form-label">College</label>
+                                                        <label for="school-name" class="form-label"><?=$name?></label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <div class="row g-3 education-background-container" data-educational-level="4">
+                                                        <div class="row g-3 education-background-container" data-educational-level="<?=$level?>">
                                                             <div class="col-12">
-                                                                <input type="text" id="college-school-name" name="school_name" class="form-control form-control-solid" placeholder="Name of School"/>
+                                                                <input type="text" name="school_name" value="<?=$is_edit ? array_column($employee_educational_background, "school_name", "educational_level")[$level] : ""?>" class="form-control form-control-solid" placeholder="Name of School"/>
                                                             </div>
                                                             <div class="col-12">
-                                                                <input type="text" id="college-degree_course" name="degree_course" class="form-control form-control-solid" placeholder="Basic Education / Degree / Course"/>
+                                                                <input type="text" name="degree_course" value="<?=$is_edit ? array_column($employee_educational_background, "degree_course", "educational_level")[$level] : ""?>" class="form-control form-control-solid" placeholder="Basic Education / Degree / Course"/>
                                                             </div>
                                                             <div class="col-12">
-                                                                <label for="college-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                <label for="period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
                                                                     Period of Attendance
                                                                 </label>
                                                             </div>
                                                             <div class="col-md-6 d-flex align-items-center">
-                                                                <label for="college-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                <label for="period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
                                                                     From:
                                                                 </label>
-                                                                <input type="date" id="college-period-of-attendance-from" name="period_of_attendance_from" class="form-control form-control-solid ms-3"/>
+                                                                <input type="date" name="period_of_attendance_from" value="<?=$is_edit ? array_column($employee_educational_background, "period_of_attendance_from", "educational_level")[$level] : ""?>" class="form-control form-control-solid ms-3"/>
                                                             </div>
                                                             <div class="col-md-6 d-flex align-items-center">
-                                                                <label for="college-period-of-attendance-to" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                <label for="period-of-attendance-to" class="form-label ps-4 fs-6 m-0 text-gray-800">
                                                                     To:
                                                                 </label>
-                                                                <input type="date" id="college-period-of-attendance-to" name="period_of_attendance_to" class="form-control form-control-solid ms-3"/>
+                                                                <input type="date" name="period_of_attendance_to" value="<?=$is_edit ? array_column($employee_educational_background, "period_of_attendance_to", "educational_level")[$level] : ""?>" class="form-control form-control-solid ms-3"/>
                                                             </div>
                                                             <div class="col-12">
-                                                                <input type="text" id="college-highest-level" name="highest_level" class="form-control form-control-solid" placeholder="Highest Level / Units Earned (if not graduated)"/>
+                                                                <input type="text" name="highest_level" value="<?=$is_edit ? array_column($employee_educational_background, "highest_level", "educational_level")[$level] : ""?>" class="form-control form-control-solid" placeholder="Highest Level / Units Earned (if not graduated)"/>
                                                             </div>
                                                             <div class="col-12">
-                                                                <input type="text" id="college-year-graduated" name="year_graduated" class="form-control form-control-solid mask-number" placeholder="Year Graduated"/>
+                                                                <input type="number" name="year_graduated" value="<?=$is_edit ? array_column($employee_educational_background, "year_graduated", "educational_level")[$level] : ""?>" class="form-control form-control-solid" placeholder="Year Graduated"/>
                                                             </div>
                                                             <div class="col-12">
-                                                                <input type="text" id="college-scholarship-academic-honors-received" name="scholarship_academic_honors_received" class="form-control form-control-solid" placeholder="Scholarship / Academic Honors Received"/>
+                                                                <input type="text" name="scholarship_academic_honors_received" value="<?=$is_edit ? array_column($employee_educational_background, "scholarship_academic_honors_received", "educational_level")[$level] : ""?>" class="form-control form-control-solid" placeholder="Scholarship / Academic Honors Received"/>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="separator flex-grow-1 mb-6 separator-dashed"></div>  
+                                                <div class="separator flex-grow-1 mb-6 separator-dashed <?=$level == '5' ? "d-none" : ""?>"></div>  
+                                                <?php endforeach;?>
 
-                                                <!-- Graduate Studies -->
-                                                <div class="row mb-6">
-                                                    <div class="col-md-4 pt-2">
-                                                        <label for="graduate-studies-school-name" class="form-label">Graduate Studies</label>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="row g-3 education-background-container" data-educational-level="5">
-                                                            <div class="col-12">
-                                                                <input type="text" id="graduate-studies-school-name" name="school_name" class="form-control form-control-solid" placeholder="Name of School"/>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <input type="text" id="graduate-studies-degree_course" name="degree_course" class="form-control form-control-solid" placeholder="Basic Education / Degree / Course"/>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <label for="graduate-studies-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
-                                                                    Period of Attendance
-                                                                </label>
-                                                            </div>
-                                                            <div class="col-md-6 d-flex align-items-center">
-                                                                <label for="graduate-studies-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
-                                                                    From:
-                                                                </label>
-                                                                <input type="date" id="graduate-studies-period-of-attendance-from" name="period_of_attendance_from" class="form-control form-control-solid ms-3"/>
-                                                            </div>
-                                                            <div class="col-md-6 d-flex align-items-center">
-                                                                <label for="graduate-studies-period-of-attendance-to" class="form-label ps-4 fs-6 m-0 text-gray-800">
-                                                                    To:
-                                                                </label>
-                                                                <input type="date" id="graduate-studies-period-of-attendance-to" name="period_of_attendance_to" class="form-control form-control-solid ms-3"/>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <input type="text" id="graduate-studies-highest-level" name="highest_level" class="form-control form-control-solid" placeholder="Highest Level / Units Earned (if not graduated)"/>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <input type="text" id="graduate-studies-year-graduated" name="year_graduated" class="form-control form-control-solid mask-number" placeholder="Year Graduated"/>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <input type="text" id="graduate-studies-scholarship-academic-honors-received" name="scholarship_academic_honors_received" class="form-control form-control-solid" placeholder="Scholarship / Academic Honors Received"/>
+                                                <!-- Other Educational Levels -->
+                                                    <!-- Secondary -->
+                                                    <!-- <div class="row mb-6">
+                                                        <div class="col-md-4 pt-2">
+                                                            <label for="secondary-school-name" class="form-label">Secondary</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="row g-3 education-background-container" data-educational-level="2">
+                                                                <div class="col-12">
+                                                                    <input type="text" id="secondary-school-name" name="school_name" class="form-control form-control-solid" placeholder="Name of School"/>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <input type="text" id="secondary-degree-course" name="degree_course" class="form-control form-control-solid" placeholder="Basic Education / Degree / Course"/>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label for="period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                        Period of Attendance
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-6 d-flex align-items-center">
+                                                                    <label for="period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                        From:
+                                                                    </label>
+                                                                    <input type="date" id="secondary-period-of-attendance-from" name="period_of_attendance_from" class="form-control form-control-solid ms-3"/>
+                                                                </div>
+                                                                <div class="col-md-6 d-flex align-items-center">
+                                                                    <label for="period-of-attendance-to" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                        To:
+                                                                    </label>
+                                                                    <input type="date" id="secondary-period-of-attendance-to" name="period_of_attendance_to" class="form-control form-control-solid ms-3"/>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <input type="text" id="secondary-highest-level" name="highest_level" class="form-control form-control-solid" placeholder="Highest Level / Units Earned (if not graduated)"/>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <input type="text" id="secondary-year-graduated" name="year_graduated" class="form-control form-control-solid mask-number" placeholder="Year Graduated"/>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <input type="text" id="secondary-scholarship-academic-honors-received" name="scholarship_academic_honors_received" class="form-control form-control-solid" placeholder="Scholarship / Academic Honors Received"/>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                    <div class="separator flex-grow-1 mb-6 separator-dashed"></div>   -->
 
+                                                    <!-- Vocational / Trade Course -->
+                                                    <!-- <div class="row mb-6">
+                                                        <div class="col-md-4 pt-2">
+                                                            <label for="vocational-school-name" class="form-label">Vocational / Trade Course</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="row g-3 education-background-container" data-educational-level="3">
+                                                                <div class="col-12">
+                                                                    <input type="text" id="vocational-school-name" name="school_name" class="form-control form-control-solid" placeholder="Name of School"/>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <input type="text" id="vocational-degree_course" name="degree_course" class="form-control form-control-solid" placeholder="Basic Education / Degree / Course"/>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label for="vocational-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                        Period of Attendance
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-6 d-flex align-items-center">
+                                                                    <label for="vocational-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                        From:
+                                                                    </label>
+                                                                    <input type="date" id="vocational-period-of-attendance-from" name="period_of_attendance_from" class="form-control form-control-solid ms-3"/>
+                                                                </div>
+                                                                <div class="col-md-6 d-flex align-items-center">
+                                                                    <label for="vocational-period-of-attendance-to" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                        To:
+                                                                    </label>
+                                                                    <input type="date" id="vocational-period-of-attendance-to" name="period_of_attendance_to" class="form-control form-control-solid ms-3"/>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <input type="text" id="vocational-highest-level" name="highest_level" class="form-control form-control-solid" placeholder="Highest Level / Units Earned (if not graduated)"/>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <input type="text" id="vocational-year-graduated" name="year_graduated" class="form-control form-control-solid mask-number" placeholder="Year Graduated"/>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <input type="text" id="vocational-scholarship-academic-honors-received" name="scholarship_academic_honors_received" class="form-control form-control-solid" placeholder="Scholarship / Academic Honors Received"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="separator flex-grow-1 mb-6 separator-dashed"></div>   -->
+                                                    
+                                                    <!-- College -->
+                                                    <!-- <div class="row mb-6">
+                                                        <div class="col-md-4 pt-2">
+                                                            <label for="college-school-name" class="form-label">College</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="row g-3 education-background-container" data-educational-level="4">
+                                                                <div class="col-12">
+                                                                    <input type="text" id="college-school-name" name="school_name" class="form-control form-control-solid" placeholder="Name of School"/>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <input type="text" id="college-degree_course" name="degree_course" class="form-control form-control-solid" placeholder="Basic Education / Degree / Course"/>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label for="college-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                        Period of Attendance
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-6 d-flex align-items-center">
+                                                                    <label for="college-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                        From:
+                                                                    </label>
+                                                                    <input type="date" id="college-period-of-attendance-from" name="period_of_attendance_from" class="form-control form-control-solid ms-3"/>
+                                                                </div>
+                                                                <div class="col-md-6 d-flex align-items-center">
+                                                                    <label for="college-period-of-attendance-to" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                        To:
+                                                                    </label>
+                                                                    <input type="date" id="college-period-of-attendance-to" name="period_of_attendance_to" class="form-control form-control-solid ms-3"/>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <input type="text" id="college-highest-level" name="highest_level" class="form-control form-control-solid" placeholder="Highest Level / Units Earned (if not graduated)"/>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <input type="text" id="college-year-graduated" name="year_graduated" class="form-control form-control-solid mask-number" placeholder="Year Graduated"/>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <input type="text" id="college-scholarship-academic-honors-received" name="scholarship_academic_honors_received" class="form-control form-control-solid" placeholder="Scholarship / Academic Honors Received"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="separator flex-grow-1 mb-6 separator-dashed"></div>   -->
+
+                                                    <!-- Graduate Studies -->
+                                                    <!-- <div class="row mb-6">
+                                                        <div class="col-md-4 pt-2">
+                                                            <label for="graduate-studies-school-name" class="form-label">Graduate Studies</label>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <div class="row g-3 education-background-container" data-educational-level="5">
+                                                                <div class="col-12">
+                                                                    <input type="text" id="graduate-studies-school-name" name="school_name" class="form-control form-control-solid" placeholder="Name of School"/>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <input type="text" id="graduate-studies-degree_course" name="degree_course" class="form-control form-control-solid" placeholder="Basic Education / Degree / Course"/>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <label for="graduate-studies-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                        Period of Attendance
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-6 d-flex align-items-center">
+                                                                    <label for="graduate-studies-period-of-attendance-from" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                        From:
+                                                                    </label>
+                                                                    <input type="date" id="graduate-studies-period-of-attendance-from" name="period_of_attendance_from" class="form-control form-control-solid ms-3"/>
+                                                                </div>
+                                                                <div class="col-md-6 d-flex align-items-center">
+                                                                    <label for="graduate-studies-period-of-attendance-to" class="form-label ps-4 fs-6 m-0 text-gray-800">
+                                                                        To:
+                                                                    </label>
+                                                                    <input type="date" id="graduate-studies-period-of-attendance-to" name="period_of_attendance_to" class="form-control form-control-solid ms-3"/>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <input type="text" id="graduate-studies-highest-level" name="highest_level" class="form-control form-control-solid" placeholder="Highest Level / Units Earned (if not graduated)"/>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <input type="text" id="graduate-studies-year-graduated" name="year_graduated" class="form-control form-control-solid mask-number" placeholder="Year Graduated"/>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <input type="text" id="graduate-studies-scholarship-academic-honors-received" name="scholarship_academic_honors_received" class="form-control form-control-solid" placeholder="Scholarship / Academic Honors Received"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> -->
+                                                <!--  -->
                                             </form>
                                         </div>
 
@@ -1078,31 +1118,63 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="civil-service-eligibility-form-repeater-container" class="">
-                                                                    <tr class="form-repeater-container border">
-                                                                        <td class="p-0">
-                                                                            <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="eligibility" data-required="" placeholder="Career Service/ RA 1080 (Board/ Bar) Under Special Laws/ CES/ CSEE Barangay Eligibility / Driver's License"/>
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="rating" placeholder="Rating"/>
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="examination_date" data-required=""/>
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="examination_place" data-required="" placeholder="Place of Examination / Conferment"/>
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="license_number" placeholder="License Number"/>
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="date_of_validity" data-label="Date of Validity"/>
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <button type="button" href="#" class="btn btn-sm btn-icon btn-light-danger form-repeater-remove rounded-0">
-                                                                                <i class="bi bi-trash fs-5"></i>
-                                                                            </button>
-                                                                        </td>
-                                                                    </tr>
+                                                                    <?php if($is_edit):?>
+                                                                        <?php if($employee_eligibilities):?>
+                                                                        <?php foreach ($employee_eligibilities as $key => $eligibility):?>
+                                                                        <tr class="form-repeater-container border">
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="eligibility" value="<?=$eligibility->eligibility?>" data-required="" placeholder="Career Service/ RA 1080 (Board/ Bar) Under Special Laws/ CES/ CSEE Barangay Eligibility / Driver's License"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="rating" value="<?=$eligibility->rating?>" placeholder="Rating"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="examination_date" value="<?=$eligibility->examination_date?>" data-required=""/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="examination_place" value="<?=$eligibility->examination_place?>" data-required="" placeholder="Place of Examination / Conferment"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="license_number" value="<?=$eligibility->license_number?>" placeholder="License Number"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="date_of_validity" value="<?=$eligibility->date_of_validity?>" data-label="Date of Validity"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <button type="button" href="#" class="btn btn-sm btn-icon btn-light-danger form-repeater-remove rounded-0">
+                                                                                    <i class="bi bi-trash fs-5"></i>
+                                                                                </button>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <?php endforeach;?>
+                                                                        <?php endif;?>
+                                                                    <?php else:?>
+                                                                        <tr class="form-repeater-container border">
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="eligibility" data-required="" placeholder="Career Service/ RA 1080 (Board/ Bar) Under Special Laws/ CES/ CSEE Barangay Eligibility / Driver's License"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="rating" placeholder="Rating"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="examination_date" data-required=""/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="examination_place" data-required="" placeholder="Place of Examination / Conferment"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="license_number" placeholder="License Number"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="date_of_validity" data-label="Date of Validity"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <button type="button" href="#" class="btn btn-sm btn-icon btn-light-danger form-repeater-remove rounded-0">
+                                                                                    <i class="bi bi-trash fs-5"></i>
+                                                                                </button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <?php endif;?>
                                                                     <tr class="border-0">
                                                                         <td colspan="6" class="border-0 h-50px">
                                                                             <button type="button" class="btn btn-sm btn-light-primary btn-outline btn-outline-primary position-absolute end-0 me-3 form-repeater-add">Add a Civil Service Eligibility</button>
@@ -1164,41 +1236,83 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="work-experience-form-repeater-container" class="">
-                                                                    <tr class="form-repeater-container border">
-                                                                        <td class="p-0">
-                                                                            <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="inclusive_dates_from" data-required=""/>
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="inclusive_dates_to" data-required=""/>
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <input type="text" class="form-control form-control-sm form-control-transparent rounded-0 w-200px" data-name="position_title" data-required="" placeholder="Position Title"/>    
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <input type="text" class="form-control form-control-sm form-control-transparent rounded-0 w-200px" data-name="department_agency_office_company" data-required="" placeholder="Department / Agency / Office / Company"/>    
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <input type="number" class="form-control form-control-sm form-control-transparent rounded-0 w-125px" data-name="monthly_salary" data-required="" placeholder="Monthly Salary"/>    
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="salary_job_pay_grade" placeholder="Salary/ Job/ Pay Grade (if applicable) & Step (Format '00-0') / Increment"/>    
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="appointment_status" placeholder="Status of Appointment"/>    
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <select class="form-select form-select-sm form-select-transparent min-w-75px" data-name="is_govt_service" data-required="">
-                                                                                <option value="" selected disabled></option>
-                                                                                <option value="Y">Yes</option>
-                                                                                <option value="N">No</option>
-                                                                            </select>
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <button type="button" href="#" class="btn btn-sm btn-icon btn-light-danger form-repeater-remove rounded-0">
-                                                                                <i class="bi bi-trash fs-5"></i>
-                                                                            </button>
-                                                                        </td>
-                                                                    </tr>
+                                                                    <?php if($is_edit):?>
+                                                                        <?php if($employee_work_experiences):?>
+                                                                        <?php foreach ($employee_work_experiences as $key => $work_experience):?>
+                                                                        <tr class="form-repeater-container border">
+                                                                            <td class="p-0">
+                                                                                <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="inclusive_dates_from" value="<?=$work_experience->inclusive_dates_from?>" data-required=""/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="inclusive_dates_to" value="<?=$work_experience->inclusive_dates_to?>" data-required=""/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0 w-200px" data-name="position_title" value="<?=$work_experience->position_title?>" data-required="" placeholder="Position Title"/>    
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0 w-200px" data-name="department_agency_office_company" value="<?=$work_experience->department_agency_office_company?>" data-required="" placeholder="Department / Agency / Office / Company"/>    
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="number" class="form-control form-control-sm form-control-transparent rounded-0 w-125px" data-name="monthly_salary" value="<?=$work_experience->monthly_salary?>" data-required="" placeholder="Monthly Salary"/>    
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="salary_job_pay_grade" value="<?=$work_experience->salary_job_pay_grade?>" placeholder="Salary/ Job/ Pay Grade (if applicable) & Step (Format '00-0') / Increment"/>    
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="appointment_status" value="<?=$work_experience->appointment_status?>" placeholder="Status of Appointment"/>    
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <select class="form-select form-select-sm form-select-transparent min-w-75px" data-name="is_govt_service" data-required="">
+                                                                                    <option value="" disabled></option>
+                                                                                    <option value="Y" <?=$work_experience->is_govt_service == "Y" ? "selected" : ""?>>Yes</option>
+                                                                                    <option value="N" <?=$work_experience->is_govt_service == "N" ? "selected" : ""?>>No</option>
+                                                                                </select>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <button type="button" href="#" class="btn btn-sm btn-icon btn-light-danger form-repeater-remove rounded-0">
+                                                                                    <i class="bi bi-trash fs-5"></i>
+                                                                                </button>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <?php endforeach;?>
+                                                                        <?php endif;?>
+                                                                    <?php else:?>
+                                                                        <tr class="form-repeater-container border">
+                                                                            <td class="p-0">
+                                                                                <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="inclusive_dates_from" data-required=""/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="inclusive_dates_to" data-required=""/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0 w-200px" data-name="position_title" data-required="" placeholder="Position Title"/>    
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0 w-200px" data-name="department_agency_office_company" data-required="" placeholder="Department / Agency / Office / Company"/>    
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="number" class="form-control form-control-sm form-control-transparent rounded-0 w-125px" data-name="monthly_salary" data-required="" placeholder="Monthly Salary"/>    
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="salary_job_pay_grade" placeholder="Salary/ Job/ Pay Grade (if applicable) & Step (Format '00-0') / Increment"/>    
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="appointment_status" placeholder="Status of Appointment"/>    
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <select class="form-select form-select-sm form-select-transparent min-w-75px" data-name="is_govt_service" data-required="">
+                                                                                    <option value="" selected disabled></option>
+                                                                                    <option value="Y">Yes</option>
+                                                                                    <option value="N">No</option>
+                                                                                </select>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <button type="button" href="#" class="btn btn-sm btn-icon btn-light-danger form-repeater-remove rounded-0">
+                                                                                    <i class="bi bi-trash fs-5"></i>
+                                                                                </button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <?php endif;?>
                                                                     <tr class="border-0">
                                                                         <td colspan="9" class="border-0 h-50px">
                                                                             <button type="button" class="btn btn-sm btn-light-primary btn-outline btn-outline-primary position-absolute end-0 me-3 form-repeater-add">Add a Work Experience</button>
@@ -1226,7 +1340,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="flex-column h-100 justify-content-between" data-kt-stepper-element="content">
+                                        <div class="flex-column h-100 justify-content-between current" data-kt-stepper-element="content">
                                             <!-- Voluntary Work or Involvement in Civic / Non-Government / People / Voluntary Organization(s) -->
                                             <form class="ps-3 has-form-repeater" id="voluntary-work-form">
                                                 <div class="text-center border-bottom pb-4 mb-6">
@@ -1255,28 +1369,57 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="voluntary-work-form-repeater-container" class="">
-                                                                    <tr class="form-repeater-container border">
-                                                                        <td class="p-0 w-400px">
-                                                                            <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="organization_name_and_address" data-required="" placeholder="Name & Address of Organization"/>
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="inclusive_dates_from" data-required=""/>
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="inclusive_dates_to" data-required=""/>
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <input type="number" class="form-control form-control-sm form-control-transparent rounded-0" data-name="number_of_hours" data-required="" placeholder="Number of Hours" min="0"/>
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="position_nature_of_work" data-required="" placeholder="Position / Nature Of Work"/>
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <button type="button" href="#" class="btn btn-sm btn-icon btn-light-danger form-repeater-remove rounded-0">
-                                                                                <i class="bi bi-trash fs-5"></i>
-                                                                            </button>
-                                                                        </td>
-                                                                    </tr>
+                                                                    <?php if($is_edit && $employee_voluntary_works):?>
+                                                                        <?php if($employee_voluntary_works):?>
+                                                                        <?php foreach ($employee_voluntary_works as $key => $voluntary_work):?>
+                                                                        <tr class="form-repeater-container border">
+                                                                            <td class="p-0 w-400px">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="organization_name_and_address" value="<?=$voluntary_work->organization_name_and_address?>" data-required="" placeholder="Name & Address of Organization"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="inclusive_dates_from" value="<?=$voluntary_work->inclusive_dates_from?>" data-required=""/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="inclusive_dates_to" value="<?=$voluntary_work->inclusive_dates_to?>" data-required=""/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="number" class="form-control form-control-sm form-control-transparent rounded-0" data-name="number_of_hours" value="<?=$voluntary_work->number_of_hours?>" data-required="" placeholder="Number of Hours" min="0"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="position_nature_of_work" value="<?=$voluntary_work->position_nature_of_work?>" data-required="" placeholder="Position / Nature Of Work"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <button type="button" href="#" class="btn btn-sm btn-icon btn-light-danger form-repeater-remove rounded-0">
+                                                                                    <i class="bi bi-trash fs-5"></i>
+                                                                                </button>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <?php endforeach;?>
+                                                                        <?php endif;?>
+                                                                    <?php else:?>
+                                                                        <tr class="form-repeater-container border">
+                                                                            <td class="p-0 w-400px">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="organization_name_and_address" data-required="" placeholder="Name & Address of Organization"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="inclusive_dates_from" data-required=""/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="inclusive_dates_to" data-required=""/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="number" class="form-control form-control-sm form-control-transparent rounded-0" data-name="number_of_hours" data-required="" placeholder="Number of Hours" min="0"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="position_nature_of_work" data-required="" placeholder="Position / Nature Of Work"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <button type="button" href="#" class="btn btn-sm btn-icon btn-light-danger form-repeater-remove rounded-0">
+                                                                                    <i class="bi bi-trash fs-5"></i>
+                                                                                </button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <?php endif;?>
                                                                     <tr class="border-0">
                                                                         <td colspan="6" class="border-0 h-50px">
                                                                             <button type="button" class="btn btn-sm btn-light-primary btn-outline btn-outline-primary position-absolute end-0 me-3 form-repeater-add">Add a Voluntary Work & Organization(s)</button>
@@ -1503,7 +1646,7 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer" type="radio" name="related_within_the_third_degree" value="0" id="related-within-the-third-degree-no"/>
+                                                                        <input class="form-check-input pointer" type="radio" name="related_within_the_third_degree" value="0" id="related-within-the-third-degree-no" checked/>
                                                                         <label class="form-check-label" for="related-within-the-third-degree-no">
                                                                             No
                                                                         </label>
@@ -1532,7 +1675,7 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="related_within_the_fourth_degree" value="0" id="related-within-the-fourth-degree-no"/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="related_within_the_fourth_degree" value="0" id="related-within-the-fourth-degree-no" checked/>
                                                                         <label class="form-check-label" for="related-within-the-fourth-degree-no">
                                                                             No
                                                                         </label>
@@ -1574,7 +1717,7 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="found_guilty" value="0" id="found-guilty-no"/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="found_guilty" value="0" id="found-guilty-no" checked/>
                                                                         <label class="form-check-label" for="found-guilty-no">
                                                                             No
                                                                         </label>
@@ -1610,7 +1753,7 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="criminally_charged" value="0" id="criminally-charged-no"/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="criminally_charged" value="0" id="criminally-charged-no" checked/>
                                                                         <label class="form-check-label" for="criminally-charged-no">
                                                                             No
                                                                         </label>
@@ -1664,7 +1807,7 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="convicted_of_crime" value="0" id="convicted-of-crime-no"/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="convicted_of_crime" value="0" id="convicted-of-crime-no" checked/>
                                                                         <label class="form-check-label" for="convicted-of-crime-no">
                                                                             No
                                                                         </label>
@@ -1706,7 +1849,7 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="separated_from_the_service" value="0" id="separated-from-the-service-no"/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="separated_from_the_service" value="0" id="separated-from-the-service-no" checked/>
                                                                         <label class="form-check-label" for="separated-from-the-service-no">
                                                                             No
                                                                         </label>
@@ -1748,7 +1891,7 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="election_candidate" value="0" id="election-candidate-no"/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="election_candidate" value="0" id="election-candidate-no" checked/>
                                                                         <label class="form-check-label" for="election-candidate-no">
                                                                             No
                                                                         </label>
@@ -1784,7 +1927,7 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="resigned_for_candidacy" value="0" id="resigned-for-candidacy-no"/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="resigned_for_candidacy" value="0" id="resigned-for-candidacy-no" checked/>
                                                                         <label class="form-check-label" for="resigned-for-candidacy-no">
                                                                             No
                                                                         </label>
@@ -1826,7 +1969,7 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="resident_of_another_country" value="0" id="resident-of-another-country-no"/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="resident_of_another_country" value="0" id="resident-of-another-country-no" checked/>
                                                                         <label class="form-check-label" for="resident-of-another-country-no">
                                                                             No
                                                                         </label>
@@ -1879,7 +2022,7 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="indigenous_member" value="0" id="indigenous-member-no"/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="indigenous_member" value="0" id="indigenous-member-no" checked/>
                                                                         <label class="form-check-label" for="indigenous-member-no">
                                                                             No
                                                                         </label>
@@ -1915,7 +2058,7 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="person_with_disability" value="0" id="person-with-disability-no"/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="person_with_disability" value="0" id="person-with-disability-no" checked/>
                                                                         <label class="form-check-label" for="person-with-disability-no">
                                                                             No
                                                                         </label>
@@ -1951,7 +2094,7 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="solo_parent" value="0" id="solo-parent-no"/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="solo_parent" value="0" id="solo-parent-no" checked/>
                                                                         <label class="form-check-label" for="solo-parent-no">
                                                                             No
                                                                         </label>
@@ -2076,18 +2219,20 @@
     const overall_form_data = {};
     const employee_address = {
         permanent : {
-            province_code : 0,
-            city_mun_code : 0,
-            barangay_code : 0,
+            province_code : "<?=$is_edit ? $employee_info->permanent_province_code : 0?>",
+            city_mun_code : "<?=$is_edit ? $employee_info->permanent_city_mun_code : 0?>",
+            barangay_code : "<?=$is_edit ? $employee_info->permanent_barangay_code : 0?>",
         },
         residential : {
-            province_code : 0,
-            city_mun_code : 0,
-            barangay_code : 0,
+            province_code : "<?=$is_edit ? $employee_info->residential_province_code : 0?>",
+            city_mun_code : "<?=$is_edit ? $employee_info->residential_city_mun_code : 0?>",
+            barangay_code : "<?=$is_edit ? $employee_info->residential_barangay_code : 0?>",
         }
     };
 
     $(function () {
+        
+
     // Stepper
         // Stepper Initialization
             const element = document.querySelector("#employee-form-stepper");
@@ -2097,6 +2242,7 @@
             stepper.on("kt.stepper.next", function (stepper) {
                 const current_form = $("#employee-forms-container")
                     .find(`.current[data-kt-stepper-element="content"] > form`)[0];
+                console.log(current_form);
                 if(current_form.reportValidity()){
                     $(current_form).trigger("submit");
 
@@ -2135,15 +2281,40 @@
                     const employee_id = response.data;
 
                     const employee_family_background = await createEmployeeFamilyBackground(overall_form_data.family_background, employee_id);
-                    if(!employee_family_background){ return; }
 
+                    const employee_educational_background = await createEmployeeEducationalBackground(overall_form_data.educational_background, employee_id);
 
+                    const employee_eligibility = await createEmployeeEligibilities(overall_form_data.eligibility, employee_id);
+
+                    const employee_work_experience = await createEmployeeWorkExperiences(overall_form_data.work_experience, employee_id);
+
+                    const employee_voluntary_work = await createEmployeeVoluntaryWorks(overall_form_data.voluntary_work, employee_id);
+
+                    const employee_training_programs = await createEmployeeTrainingPrograms(overall_form_data.training_programs, employee_id);
+
+                    const employee_other_information = await createEmployeeOtherInfo(overall_form_data.other_information, employee_id);
+                    
                     clearTimeout(loading_timeout)
                     pageLoader(false, 'Loading...');
+
+                    if( !employee_other_information 
+                     || !employee_family_background 
+                     || !employee_educational_background 
+                     || !employee_eligibility 
+                     || !employee_work_experience 
+                     || !employee_voluntary_work 
+                     || !employee_training_programs
+                    ){ return; }
+                    
+                    successAlert("Success!", "Employee data successfully created", ()=>{ window.location.href = "<?=base_url()?>/employees" });
                 });
             })
     //
-    
+    // document.addEventListener("keydown", (event) => {
+    //     if(event.keyCode == 192){
+    //         stepper.btnNext.click()
+    //     }
+    // });
     // Personal Information
         // Civil Status - Spouse Toggle
             $("#civil-status").change(function(){
@@ -2158,7 +2329,14 @@
                     $("#citizenship-country-container").slideUp();
                 }
             });
+
+            <?php if($is_edit):?>
+                <?php if($employee_info->has_dual_citizenship):?>
+                    $("#has-dual-citizenship").trigger("change");
+                <?php endif;?>
+            <?php endif;?>
         // Address
+
             $("#residential-province-code").change(function(){
                 const province_code = this.value;
                 const province_text = $(this).find(`option[value="${province_code}"]`).html();
@@ -2169,13 +2347,15 @@
                 .then(response => {
                     if(!response.error){
                         const cities_municipalities = response.data;
+                        const employee_city_municipality = employee_address.residential.city_mun_code;
                         $("#residential-city-mun-code").html(`<option></option>`);
                         cities_municipalities.forEach(city_municipality => {
-                            $("#residential-city-mun-code").append(`<option value="${city_municipality.citymunCode}">${city_municipality.citymunDesc}</option>`);
+                            $("#residential-city-mun-code").append(`<option value="${city_municipality.citymunCode}" ${employee_city_municipality ? employee_city_municipality == city_municipality.citymunCode ? "selected" : "" : ""}>${city_municipality.citymunDesc}</option>`);
                         });
-                        $("#residential-city-mun-code").select2({
-                            
-                        });
+                        $("#residential-city-mun-code").select2();
+                        if(employee_city_municipality){
+                            $("#residential-city-mun-code").trigger("change")
+                        }
                     }
                 });
             });
@@ -2190,11 +2370,15 @@
                 .then(response => {
                     if(!response.error){
                         const barangays = response.data;
+                        const employee_barangay = employee_address.residential.barangay_code;
                         $("#residential-barangay-code").html(`<option></option>`);
                         barangays.forEach(barangay => {
-                            $("#residential-barangay-code").append(`<option value="${barangay.brgyCode}">${barangay.brgyDesc}</option>`);
+                            $("#residential-barangay-code").append(`<option value="${barangay.brgyCode}" ${employee_barangay == barangay.brgyCode ? "selected" : ""}>${barangay.brgyDesc}</option>`);
                         });
                         $("#residential-barangay-code").select2();
+                        if(employee_barangay){
+                            $("#residential-barangay-code").trigger("change");
+                        }
                     }
                 });
             });
@@ -2205,6 +2389,8 @@
 
                 $(this).parent().find(".address-text").val(barangay_text);
             });
+
+            $("#residential-province-code").val(employee_address.residential.province_code).trigger("change");
 
             $("#permanent-province-code").change(function(){
                 const province_code = this.value;
@@ -2257,6 +2443,8 @@
                 $(this).parent().find(".address-text").val(barangay_text);
             });
 
+            $("#permanent-province-code").val(employee_address.permanent.province_code).trigger("change");
+
             $("#same-as-residential-address").click(function (e) { 
                 e.preventDefault();
 
@@ -2274,6 +2462,8 @@
                     barangay_code : residential_barangay_code,
                 }
 
+                console.log(employee_address.permanent)
+
                 if(residential_province_code){
                     $("#permanent-province-code").val(residential_province_code).trigger("change");
                 }
@@ -2282,6 +2472,8 @@
                 $("#permanent-street").val(residential_street);
                 $("#permanent-zip-code").val(residential_zip_code);
             });
+
+            $(".mask-zip-code").mask("0000");
         // Personal Information Form
             $("#personal-information-form").submit(function (e) { 
                 e.preventDefault();
@@ -2311,8 +2503,8 @@
 
                 overall_form_data.family_background = form_data;
 
-                const response = createEmployeeFamilyBackground(form_data, 1);
-                console.log(response)
+                // const response = createEmployeeFamilyBackground(form_data, 1);
+                // console.log(response)
 
                 stepper.goNext();
             });
@@ -2342,18 +2534,6 @@
                 });
 
                 overall_form_data.educational_background = educational_background;
-
-                // fetch("<?=base_url()?>/employees/createEmployeeFamilyBackground", {
-                    //     method: 'post',
-                    //     body: form_data,
-                    // })
-                    // .then(data => data.json())
-                    // .then(response => {
-                    //     console.log(response);
-                    //     if(!response.error){
-                            
-                    //     }
-                // });
             });
     //
 
@@ -2476,18 +2656,16 @@
 
                 const form_data = new FormData(this);
 
-                form_data.append("special_skills_and_hobbies_form_repeater", JSON.stringify(special_skills_and_hobbies_form_repeater.values));
-                form_data.append("non_academic_distinctions_recognition_form_repeater", JSON.stringify(non_academic_distinctions_recognition_form_repeater.values));
-                form_data.append("membership_in_associations_organizations_form_repeater", JSON.stringify(membership_in_associations_organizations_form_repeater.values));
-                form_data.append("reference_form_repeater", JSON.stringify(reference_form_repeater.values));
+                form_data.append("special_skills_and_hobbies", JSON.stringify(special_skills_and_hobbies_form_repeater.values));
+                form_data.append("non_academic_distinctions_recognitions", JSON.stringify(non_academic_distinctions_recognition_form_repeater.values));
+                form_data.append("membership_in_associations_organizations", JSON.stringify(membership_in_associations_organizations_form_repeater.values));
+                form_data.append("references", JSON.stringify(reference_form_repeater.values));
 
                 overall_form_data.other_information = form_data;
 
                 stepper.goNext();
             });
     //
-
-    $(".mask-zip-code").mask("0000");
     }); 
     
     async function setCitizenshipCountry(){
@@ -2501,7 +2679,7 @@
             $("#citizenship-country").html(`<option></option>`);
 
             response.forEach(country => {
-                $("#citizenship-country").append(`<option value="${country.name.common}">${country.name.common}</option>`)
+                $("#citizenship-country").append(`<option value="${country.name.common}" ${"<?=$is_edit ? $employee_info->citizenship_country : ""?>" == country.name.common ? "selected" : ""}>${country.name.common}</option>`)
             });
 
             clearTimeout(loading_timeout)
@@ -2514,8 +2692,8 @@
         })
     }
 
-    function createEmployeeFamilyBackground(form_data, id){
-        return fetch(`<?=base_url()?>/employees/createEmployeeFamilyBackground/${id}`, {
+    async function createEmployeeFamilyBackground(form_data, id){
+        return await fetch(`<?=base_url()?>/employees/createEmployeeFamilyBackground/${id}`, {
             method: 'post',
             body: form_data
         })
@@ -2528,11 +2706,14 @@
         });
     }
 
-    async function createEmployeeEducationalBackground(form_data, id){
+    async function createEmployeeEducationalBackground(educational_background_object, id){
         let is_created = true;
-        for (const educational_level in form_data) {
-            if (Object.hasOwnProperty.call(form_data, educational_level)) {
-                const educational_background = form_data[educational_level];
+        for (const educational_level in educational_background_object) {
+            if (Object.hasOwnProperty.call(educational_background_object, educational_level)) {
+
+                const educational_background = educational_background_object[educational_level];
+                const form_data = objectToFormData(educational_background);
+
                 const result = await fetch(`<?=base_url()?>/employees/createEmployeeEducationalBackground/${id}`, {
                     method: 'post',
                     body: form_data
@@ -2549,34 +2730,118 @@
                 }
             }
         }
-
         return is_created;
     }
 
-    function createEmployeeEligibility(form_data, id){
-        return fetch(`<?=base_url()?>/employees/createEmployeeEligibility/${id}`, {
-            method: 'post',
-            body: form_data
-        })
-        .then(data => data.json())
-        .then(response => {
-            return !response.error;
+    async function createEmployeeEligibilities(eligibilities, id){
+        let is_created = true;
+        if(eligibilities.length == 0){ return true; }
+        await eligibilities.every(async eligibility_object => {
+            const form_data = objectToFormData(eligibility_object);
+            const result = await fetch(`<?=base_url()?>/employees/createEmployeeEligibility/${id}`, {
+                method: 'post',
+                body: form_data
+            })
+            .then(data => data.json())
+            .then(response => {
+                return response;
+            });
+
+            if(result.error){
+                errorAlert("Error", result.message, 'error');
+                is_created = false;
+                return false;
+            }
+            return true;
         });
+        return is_created;
     }
 
-    function createEmployeeWorkExperience(form_data, id){
-        return fetch(`<?=base_url()?>/employees/createEmployeeWorkExperience/${id}`, {
-            method: 'post',
-            body: form_data
-        })
-        .then(data => data.json())
-        .then(response => {
-            return !response.error;
+    async function createEmployeeWorkExperiences(work_experiences, id){
+        let is_created = true;
+        if(work_experiences.length == 0){ return true; }
+        await work_experiences.every(async work_experience_object => {
+            const form_data = objectToFormData(work_experience_object);
+
+            const result = await fetch(`<?=base_url()?>/employees/createEmployeeWorkExperience/${id}`, {
+                    method: 'post',
+                    body: form_data
+                })
+                .then(data => data.json())
+                .then(response => {
+                    return response;
+                });
+            //
+
+            if(result.error){
+                errorAlert("Error", result.message, 'error');
+                is_created = false;
+                return false;
+            }
+
+            return true;
         });
+        return is_created;
     }
 
-    function createEmployeeWorkExperience(form_data, id){
-        return fetch(`<?=base_url()?>/employees/createEmployeeWorkExperience/${id}`, {
+    async function createEmployeeVoluntaryWorks(voluntary_works, id){
+        console.log("voluntary_works", voluntary_works);
+        let is_created = true;
+        if(voluntary_works.length == 0){ return true; }
+        await voluntary_works.every(async voluntary_work => {
+            const form_data = objectToFormData(voluntary_work);
+
+            const result = await fetch(`<?=base_url()?>/employees/createEmployeeVoluntaryWork/${id}`, {
+                    method: 'post',
+                    body: form_data
+                })
+                .then(data => data.json())
+                .then(response => {
+                    return response;
+                });
+            //
+
+            if(result.error){
+                errorAlert("Error", result.message, 'error');
+                is_created = false;
+                return false;
+            }
+
+            return true;
+        });
+        return is_created;
+    }
+
+    async function createEmployeeTrainingPrograms(training_programs, id){
+        let is_created = true;
+        if(training_programs.length == 0){ return true; }
+        await training_programs.every(async training_program => {
+            const form_data = objectToFormData(training_program);
+
+            const result = await fetch(`<?=base_url()?>/employees/createEmployeeTrainingPrograms/${id}`, {
+                    method: 'post',
+                    body: form_data
+                })
+                .then(data => data.json())
+                .then(response => {
+                    return response;
+                });
+            //
+            
+            if(result.error){
+                errorAlert("Error", result.message, 'error');
+                is_created = false;
+                return false;
+            }
+
+            return true;
+        });
+        return is_created;
+    }
+
+    async function createEmployeeOtherInfo(form_data, id){
+        console.log("createEmployeeOtherInfo", form_data)
+        return await fetch(`<?=base_url()?>/employees/createEmployeeOtherInfo/${id}`, {
             method: 'post',
             body: form_data
         })
@@ -2586,6 +2851,50 @@
                 errorAlert("Error", response.message, 'error');
             }
             return !response.error;
+        });
+    }
+
+    function objectToFormData(object) {
+        const form_data = new FormData();
+
+        for (const key in object) {
+            if (Object.prototype.hasOwnProperty.call(object, key)) {
+            form_data.append(key, object[key]);
+            }
+        }
+
+        return form_data;
+    }
+
+    successAlert = (title, message, callback=false) => {
+        Swal.fire({
+            icon: "success",
+            iconColor: 'var(--kt-white)',
+            iconHtml: `<span class="svg-icon svg-icon-muted svg-icon-3hx text-white"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path opacity="0.5" d="M12.8956 13.4982L10.7949 11.2651C10.2697 10.7068 9.38251 10.7068 8.85731 11.2651C8.37559 11.7772 8.37559 12.5757 8.85731 13.0878L12.7499 17.2257C13.1448 17.6455 13.8118 17.6455 14.2066 17.2257L21.1427 9.85252C21.6244 9.34044 21.6244 8.54191 21.1427 8.02984C20.6175 7.47154 19.7303 7.47154 19.2051 8.02984L14.061 13.4982C13.7451 13.834 13.2115 13.834 12.8956 13.4982Z" fill="currentColor"/>
+                    <path d="M7.89557 13.4982L5.79487 11.2651C5.26967 10.7068 4.38251 10.7068 3.85731 11.2651C3.37559 11.7772 3.37559 12.5757 3.85731 13.0878L7.74989 17.2257C8.14476 17.6455 8.81176 17.6455 9.20663 17.2257L16.1427 9.85252C16.6244 9.34044 16.6244 8.54191 16.1427 8.02984C15.6175 7.47154 14.7303 7.47154 14.2051 8.02984L9.06096 13.4982C8.74506 13.834 8.21146 13.834 7.89557 13.4982Z" fill="currentColor"/>
+                    </svg>
+                </span>`,
+            title: '<span class = "fw-semibold fs-1">SUCCESS</span>',
+            html: '<span class = "text-gray-600">'+message+'</span>',
+            background: `var(--kt-white)`,
+            customClass: {
+                icon: 'shadow-md m-0 fs-2 mt-5',
+                confirmButton: "btn btn-success w-50",
+                header: 'p-0 m-0 bg-success pt-7 pb-5',
+                title: 'w-100 m-0 text-white flex-center pt-3 pb-10',
+                loader: 'pt-20',
+                content: 'pt-5',
+                popup: 'pb-7',
+            },
+            focusConfirm: false,
+            buttonsStyling: false,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if(callback){
+                    callback();
+                }
+            }
         });
     }
 </script>
