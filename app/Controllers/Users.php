@@ -7,7 +7,8 @@ use App\Models\MasterModel;
 use Myth\Auth\Entities\User;
 use Hermawan\DataTables\DataTable;
 use App\Models\LogsModel;
-
+use Myth\Auth\Password;
+use App\Libraries\TemplateLib;
 
 class Users extends BaseController
 {
