@@ -27,22 +27,6 @@
 <?= $this->section('content'); ?>
 
 <?php
-    $GLOBALS['is_edit'] = $is_edit;
-    
-    function is_edit($variable){
-        if($GLOBALS['is_edit']){
-            if(gettype($variable) != "object"){
-                return $variable;
-            }else{
-                return $variable();
-            }
-        }
-        return "";
-    }
-
-    function searchArrayById($array, $id, $id_name){
-
-    }
 ?>
 
 <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
@@ -290,7 +274,7 @@
                             <div class="flex-row-fluid h-100">
                                 <div class="form d-flex flex-column h-100">
                                     <div class="mb-5 flex-grow-1" id="employee-forms-container">
-                                        <div class="flex-column h-100 justify-content-between" data-kt-stepper-element="content">
+                                        <div class="flex-column h-100 justify-content-between current" data-kt-stepper-element="content">
                                             <!-- Personal Information -->
                                             <form class="ps-3" id="personal-information-form">
                                                 <div class="text-center border-bottom pb-4 mb-6">
@@ -305,17 +289,17 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="mb-3">
-                                                            <input type="text" id="firstname" name="firstname" value="<?=is_edit($employee_info->firstname)?>" class="form-control form-control-solid" placeholder="First Name" required/>
+                                                            <input type="text" id="firstname" name="firstname" value="<?= $is_edit ? $employee_info->firstname : "" ?>" class="form-control form-control-solid" placeholder="First Name" required/>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <input type="text" id="middlename" name="middlename" value="<?=is_edit($employee_info->middlename)?>" class="form-control form-control-solid" placeholder="Middle Name"/>
+                                                            <input type="text" id="middlename" name="middlename" value="<?= $is_edit ? $employee_info->middlename : "" ?>" class="form-control form-control-solid" placeholder="Middle Name"/>
                                                         </div>
                                                         <div class="d-flex">
                                                             <div class="flex-grow-1 me-3">
-                                                                <input type="text" id="lastname" name="lastname" value="<?=is_edit($employee_info->lastname)?>" class="form-control form-control-solid" placeholder="Last Name" required/>
+                                                                <input type="text" id="lastname" name="lastname" value="<?= $is_edit ? $employee_info->lastname : "" ?>" class="form-control form-control-solid" placeholder="Last Name" required/>
                                                             </div>
                                                             <div class="">
-                                                                <input type="text" id="suffix" name="suffix" value="<?=is_edit($employee_info->suffix)?>" class="form-control form-control-solid" placeholder="Suffix: Jr."/>
+                                                                <input type="text" id="suffix" name="suffix" value="<?= $is_edit ? $employee_info->suffix : "" ?>" class="form-control form-control-solid" placeholder="Suffix: Jr."/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -326,7 +310,7 @@
                                                         <label for="birthdate" class="required form-label">Birthdate</label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="date" id="birthdate" name="birthdate" value="<?=is_edit($employee_info->birthdate)?>" class="form-control form-control-solid"/>
+                                                        <input type="date" id="birthdate" name="birthdate" value="<?= $is_edit ? $employee_info->birthdate : "" ?>" class="form-control form-control-solid"/>
                                                     </div>
                                                 </div>
                                                 <!-- Sex -->
@@ -363,11 +347,11 @@
                                                     </div>
                                                     <div class="col-8 d-flex">
                                                         <div class="input-group input-group-solid me-2">
-                                                            <input type="text" class="form-control mask-float" name="height" value="<?=is_edit($employee_info->height)?>" id="height" placeholder="Height" min="0"/>
+                                                            <input type="text" class="form-control mask-float" name="height" value="<?= $is_edit ? $employee_info->height : "" ?>" id="height" placeholder="Height" min="0"/>
                                                             <span class="input-group-text">meters</span>
                                                         </div>
                                                         <div class="input-group input-group-solid ms-1">
-                                                            <input type="text" class="form-control mask-float" name="weight" value="<?=is_edit($employee_info->weight)?>" id="weight" placeholder="Weight" min="0"/>
+                                                            <input type="text" class="form-control mask-float" name="weight" value="<?= $is_edit ? $employee_info->weight : "" ?>" id="weight" placeholder="Weight" min="0"/>
                                                             <span class="input-group-text">kilograms</span>
                                                         </div>
                                                     </div>
@@ -378,7 +362,7 @@
                                                         <label for="blood-type" class="form-label">Blood Type</label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" name="blood_type" value="<?=is_edit($employee_info->blood_type)?>" id="blood-type" class="form-control form-control-solid" placeholder="Blood Type">
+                                                        <input type="text" name="blood_type" value="<?= $is_edit ? $employee_info->blood_type : "" ?>" id="blood-type" class="form-control form-control-solid" placeholder="Blood Type">
                                                     </div>
                                                 </div>
 
@@ -394,7 +378,7 @@
                                                             <span class="input-group-text p-0 w-50px no-drag">
                                                                 <img src="<?=base_url()?>/public/assets/media/icons/gsis.svg" alt="GSIS" class="h-25px mx-auto grayscale opacity-50">
                                                             </span>
-                                                            <input type="text" name="gsis_id" value="<?=is_edit($employee_info->gsis_id)?>" id="gsis-id" class="form-control form-control-solid" placeholder="0000-0000000-0">
+                                                            <input type="text" name="gsis_id" value="<?= $is_edit ? $employee_info->gsis_id : "" ?>" id="gsis-id" class="form-control form-control-solid" placeholder="0000-0000000-0">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -408,7 +392,7 @@
                                                             <span class="input-group-text p-0 w-50px text-center no-drag">
                                                                 <img src="<?=base_url()?>/public/assets/media/icons/pag-ibig.svg" alt="Pag-Ibig" class="h-25px mx-auto grayscale opacity-50">
                                                             </span>
-                                                            <input type="text" name="pag_ibig_id" value="<?=is_edit($employee_info->pag_ibig_id)?>" id="pag-ibig-id" class="form-control form-control-solid" placeholder="0000-0000-0000">
+                                                            <input type="text" name="pag_ibig_id" value="<?= $is_edit ? $employee_info->pag_ibig_id : "" ?>" id="pag-ibig-id" class="form-control form-control-solid" placeholder="0000-0000-0000">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -422,7 +406,7 @@
                                                             <span class="input-group-text p-0 w-50px text-center no-drag">
                                                                 <img src="<?=base_url()?>/public/assets/media/icons/philhealth.svg" alt="PhilHealth" class="h-25px mx-auto grayscale opacity-50">
                                                             </span>
-                                                            <input type="text" name="philhealth_id" value="<?=is_edit($employee_info->philhealth_id)?>" id="philhealth-id" class="form-control form-control-solid" placeholder="00-000000000-0">
+                                                            <input type="text" name="philhealth_id" value="<?= $is_edit ? $employee_info->philhealth_id : "" ?>" id="philhealth-id" class="form-control form-control-solid" placeholder="00-000000000-0">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -436,7 +420,7 @@
                                                             <span class="input-group-text p-0 w-50px text-center no-drag">
                                                                 <img src="<?=base_url()?>/public/assets/media/icons/sss.svg" alt="SSS" class="h-15px mx-auto grayscale opacity-50">
                                                             </span>
-                                                            <input type="text" name="sss_id" value="<?=is_edit($employee_info->sss_id)?>" id="sss-id" class="form-control form-control-solid" placeholder="00-0000000-0">
+                                                            <input type="text" name="sss_id" value="<?= $is_edit ? $employee_info->sss_id : "" ?>" id="sss-id" class="form-control form-control-solid" placeholder="00-0000000-0">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -450,7 +434,7 @@
                                                             <span class="input-group-text p-0 w-50px text-center no-drag">
                                                                 <b class="d-block mx-auto text-gray-500">TIN</b>
                                                             </span>
-                                                            <input type="text" name="tin_id" value="<?=is_edit($employee_info->tin_id)?>" id="tin-id" class="form-control form-control-solid" placeholder="000-000-000-00000">
+                                                            <input type="text" name="tin_id" value="<?= $is_edit ? $employee_info->tin_id : "" ?>" id="tin-id" class="form-control form-control-solid" placeholder="000-000-000-00000">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -460,7 +444,7 @@
                                                         <label for="agency-employee-id" class="form-label">Agency Employee No.</label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" name="agency_employee_id" value="<?=is_edit($employee_info->agency_employee_id)?>" id="agency-employee-id" class="form-control form-control-solid" placeholder="00-0000">
+                                                        <input type="text" name="agency_employee_id" value="<?= $is_edit ? $employee_info->agency_employee_id : "" ?>" id="agency-employee-id" class="form-control form-control-solid" placeholder="00-0000">
                                                     </div>
                                                 </div>
 
@@ -532,10 +516,10 @@
                                                     <div class="col-md-8">
                                                         <div class="row g-3">
                                                             <div class="col-3">
-                                                                <input type="text" class="form-control form-control-solid" name="residential_house_number" value="<?=is_edit($employee_info->residential_house_number)?>" id="residential-house-number" placeholder="House/Block/Lot No." required>
+                                                                <input type="text" class="form-control form-control-solid" name="residential_house_number" value="<?= $is_edit ? $employee_info->residential_house_number : "" ?>" id="residential-house-number" placeholder="House/Block/Lot No." required>
                                                             </div>
                                                             <div class="col-9">
-                                                                <input type="text" class="form-control form-control-solid" name="residential_street" value="<?=is_edit($employee_info->residential_street)?>" id="residential-street" placeholder="Street" required>
+                                                                <input type="text" class="form-control form-control-solid" name="residential_street" value="<?= $is_edit ? $employee_info->residential_street : "" ?>" id="residential-street" placeholder="Street" required>
                                                             </div>
                                                             <div class="col-12">
                                                                 <select name="residential_barangay_code" id="residential-barangay-code" class="form-select form-select-solid" data-control="select2" data-placeholder="Select a barangay" required>
@@ -559,7 +543,7 @@
                                                                 <input type="text" name="residential_province" class="address-text d-none">
                                                             </div>
                                                             <div class="col-12">
-                                                                <input type="text" name="residential_zip_code" value="<?=is_edit($employee_info->residential_zip_code)?>" id="residential-zip-code" class="form-control form-control-solid mask-zip-code" placeholder="ZIP Code">
+                                                                <input type="text" name="residential_zip_code" value="<?= $is_edit ? $employee_info->residential_zip_code : "" ?>" id="residential-zip-code" class="form-control form-control-solid mask-zip-code" placeholder="ZIP Code">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -573,10 +557,10 @@
                                                     <div class="col-md-8">
                                                         <div class="row g-3">
                                                             <div class="col-3">
-                                                                <input type="text" class="form-control form-control-solid" name="permanent_house_number" value="<?=is_edit($employee_info->permanent_house_number)?>" id="permanent-house-number" placeholder="House/Block/Lot No." required>
+                                                                <input type="text" class="form-control form-control-solid" name="permanent_house_number" value="<?= $is_edit ? $employee_info->permanent_house_number : "" ?>" id="permanent-house-number" placeholder="House/Block/Lot No." required>
                                                             </div>
                                                             <div class="col-9">
-                                                                <input type="text" class="form-control form-control-solid" name="permanent_street" value="<?=is_edit($employee_info->permanent_street)?>" id="permanent-street" placeholder="Street" required>
+                                                                <input type="text" class="form-control form-control-solid" name="permanent_street" value="<?= $is_edit ? $employee_info->permanent_street : "" ?>" id="permanent-street" placeholder="Street" required>
                                                             </div>
                                                             <div class="col-12">
                                                                 <select name="permanent_barangay_code" id="permanent-barangay-code" class="form-select form-select-solid" data-control="select2" data-placeholder="Select a barangay" required>
@@ -600,7 +584,7 @@
                                                                 <input type="text" name="permanent_province" class="address-text d-none">
                                                             </div>
                                                             <div class="col-12">
-                                                                <input type="text" name="permanent_zip_code" id="permanent-zip-code" value="<?=is_edit($employee_info->permanent_zip_code)?>" class="form-control form-control-solid mask-zip-code" placeholder="ZIP Code">
+                                                                <input type="text" name="permanent_zip_code" id="permanent-zip-code" value="<?= $is_edit ? $employee_info->permanent_zip_code : "" ?>" class="form-control form-control-solid mask-zip-code" placeholder="ZIP Code">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -618,7 +602,7 @@
                                                             <span class="input-group-text w-50px d-inline-block text-center">
                                                                 <i class="fas fa-phone-alt"></i>
                                                             </span>
-                                                            <input type="text" name="telephone_number" value="<?=is_edit($employee_info->telephone_number)?>" id="telephone-number" class="form-control form-control-solid" placeholder="00-0000-0000">
+                                                            <input type="text" name="telephone_number" value="<?= $is_edit ? $employee_info->telephone_number : "" ?>" id="telephone-number" class="form-control form-control-solid" placeholder="00-0000-0000">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -632,7 +616,7 @@
                                                             <span class="input-group-text w-50px d-inline-block text-center">
                                                                 <i class="fas fa-mobile-alt fs-4"></i>
                                                             </span>
-                                                            <input type="text" name="mobile_number" value="<?=is_edit($employee_info->mobile_number)?>" id="mobile-number" class="form-control form-control-solid mask-contact-number" placeholder="0900-000-0000">
+                                                            <input type="text" name="mobile_number" value="<?= $is_edit ? $employee_info->mobile_number : "" ?>" id="mobile-number" class="form-control form-control-solid mask-contact-number" placeholder="0900-000-0000">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -646,7 +630,7 @@
                                                             <span class="input-group-text w-50px d-inline-block text-center">
                                                                 <i class="fas fa-at fs-4"></i>
                                                             </span>
-                                                            <input type="email" name="email_address" value="<?=is_edit($employee_info->email_address)?>" id="email-address" class="form-control form-control-solid" placeholder="example@email.com">
+                                                            <input type="email" name="email_address" value="<?= $is_edit ? $employee_info->email_address : "" ?>" id="email-address" class="form-control form-control-solid" placeholder="example@email.com">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -706,17 +690,17 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="mb-3">
-                                                            <input type="text" id="spouse-firstname" name="spouse_firstname" value="<?=is_edit($employee_family_background->spouse_firstname)?>" class="form-control form-control-solid" placeholder="First Name"/>
+                                                            <input type="text" id="spouse-firstname" name="spouse_firstname" value="<?= $is_edit ? $employee_family_background->spouse_firstname : "" ?>" class="form-control form-control-solid" placeholder="First Name"/>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <input type="text" id="spouse-middlename" name="spouse_middlename" value="<?=is_edit($employee_family_background->spouse_middlename)?>" class="form-control form-control-solid" placeholder="Middle Name"/>
+                                                            <input type="text" id="spouse-middlename" name="spouse_middlename" value="<?= $is_edit ? $employee_family_background->spouse_middlename : "" ?>" class="form-control form-control-solid" placeholder="Middle Name"/>
                                                         </div>
                                                         <div class="d-flex">
                                                             <div class="flex-grow-1 me-3">
-                                                                <input type="text" id="spouse-lastname" name="spouse_lastname" value="<?=is_edit($employee_family_background->spouse_lastname)?>" class="form-control form-control-solid" placeholder="Last Name"/>
+                                                                <input type="text" id="spouse-lastname" name="spouse_lastname" value="<?= $is_edit ? $employee_family_background->spouse_lastname : "" ?>" class="form-control form-control-solid" placeholder="Last Name"/>
                                                             </div>
                                                             <div class="">
-                                                                <input type="text" id="spouse-suffix" name="spouse_suffix" value="<?=is_edit($employee_family_background->spouse_suffix)?>" class="form-control form-control-solid" placeholder="Suffix: Jr."/>
+                                                                <input type="text" id="spouse-suffix" name="spouse_suffix" value="<?= $is_edit ? $employee_family_background->spouse_suffix : "" ?>" class="form-control form-control-solid" placeholder="Suffix: Jr."/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -727,7 +711,7 @@
                                                         <label for="spouse-occupation" class="form-label">Occupation</label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" name="spouse_occupation" value="<?=is_edit($employee_family_background->spouse_occupation)?>" id="spouse-occupation" class="form-control form-control-solid" placeholder="Occupation">
+                                                        <input type="text" name="spouse_occupation" value="<?= $is_edit ? $employee_family_background->spouse_occupation : "" ?>" id="spouse-occupation" class="form-control form-control-solid" placeholder="Occupation">
                                                     </div>
                                                 </div>
                                                 <!-- Employer/Business Name -->
@@ -736,7 +720,7 @@
                                                         <label for="spouse-employer_business_name" class="form-label">Employer/Business Name</label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" name="spouse_employer_business_name" value="<?=is_edit($employee_family_background->spouse_employer_business_name)?>" id="spouse-employer-business-name" class="form-control form-control-solid" placeholder="Employer/Business Name">
+                                                        <input type="text" name="spouse_employer_business_name" value="<?= $is_edit ? $employee_family_background->spouse_employer_business_name : "" ?>" id="spouse-employer-business-name" class="form-control form-control-solid" placeholder="Employer/Business Name">
                                                     </div>
                                                 </div>
                                                 <!-- Business Address -->
@@ -745,7 +729,7 @@
                                                         <label for="spouse-business_address" class="form-label">Business Address</label>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" name="spouse_business_address" value="<?=is_edit($employee_family_background->spouse_business_address)?>" id="spouse-business-address" class="form-control form-control-solid" placeholder="Business Address">
+                                                        <input type="text" name="spouse_business_address" value="<?= $is_edit ? $employee_family_background->spouse_business_address : "" ?>" id="spouse-business-address" class="form-control form-control-solid" placeholder="Business Address">
                                                     </div>
                                                 </div>
                                                 <!-- Telephone No. -->
@@ -758,7 +742,7 @@
                                                             <span class="input-group-text w-50px d-inline-block text-center">
                                                                 <i class="fas fa-phone-alt"></i>
                                                             </span>
-                                                            <input type="text" name="spouse_telephone_number" value="<?=is_edit($employee_family_background->spouse_telephone_number)?>" id="spouse-telephone-number" class="form-control form-control-solid" placeholder="00-0000-0000">
+                                                            <input type="text" name="spouse_telephone_number" value="<?= $is_edit ? $employee_family_background->spouse_telephone_number : "" ?>" id="spouse-telephone-number" class="form-control form-control-solid" placeholder="00-0000-0000">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -772,17 +756,17 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="mb-3">
-                                                            <input type="text" id="father-firstname" name="father_firstname" value="<?=is_edit($employee_family_background->father_firstname)?>" class="form-control form-control-solid" placeholder="First Name" required/>
+                                                            <input type="text" id="father-firstname" name="father_firstname" value="<?= $is_edit ? $employee_family_background->father_firstname : "" ?>" class="form-control form-control-solid" placeholder="First Name" required/>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <input type="text" id="father-middlename" name="father_middlename" value="<?=is_edit($employee_family_background->father_middlename)?>" class="form-control form-control-solid" placeholder="Middle Name"/>
+                                                            <input type="text" id="father-middlename" name="father_middlename" value="<?= $is_edit ? $employee_family_background->father_middlename : "" ?>" class="form-control form-control-solid" placeholder="Middle Name"/>
                                                         </div>
                                                         <div class="d-flex">
                                                             <div class="flex-grow-1 me-3">
-                                                                <input type="text" id="father-lastname" name="father_lastname" value="<?=is_edit($employee_family_background->father_lastname)?>" class="form-control form-control-solid" placeholder="Last Name" required/>
+                                                                <input type="text" id="father-lastname" name="father_lastname" value="<?= $is_edit ? $employee_family_background->father_lastname : "" ?>" class="form-control form-control-solid" placeholder="Last Name" required/>
                                                             </div>
                                                             <div class="">
-                                                                <input type="text" id="father-suffix" name="father_suffix" value="<?=is_edit($employee_family_background->father_suffix)?>" class="form-control form-control-solid" placeholder="Suffix: Jr."/>
+                                                                <input type="text" id="father-suffix" name="father_suffix" value="<?= $is_edit ? $employee_family_background->father_suffix : "" ?>" class="form-control form-control-solid" placeholder="Suffix: Jr."/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -794,13 +778,13 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="mb-3">
-                                                            <input type="text" id="mother-firstname" name="mother_firstname" value="<?=is_edit($employee_family_background->mother_firstname)?>" class="form-control form-control-solid" placeholder="First Name" required/>
+                                                            <input type="text" id="mother-firstname" name="mother_firstname" value="<?= $is_edit ? $employee_family_background->mother_firstname : "" ?>" class="form-control form-control-solid" placeholder="First Name" required/>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <input type="text" id="mother-middlename" name="mother_middlename" value="<?=is_edit($employee_family_background->mother_middlename)?>" class="form-control form-control-solid" placeholder="Middle Name"/>
+                                                            <input type="text" id="mother-middlename" name="mother_middlename" value="<?= $is_edit ? $employee_family_background->mother_middlename : "" ?>" class="form-control form-control-solid" placeholder="Middle Name"/>
                                                         </div>
                                                         <div>
-                                                            <input type="text" id="mother-lastname" name="mother_lastname" value="<?=is_edit($employee_family_background->mother_lastname)?>" class="form-control form-control-solid" placeholder="Last Name" required/>
+                                                            <input type="text" id="mother-lastname" name="mother_lastname" value="<?= $is_edit ? $employee_family_background->mother_lastname : "" ?>" class="form-control form-control-solid" placeholder="Last Name" required/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1118,8 +1102,7 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="civil-service-eligibility-form-repeater-container" class="">
-                                                                    <?php if($is_edit):?>
-                                                                        <?php if($employee_eligibilities):?>
+                                                                    <?php if($is_edit && $employee_eligibilities):?>
                                                                         <?php foreach ($employee_eligibilities as $key => $eligibility):?>
                                                                         <tr class="form-repeater-container border">
                                                                             <td class="p-0">
@@ -1147,7 +1130,6 @@
                                                                             </td>
                                                                         </tr>
                                                                         <?php endforeach;?>
-                                                                        <?php endif;?>
                                                                     <?php else:?>
                                                                         <tr class="form-repeater-container border">
                                                                             <td class="p-0">
@@ -1340,7 +1322,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="flex-column h-100 justify-content-between current" data-kt-stepper-element="content">
+                                        <div class="flex-column h-100 justify-content-between" data-kt-stepper-element="content">
                                             <!-- Voluntary Work or Involvement in Civic / Non-Government / People / Voluntary Organization(s) -->
                                             <form class="ps-3 has-form-repeater" id="voluntary-work-form">
                                                 <div class="text-center border-bottom pb-4 mb-6">
@@ -1370,7 +1352,6 @@
                                                                 </thead>
                                                                 <tbody id="voluntary-work-form-repeater-container" class="">
                                                                     <?php if($is_edit && $employee_voluntary_works):?>
-                                                                        <?php if($employee_voluntary_works):?>
                                                                         <?php foreach ($employee_voluntary_works as $key => $voluntary_work):?>
                                                                         <tr class="form-repeater-container border">
                                                                             <td class="p-0 w-400px">
@@ -1395,7 +1376,6 @@
                                                                             </td>
                                                                         </tr>
                                                                         <?php endforeach;?>
-                                                                        <?php endif;?>
                                                                     <?php else:?>
                                                                         <tr class="form-repeater-container border">
                                                                             <td class="p-0 w-400px">
@@ -1479,31 +1459,61 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="training-programs-form-repeater-container" class="">
-                                                                    <tr class="form-repeater-container border">
-                                                                        <td class="p-0 w-400px">
-                                                                            <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="training_program" data-required="" data-label="Title of Learning & Development Interventions/Training Programs" placeholder="Title of Learning & Development Interventions/Training Programs"/>
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="inclusive_dates_from" data-required="" data-label="Inclusive Dates of Attendance From"/>
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="inclusive_dates_to" data-required="" data-label="Inclusive Dates of Attendance To"/>
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <input type="number" class="form-control form-control-sm form-control-transparent rounded-0" data-name="number_of_hours" data-required="" data-label="Number of Hours" placeholder="Number of Hours"/>
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="ld_type" data-required="" data-label="Type of LD ( Managerial/ Supervisory/ Technical/etc) " placeholder="Type of LD"/>
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="conducted_sponsored_by" data-required="" data-label="Conducted/ Sponsored By" placeholder="Conducted/ Sponsored By"/>
-                                                                        </td>
-                                                                        <td class="p-0">
-                                                                            <button type="button" href="#" class="btn btn-sm btn-icon btn-light-danger form-repeater-remove rounded-0">
-                                                                                <i class="bi bi-trash fs-5"></i>
-                                                                            </button>
-                                                                        </td>
-                                                                    </tr>
+                                                                    <?php if($is_edit && $employee_attended_trainings):?>
+                                                                        <?php foreach ($employee_attended_trainings as $key => $attended_training):?>
+                                                                        <tr class="form-repeater-container border">
+                                                                            <td class="p-0 w-400px">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="training_program" value="<?=$attended_training->training_program?>" data-required="" data-label="Title of Learning & Development Interventions/Training Programs" placeholder="Title of Learning & Development Interventions/Training Programs"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="inclusive_dates_from" value="<?=$attended_training->inclusive_dates_from?>" data-required="" data-label="Inclusive Dates of Attendance From"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="inclusive_dates_to" value="<?=$attended_training->inclusive_dates_to?>" data-required="" data-label="Inclusive Dates of Attendance To"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="number" class="form-control form-control-sm form-control-transparent rounded-0" data-name="number_of_hours" value="<?=$attended_training->number_of_hours?>" data-required="" data-label="Number of Hours" placeholder="Number of Hours"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="ld_type" value="<?=$attended_training->ld_type?>" data-required="" data-label="Type of LD ( Managerial/ Supervisory/ Technical/etc) " placeholder="Type of LD"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="conducted_sponsored_by" value="<?=$attended_training->conducted_sponsored_by?>" data-required="" data-label="Conducted/ Sponsored By" placeholder="Conducted/ Sponsored By"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <button type="button" href="#" class="btn btn-sm btn-icon btn-light-danger form-repeater-remove rounded-0">
+                                                                                    <i class="bi bi-trash fs-5"></i>
+                                                                                </button>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <?php endforeach;?>
+                                                                    <?php else:?>
+                                                                        <tr class="form-repeater-container border">
+                                                                            <td class="p-0 w-400px">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="training_program" data-required="" data-label="Title of Learning & Development Interventions/Training Programs" placeholder="Title of Learning & Development Interventions/Training Programs"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="inclusive_dates_from" data-required="" data-label="Inclusive Dates of Attendance From"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="date" class="form-control form-control-sm form-control-transparent rounded-0" data-name="inclusive_dates_to" data-required="" data-label="Inclusive Dates of Attendance To"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="number" class="form-control form-control-sm form-control-transparent rounded-0" data-name="number_of_hours" data-required="" data-label="Number of Hours" placeholder="Number of Hours"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="ld_type" data-required="" data-label="Type of LD ( Managerial/ Supervisory/ Technical/etc) " placeholder="Type of LD"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <input type="text" class="form-control form-control-sm form-control-transparent rounded-0" data-name="conducted_sponsored_by" data-required="" data-label="Conducted/ Sponsored By" placeholder="Conducted/ Sponsored By"/>
+                                                                            </td>
+                                                                            <td class="p-0">
+                                                                                <button type="button" href="#" class="btn btn-sm btn-icon btn-light-danger form-repeater-remove rounded-0">
+                                                                                    <i class="bi bi-trash fs-5"></i>
+                                                                                </button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <?php endif;?>
                                                                     <tr class="border-0">
                                                                         <td colspan="7" class="border-0 h-50px">
                                                                             <button type="button" class="btn btn-sm btn-light-primary btn-outline btn-outline-primary position-absolute end-0 me-3 form-repeater-add">Add a Training Program Attended </button>
@@ -1547,16 +1557,45 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div id="special-skills-and-hobbies-form-repeater-container">
-                                                            <div class="d-flex form-repeater-container mb-md-3">
-                                                                <div class="flex-grow-1 me-3 me-md-5 mb-5 mb-md-0 w-100 w-md-auto">
-                                                                    <input type="text" class="form-control form-control-solid" data-name="special_skill_or_hobby" data-required="" placeholder="Special Skill or Hobby"/>
+                                                            <?php if($is_edit):?>
+                                                                <?php $special_skills_and_hobbies = json_decode($employee_other_info->special_skills_and_hobbies);?>
+                                                                <?php if(count($special_skills_and_hobbies)):?>
+                                                                <?php foreach ($special_skills_and_hobbies as $key => $special_skill_or_hobby):?>
+                                                                <div class="d-flex form-repeater-container mb-md-3">
+                                                                    <div class="flex-grow-1 me-3 me-md-5 mb-5 mb-md-0 w-100 w-md-auto">
+                                                                        <input type="text" class="form-control form-control-solid" data-name="special_skill_or_hobby" value="<?=$special_skill_or_hobby->special_skill_or_hobby?>" data-required="" placeholder="Special Skill or Hobby"/>
+                                                                    </div>
+                                                                    <div class="d-flex align-items-end mb-5 mb-md-0">
+                                                                        <button type="button" href="#" class="btn btn-icon btn-light-danger form-repeater-remove">
+                                                                            <i class="bi bi-trash fs-3"></i>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="d-flex align-items-end mb-5 mb-md-0">
-                                                                    <button type="button" href="#" class="btn btn-icon btn-light-danger form-repeater-remove">
-                                                                        <i class="bi bi-trash fs-3"></i>
-                                                                    </button>
+                                                                <?php endforeach;?>
+                                                                 <?php else:?>
+                                                                    <div class="d-flex form-repeater-container mb-md-3">
+                                                                        <div class="flex-grow-1 me-3 me-md-5 mb-5 mb-md-0 w-100 w-md-auto">
+                                                                            <input type="text" class="form-control form-control-solid" data-name="special_skill_or_hobby" data-required="" placeholder="Special Skill or Hobby"/>
+                                                                        </div>
+                                                                        <div class="d-flex align-items-end mb-5 mb-md-0">
+                                                                            <button type="button" href="#" class="btn btn-icon btn-light-danger form-repeater-remove">
+                                                                                <i class="bi bi-trash fs-3"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                <?php endif;?>
+                                                            <?php else:?>
+                                                                <div class="d-flex form-repeater-container mb-md-3">
+                                                                    <div class="flex-grow-1 me-3 me-md-5 mb-5 mb-md-0 w-100 w-md-auto">
+                                                                        <input type="text" class="form-control form-control-solid" data-name="special_skill_or_hobby" data-required="" placeholder="Special Skill or Hobby"/>
+                                                                    </div>
+                                                                    <div class="d-flex align-items-end mb-5 mb-md-0">
+                                                                        <button type="button" href="#" class="btn btn-icon btn-light-danger form-repeater-remove">
+                                                                            <i class="bi bi-trash fs-3"></i>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
+                                                            <?php endif;?>
                                                             <button type="button" class="btn btn-light-primary btn-outline btn-outline-primary float-end form-repeater-add">Add a Special Skills or Hobby</button>
                                                         </div>
                                                     </div>
@@ -1573,16 +1612,45 @@
                                                     
                                                     <div class="col-md-8">
                                                         <div id="non-academic-distinctions-recognition-form-repeater-container">
-                                                            <div class="d-flex form-repeater-container mb-md-3">
-                                                                <div class="flex-grow-1 me-3 me-md-5 mb-5 mb-md-0 w-100 w-md-auto">
-                                                                    <input type="text" class="form-control form-control-solid" data-name="non_academic_distinction_or_recognition" data-required="" placeholder="Non-Academic Distinction / Recognition"/>
+                                                            <?php if($is_edit):?>
+                                                                <?php $non_academic_distinctions_recognitions = json_decode($employee_other_info->non_academic_distinctions_recognitions);?>
+                                                                <?php if(count($non_academic_distinctions_recognitions)):?>
+                                                                    <?php foreach ($non_academic_distinctions_recognitions as $key => $distinction_recognition):?>
+                                                                        <div class="d-flex form-repeater-container mb-md-3">
+                                                                            <div class="flex-grow-1 me-3 me-md-5 mb-5 mb-md-0 w-100 w-md-auto">
+                                                                                <input type="text" class="form-control form-control-solid" data-name="non_academic_distinction_or_recognition" value="<?=$distinction_recognition->non_academic_distinction_or_recognition?>" data-required="" placeholder="Non-Academic Distinction / Recognition"/>
+                                                                            </div>
+                                                                            <div class="d-flex align-items-end mb-5 mb-md-0">
+                                                                                <button type="button" href="#" class="btn btn-icon btn-light-danger form-repeater-remove">
+                                                                                    <i class="bi bi-trash fs-3"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    <?php endforeach;?>
+                                                                <?php else:?>
+                                                                    <div class="d-flex form-repeater-container mb-md-3">
+                                                                        <div class="flex-grow-1 me-3 me-md-5 mb-5 mb-md-0 w-100 w-md-auto">
+                                                                            <input type="text" class="form-control form-control-solid" data-name="non_academic_distinction_or_recognition" data-required="" placeholder="Non-Academic Distinction / Recognition"/>
+                                                                        </div>
+                                                                        <div class="d-flex align-items-end mb-5 mb-md-0">
+                                                                            <button type="button" href="#" class="btn btn-icon btn-light-danger form-repeater-remove">
+                                                                                <i class="bi bi-trash fs-3"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                <?php endif;?>
+                                                            <?php else:?>
+                                                                <div class="d-flex form-repeater-container mb-md-3">
+                                                                    <div class="flex-grow-1 me-3 me-md-5 mb-5 mb-md-0 w-100 w-md-auto">
+                                                                        <input type="text" class="form-control form-control-solid" data-name="non_academic_distinction_or_recognition" data-required="" placeholder="Non-Academic Distinction / Recognition"/>
+                                                                    </div>
+                                                                    <div class="d-flex align-items-end mb-5 mb-md-0">
+                                                                        <button type="button" href="#" class="btn btn-icon btn-light-danger form-repeater-remove">
+                                                                            <i class="bi bi-trash fs-3"></i>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="d-flex align-items-end mb-5 mb-md-0">
-                                                                    <button type="button" href="#" class="btn btn-icon btn-light-danger form-repeater-remove">
-                                                                        <i class="bi bi-trash fs-3"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
+                                                            <?php endif;?>
                                                             <button type="button" class="btn btn-light-primary btn-outline btn-outline-primary float-end form-repeater-add">Add a Non-Academic Distinction / Recognition</button>
                                                         </div>
                                                     </div>
@@ -1598,16 +1666,45 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div id="membership-in-associations-organizations-form-repeater-container">
-                                                            <div class="d-flex form-repeater-container mb-md-3">
-                                                                <div class="flex-grow-1 me-3 me-md-5 mb-5 mb-md-0 w-100 w-md-auto">
-                                                                    <input type="text" class="form-control form-control-solid" data-name="membership_in_association_organization" data-required="" placeholder="Membership In Association / Organization"/>
+                                                            <?php if($is_edit):?>
+                                                                <?php $membership_in_associations_organizations = json_decode($employee_other_info->membership_in_associations_organizations);?>
+                                                                <?php if(count($membership_in_associations_organizations)):?>
+                                                                    <?php foreach ($membership_in_associations_organizations as $key => $membership):?>
+                                                                        <div class="d-flex form-repeater-container mb-md-3">
+                                                                            <div class="flex-grow-1 me-3 me-md-5 mb-5 mb-md-0 w-100 w-md-auto">
+                                                                                <input type="text" class="form-control form-control-solid" data-name="membership_in_association_organization" value="<?=$membership->membership_in_association_organization?>" data-required="" placeholder="Membership In Association / Organization"/>
+                                                                            </div>
+                                                                            <div class="d-flex align-items-end mb-5 mb-md-0">
+                                                                                <button type="button" href="#" class="btn btn-icon btn-light-danger form-repeater-remove">
+                                                                                    <i class="bi bi-trash fs-3"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    <?php endforeach;?>
+                                                                <?php else:?>
+                                                                    <div class="d-flex form-repeater-container mb-md-3">
+                                                                        <div class="flex-grow-1 me-3 me-md-5 mb-5 mb-md-0 w-100 w-md-auto">
+                                                                            <input type="text" class="form-control form-control-solid" data-name="membership_in_association_organization" data-required="" placeholder="Membership In Association / Organization"/>
+                                                                        </div>
+                                                                        <div class="d-flex align-items-end mb-5 mb-md-0">
+                                                                            <button type="button" href="#" class="btn btn-icon btn-light-danger form-repeater-remove">
+                                                                                <i class="bi bi-trash fs-3"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                <?php endif;?>
+                                                            <?php else:?>
+                                                                <div class="d-flex form-repeater-container mb-md-3">
+                                                                    <div class="flex-grow-1 me-3 me-md-5 mb-5 mb-md-0 w-100 w-md-auto">
+                                                                        <input type="text" class="form-control form-control-solid" data-name="membership_in_association_organization" data-required="" placeholder="Membership In Association / Organization"/>
+                                                                    </div>
+                                                                    <div class="d-flex align-items-end mb-5 mb-md-0">
+                                                                        <button type="button" href="#" class="btn btn-icon btn-light-danger form-repeater-remove">
+                                                                            <i class="bi bi-trash fs-3"></i>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="d-flex align-items-end mb-5 mb-md-0">
-                                                                    <button type="button" href="#" class="btn btn-icon btn-light-danger form-repeater-remove">
-                                                                        <i class="bi bi-trash fs-3"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
+                                                            <?php endif;?>
                                                             <button type="button" class="btn btn-light-primary btn-outline btn-outline-primary float-end form-repeater-add">Add a Membership In Association / Organization</button>
                                                         </div>
                                                     </div>
@@ -1638,7 +1735,7 @@
                                                             <div class="row">
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer" type="radio" name="related_within_the_third_degree" value="1" id="related-within-the-third-degree-yes" required/>
+                                                                        <input class="form-check-input pointer" type="radio" name="related_within_the_third_degree" value="1" id="related-within-the-third-degree-yes" <?=$is_edit ? $employee_other_info->related_within_the_third_degree == 1 ? "checked" : "" : ""?> required/>
                                                                         <label class="form-check-label" for="related-within-the-third-degree-yes">
                                                                             Yes
                                                                         </label>
@@ -1646,7 +1743,7 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer" type="radio" name="related_within_the_third_degree" value="0" id="related-within-the-third-degree-no" checked/>
+                                                                        <input class="form-check-input pointer" type="radio" name="related_within_the_third_degree" value="0" id="related-within-the-third-degree-no" <?=$is_edit ? $employee_other_info->related_within_the_third_degree == 0 ? "checked" : "" : ""?>/>
                                                                         <label class="form-check-label" for="related-within-the-third-degree-no">
                                                                             No
                                                                         </label>
@@ -1667,7 +1764,7 @@
                                                             <div class="row flex-grow-1 align-items-center">
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="related_within_the_fourth_degree" value="1" id="related-within-the-fourth-degree-yes" required/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="related_within_the_fourth_degree" value="1" id="related-within-the-fourth-degree-yes" <?=$is_edit ? $employee_other_info->related_within_the_fourth_degree == 1 ? "checked" : "" : ""?> required/>
                                                                         <label class="form-check-label" for="related-within-the-fourth-degree-yes">
                                                                             Yes
                                                                         </label>
@@ -1675,18 +1772,18 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="related_within_the_fourth_degree" value="0" id="related-within-the-fourth-degree-no" checked/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="related_within_the_fourth_degree" value="0" id="related-within-the-fourth-degree-no" <?=$is_edit ? $employee_other_info->related_within_the_fourth_degree == 0 ? "checked" : "" : ""?>/>
                                                                         <label class="form-check-label" for="related-within-the-fourth-degree-no">
                                                                             No
                                                                         </label>
                                                                     </div>
                                                                 </div>
-                                                                <div id="related_within_the_fourth_degree_yes_follow_up_question" class="col-12" style="display: none;">
+                                                                <div id="related_within_the_fourth_degree_yes_follow_up_question" class="col-12" style="display: <?=$is_edit ? ($employee_other_info->related_within_the_fourth_degree == 1 ? "block" : "none") : "none" ?>;">
                                                                     <div class="d-flex align-items-center pt-6">
                                                                         <label class="form-label text-nowrap me-5 mb-0">
                                                                             If Yes, give details:
                                                                         </label>
-                                                                        <input type="text" name="related_within_the_fourth_degree_details" class="form-control form-control-solid">
+                                                                        <input type="text" name="related_within_the_fourth_degree_details" value="<?= $is_edit ? $employee_other_info->related_within_the_fourth_degree_details : ""?>" class="form-control form-control-solid">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1709,7 +1806,7 @@
                                                             <div class="row flex-grow-1 align-items-center">
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="found_guilty" value="1" id="found-guilty-yes" required/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="found_guilty" value="1" id="found-guilty-yes" <?=$is_edit ? $employee_other_info->found_guilty == 1 ? "checked" : "" : "" ?> required/>
                                                                         <label class="form-check-label" for="found-guilty-yes">
                                                                             Yes
                                                                         </label>
@@ -1717,19 +1814,19 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="found_guilty" value="0" id="found-guilty-no" checked/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="found_guilty" value="0" id="found-guilty-no" <?=$is_edit ? $employee_other_info->found_guilty == 0 ? "checked" : "" : "" ?>/>
                                                                         <label class="form-check-label" for="found-guilty-no">
                                                                             No
                                                                         </label>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div id="found_guilty_yes_follow_up_question" class="col-12" style="display: none;">
+                                                            <div id="found_guilty_yes_follow_up_question" class="col-12" style="display: <?=$is_edit ? $employee_other_info->found_guilty == 1 ? "block" : "none" : "none" ?>;">
                                                                 <div class="d-flex align-items-center pt-6">
                                                                     <label class="form-label text-nowrap me-5 mb-0">
                                                                         If Yes, give details:
                                                                     </label>
-                                                                    <input type="text" name="found_guilty_details" class="form-control form-control-solid">
+                                                                    <input type="text" name="found_guilty_details" value="<?=$is_edit ? $employee_other_info->found_guilty_details : "" ?>" class="form-control form-control-solid">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1745,7 +1842,7 @@
                                                             <div class="row mb-6 flex-grow-1 align-items-center">
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="criminally_charged" value="1" id="criminally-charged-yes" required/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="criminally_charged" value="1" id="criminally-charged-yes" <?=$is_edit ? $employee_other_info->criminally_charged == 1 ? "checked" : "" : "" ?> required/>
                                                                         <label class="form-check-label" for="criminally-charged-yes">
                                                                             Yes
                                                                         </label>
@@ -1753,31 +1850,31 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="criminally_charged" value="0" id="criminally-charged-no" checked/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="criminally_charged" value="0" id="criminally-charged-no" <?=$is_edit ? $employee_other_info->criminally_charged == 0 ? "checked" : "" : "" ?>/>
                                                                         <label class="form-check-label" for="criminally-charged-no">
                                                                             No
                                                                         </label>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div id="criminally_charged_yes_follow_up_question" class="col-12" style="display: none;">
+                                                            <div id="criminally_charged_yes_follow_up_question" class="col-12" style="display: <?=$is_edit ? $employee_other_info->criminally_charged == 1 ? "block" : "none" : "none" ?>;">
                                                                 <div class="d-flex align-items-center mb-3 pt-6">
                                                                     <label class="form-label text-nowrap me-5 mb-0">
                                                                         If Yes, give details:
                                                                     </label>
-                                                                    <input type="text" name="criminally_charged_details" class="form-control form-control-solid">
+                                                                    <input type="text" name="criminally_charged_details" value="<?=$is_edit ? $employee_other_info->criminally_charged_details : ""?>" class="form-control form-control-solid">
                                                                 </div>
                                                                 <div class="d-flex align-items-center mb-3">
                                                                     <label class="form-label text-nowrap me-5 mb-0">
                                                                         Date Filed:
                                                                     </label>
-                                                                    <input type="date" name="criminally_charged_date_filed" class="form-control form-control-solid">
+                                                                    <input type="date" name="criminally_charged_date_filed" value="<?=$is_edit ? $employee_other_info->criminally_charged_date_filed : ""?>" class="form-control form-control-solid">
                                                                 </div>
                                                                 <div class="d-flex align-items-center mb-3">
                                                                     <label class="form-label text-nowrap me-5 mb-0">
                                                                         Status of Case/s:
                                                                     </label>
-                                                                    <input type="text" name="criminally_charged_case_status" class="form-control form-control-solid">
+                                                                    <input type="text" name="criminally_charged_case_status" value="<?=$is_edit ? $employee_other_info->criminally_charged_case_status : ""?>" class="form-control form-control-solid">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1799,7 +1896,7 @@
                                                             <div class="row align-items-center flex-grow-1">
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="convicted_of_crime" value="1" id="convicted-of-crime-yes" required/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="convicted_of_crime" value="1" id="convicted-of-crime-yes" <?=$is_edit ? $employee_other_info->convicted_of_crime == 1 ? "checked" : "" : ""?> required/>
                                                                         <label class="form-check-label" for="convicted-of-crime-yes">
                                                                             Yes
                                                                         </label>
@@ -1807,19 +1904,19 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="convicted_of_crime" value="0" id="convicted-of-crime-no" checked/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="convicted_of_crime" value="0" id="convicted-of-crime-no" <?=$is_edit ? $employee_other_info->convicted_of_crime == 0 ? "checked" : "" : ""?>/>
                                                                         <label class="form-check-label" for="convicted-of-crime-no">
                                                                             No
                                                                         </label>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div id="convicted_of_crime_yes_follow_up_question" class="col-12" style="display: none;">
+                                                            <div id="convicted_of_crime_yes_follow_up_question" class="col-12" style="display: <?=$is_edit ? $employee_other_info->convicted_of_crime == 1 ? "block" : "none" : "none"?>;">
                                                                 <div class="d-flex align-items-center pt-6">
                                                                     <label class="form-label text-nowrap me-5 mb-0">
                                                                         If Yes, give details:
                                                                     </label>
-                                                                    <input type="text" name="convicted_of_crime_details" class="form-control form-control-solid">
+                                                                    <input type="text" name="convicted_of_crime_details" value="<?=$is_edit ? $employee_other_info->convicted_of_crime_details : ""?>" class="form-control form-control-solid">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1841,7 +1938,7 @@
                                                             <div class="row align-items-center flex-grow-1">
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="separated_from_the_service" value="1" id="separated-from-the-service-yes" required/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="separated_from_the_service" value="1" id="separated-from-the-service-yes" <?= $is_edit ? $employee_other_info->separated_from_the_service == 1 ? "checked" : "" : "" ?> required/>
                                                                         <label class="form-check-label" for="separated-from-the-service-yes">
                                                                             Yes
                                                                         </label>
@@ -1849,19 +1946,19 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="separated_from_the_service" value="0" id="separated-from-the-service-no" checked/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="separated_from_the_service" value="0" id="separated-from-the-service-no" <?= $is_edit ? $employee_other_info->separated_from_the_service == 0 ? "checked" : "" : "" ?>/>
                                                                         <label class="form-check-label" for="separated-from-the-service-no">
                                                                             No
                                                                         </label>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div id="separated_from_the_service_yes_follow_up_question" class="col-12" style="display: none;">
+                                                            <div id="separated_from_the_service_yes_follow_up_question" class="col-12" style="display: <?= $is_edit ? $employee_other_info->separated_from_the_service == 1 ? "block" : "none" : "none" ?>;">
                                                                 <div class="d-flex align-items-center pt-6">
                                                                     <label class="form-label text-nowrap me-5 mb-0">
                                                                         If Yes, give details:
                                                                     </label>
-                                                                    <input type="text" name="separated_from_the_service_details" class="form-control form-control-solid">
+                                                                    <input type="text" name="separated_from_the_service_details" value="<?=$is_edit ? $employee_other_info->separated_from_the_service_details : ""?>" class="form-control form-control-solid">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1883,7 +1980,7 @@
                                                             <div class="row mb-6 flex-grow-1 align-items-center">
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="election_candidate" value="1" id="election-candidate-yes" required/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="election_candidate" value="1" id="election-candidate-yes" <?= $is_edit ? $employee_other_info->election_candidate == 1 ? "checked" : "" : "" ?> required/>
                                                                         <label class="form-check-label" for="election-candidate-yes">
                                                                             Yes
                                                                         </label>
@@ -1891,19 +1988,19 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="election_candidate" value="0" id="election-candidate-no" checked/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="election_candidate" value="0" id="election-candidate-no" <?= $is_edit ? $employee_other_info->election_candidate == 0 ? "checked" : "" : "" ?>/>
                                                                         <label class="form-check-label" for="election-candidate-no">
                                                                             No
                                                                         </label>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div id="election_candidate_yes_follow_up_question" style="display: none;">
+                                                            <div id="election_candidate_yes_follow_up_question" style="display: <?= $is_edit ? $employee_other_info->separated_from_the_service == 1 ? "block" : "none" : "none" ?>;">
                                                                 <div class="d-flex align-items-center">
                                                                     <label class="form-label text-nowrap me-5 mb-0">
                                                                         If Yes, give details:
                                                                     </label>
-                                                                    <input type="text" name="election_candidate_details" class="form-control form-control-solid">
+                                                                    <input type="text" name="election_candidate_details" value="<?=$is_edit ? $employee_other_info->election_candidate_details : ""?>" class="form-control form-control-solid">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1919,7 +2016,7 @@
                                                             <div class="row mb-6 flex-grow-1 align-items-center">
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="resigned_for_candidacy" value="1" id="resigned-for-candidacy-yes" required/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="resigned_for_candidacy" value="1" id="resigned-for-candidacy-yes" <?= $is_edit ? $employee_other_info->resigned_for_candidacy == 1 ? "checked" : "" : "" ?> required/>
                                                                         <label class="form-check-label" for="resigned-for-candidacy-yes">
                                                                             Yes
                                                                         </label>
@@ -1927,19 +2024,19 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="resigned_for_candidacy" value="0" id="resigned-for-candidacy-no" checked/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="resigned_for_candidacy" value="0" id="resigned-for-candidacy-no" <?= $is_edit ? $employee_other_info->resigned_for_candidacy == 0 ? "checked" : "" : "" ?>/>
                                                                         <label class="form-check-label" for="resigned-for-candidacy-no">
                                                                             No
                                                                         </label>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div id="resigned_for_candidacy_yes_follow_up_question" style="display: none;">
+                                                            <div id="resigned_for_candidacy_yes_follow_up_question" style="display: <?= $is_edit ? $employee_other_info->separated_from_the_service == 1 ? "block" : "none" : "none" ?>;">
                                                                 <div class="d-flex align-items-center mb-3">
                                                                     <label class="form-label text-nowrap me-5 mb-0">
                                                                         If Yes, give details:
                                                                     </label>
-                                                                    <input type="text" name="resigned_for_candidacy_details" class="form-control form-control-solid">
+                                                                    <input type="text" name="resigned_for_candidacy_details" value="<?=$is_edit ? $employee_other_info->resigned_for_candidacy_details : ""?>" class="form-control form-control-solid">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1961,7 +2058,7 @@
                                                             <div class="row align-items-center flex-grow-1">
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="resident_of_another_country" value="1" id="resident-of-another-country-yes" required/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="resident_of_another_country" value="1" id="resident-of-another-country-yes" <?= $is_edit ? $employee_other_info->resident_of_another_country == 1 ? "checked" : "" : "" ?> required/>
                                                                         <label class="form-check-label" for="resident-of-another-country-yes">
                                                                             Yes
                                                                         </label>
@@ -1969,19 +2066,19 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="resident_of_another_country" value="0" id="resident-of-another-country-no" checked/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="resident_of_another_country" value="0" id="resident-of-another-country-no" <?= $is_edit ? $employee_other_info->resident_of_another_country == 0 ? "checked" : "" : "" ?>/>
                                                                         <label class="form-check-label" for="resident-of-another-country-no">
                                                                             No
                                                                         </label>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div id="resident_of_another_country_yes_follow_up_question" style="display: none;">
+                                                            <div id="resident_of_another_country_yes_follow_up_question" style="display: <?= $is_edit ? $employee_other_info->separated_from_the_service == 1 ? "block" : "none" : "none" ?>;">
                                                                 <div class="d-flex align-items-center pt-6">
                                                                     <label class="form-label text-nowrap me-5 mb-0">
                                                                         If Yes, give details:
                                                                     </label>
-                                                                    <input type="text" name="resident_of_another_country_details" class="form-control form-control-solid">
+                                                                    <input type="text" name="resident_of_another_country_details" value="<?=$is_edit ? $employee_other_info->resident_of_another_country_details : ""?>" class="form-control form-control-solid">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2014,7 +2111,7 @@
                                                             <div class="row">
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="indigenous_member" value="1" id="indigenous-member-yes" required/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="indigenous_member" value="1" id="indigenous-member-yes" <?= $is_edit ? $employee_other_info->indigenous_member == 1 ? "checked" : "" : "" ?> required/>
                                                                         <label class="form-check-label" for="indigenous-member-yes">
                                                                             Yes
                                                                         </label>
@@ -2022,19 +2119,19 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="indigenous_member" value="0" id="indigenous-member-no" checked/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="indigenous_member" value="0" id="indigenous-member-no" <?= $is_edit ? $employee_other_info->indigenous_member == 0 ? "checked" : "" : "" ?>/>
                                                                         <label class="form-check-label" for="indigenous-member-no">
                                                                             No
                                                                         </label>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div id="indigenous_member_yes_follow_up_question" class="col-12 " style="display: none;">
+                                                            <div id="indigenous_member_yes_follow_up_question" class="col-12 " style="display: <?= $is_edit ? $employee_other_info->indigenous_member == 1 ? "block" : "none" : "none" ?>;">
                                                                 <div class="d-flex align-items-center pt-6">
                                                                     <label class="form-label text-nowrap me-5 mb-0">
                                                                         If Yes, please specify:
                                                                     </label>
-                                                                    <input type="text" name="indigenous_member_specify" class="form-control form-control-solid">
+                                                                    <input type="text" name="indigenous_member_specify" value="<?=$is_edit ? $employee_other_info->indigenous_member_specify : ""?>" class="form-control form-control-solid">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2050,7 +2147,7 @@
                                                             <div class="row flex-grow-1 align-items-center">
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="person_with_disability" value="1" id="person-with-disability-yes" required/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="person_with_disability" value="1" id="person-with-disability-yes" <?= $is_edit ? $employee_other_info->person_with_disability == 1 ? "checked" : "" : "" ?> required/>
                                                                         <label class="form-check-label" for="person-with-disability-yes">
                                                                             Yes
                                                                         </label>
@@ -2058,19 +2155,19 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="person_with_disability" value="0" id="person-with-disability-no" checked/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="person_with_disability" value="0" id="person-with-disability-no" <?= $is_edit ? $employee_other_info->person_with_disability == 0 ? "checked" : "" : "" ?>/>
                                                                         <label class="form-check-label" for="person-with-disability-no">
                                                                             No
                                                                         </label>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div id="person_with_disability_yes_follow_up_question" class="col-12 pt-6" style="display: none;">
+                                                            <div id="person_with_disability_yes_follow_up_question" class="col-12 pt-6" style="display: <?= $is_edit ? $employee_other_info->person_with_disability == 1 ? "block" : "none" : "none" ?>;">
                                                                 <div class="d-flex align-items-center">
                                                                     <label class="form-label text-nowrap me-5 mb-0">
                                                                         If Yes, please specify ID No:
                                                                     </label>
-                                                                    <input type="text" name="person_with_disability_id" class="form-control form-control-solid">
+                                                                    <input type="text" name="person_with_disability_id" value="<?=$is_edit ? $employee_other_info->person_with_disability_id : ""?>" class="form-control form-control-solid">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2086,7 +2183,7 @@
                                                             <div class="row flex-grow-1 align-items-center">
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="solo_parent" value="1" id="solo-parent-yes" required/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="solo_parent" value="1" id="solo-parent-yes" <?= $is_edit ? $employee_other_info->solo_parent == 1 ? "checked" : "" : "" ?> required/>
                                                                         <label class="form-check-label" for="solo-parent-yes">
                                                                             Yes
                                                                         </label>
@@ -2094,19 +2191,19 @@
                                                                 </div>
                                                                 <div class="col-6">
                                                                     <div class="form-check form-check-custom form-check-solid">
-                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="solo_parent" value="0" id="solo-parent-no" checked/>
+                                                                        <input class="form-check-input pointer has-follow-up" type="radio" name="solo_parent" value="0" id="solo-parent-no" <?= $is_edit ? $employee_other_info->solo_parent == 0 ? "checked" : "" : "" ?>/>
                                                                         <label class="form-check-label" for="solo-parent-no">
                                                                             No
                                                                         </label>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div id="solo_parent_yes_follow_up_question" class="col-12" style="display: none;">
+                                                            <div id="solo_parent_yes_follow_up_question" class="col-12" style="display: <?= $is_edit ? $employee_other_info->solo_parent == 1 ? "block" : "none" : "none" ?>;">
                                                                 <div class="d-flex align-items-center pt-6">
                                                                     <label class="form-label text-nowrap me-5 mb-0">
                                                                         If Yes, please specify ID No:
                                                                     </label>
-                                                                    <input type="text" name="solo_parent_id" class="form-control form-control-solid">
+                                                                    <input type="text" name="solo_parent_id" value="<?=$is_edit ? $employee_other_info->solo_parent_id : ""?>" class="form-control form-control-solid">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2124,22 +2221,63 @@
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div id="reference-form-repeater-container">
-                                                            <div class="d-flex flex-wrap form-repeater-container mb-3">
-                                                                <div class="flex-grow-1 me-0 me-md-5 mb-5 mb-md-0 w-100 w-md-auto">
-                                                                    <input type="text" class="form-control form-control-solid" data-required="" data-name="reference_name" data-label="Name" placeholder="Full Name"/>
+                                                            <?php if($is_edit):?>
+                                                                <?php $references = json_decode($employee_other_info->references);?>
+                                                                <?php if(count($references)):?>
+                                                                    <?php foreach ($references as $key => $reference):?>
+                                                                        <div class="d-flex flex-wrap form-repeater-container mb-3">
+                                                                            <div class="flex-grow-1 me-0 me-md-5 mb-5 mb-md-0 w-100 w-md-auto">
+                                                                                <input type="text" class="form-control form-control-solid" data-required="" data-name="reference_name" value="<?=$reference->reference_name?>" data-label="Name" placeholder="Full Name"/>
+                                                                            </div>
+                                                                            <div class="flex-grow-1 flex-md-grow-0 w-md-25 me-5 mb-5 mb-md-0">
+                                                                                <input type="text" class="form-control form-control-solid" data-required="" data-name="reference_address" value="<?=$reference->reference_address?>" data-label="Address" placeholder="Address"/>
+                                                                            </div>
+                                                                            <div class="flex-grow-1 flex-md-grow-0 w-md-25 me-5 mb-5 mb-md-0">
+                                                                                <input type="text" class="form-control form-control-solid" data-required="" data-name="reference_tel_no" value="<?=$reference->reference_tel_no?>" data-label="Telephone No." placeholder="Telephone Number"/>
+                                                                            </div>
+                                                                            <div class="d-flex align-items-end mb-5 mb-md-0">
+                                                                                <button type="button" href="#" class="btn btn-icon btn-light-danger form-repeater-remove">
+                                                                                    <i class="bi bi-trash fs-3"></i>
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    <?php endforeach;?>
+                                                                <?php else:?>
+                                                                    <div class="d-flex flex-wrap form-repeater-container mb-3">
+                                                                        <div class="flex-grow-1 me-0 me-md-5 mb-5 mb-md-0 w-100 w-md-auto">
+                                                                            <input type="text" class="form-control form-control-solid" data-required="" data-name="reference_name" data-label="Name" placeholder="Full Name"/>
+                                                                        </div>
+                                                                        <div class="flex-grow-1 flex-md-grow-0 w-md-25 me-5 mb-5 mb-md-0">
+                                                                            <input type="text" class="form-control form-control-solid" data-required="" data-name="reference_address" data-label="Address" placeholder="Address"/>
+                                                                        </div>
+                                                                        <div class="flex-grow-1 flex-md-grow-0 w-md-25 me-5 mb-5 mb-md-0">
+                                                                            <input type="text" class="form-control form-control-solid" data-required="" data-name="reference_tel_no" data-label="Telephone No." placeholder="Telephone Number"/>
+                                                                        </div>
+                                                                        <div class="d-flex align-items-end mb-5 mb-md-0">
+                                                                            <button type="button" href="#" class="btn btn-icon btn-light-danger form-repeater-remove">
+                                                                                <i class="bi bi-trash fs-3"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                <?php endif;?>
+                                                            <?php else:?>
+                                                                <div class="d-flex flex-wrap form-repeater-container mb-3">
+                                                                    <div class="flex-grow-1 me-0 me-md-5 mb-5 mb-md-0 w-100 w-md-auto">
+                                                                        <input type="text" class="form-control form-control-solid" data-required="" data-name="reference_name" data-label="Name" placeholder="Full Name"/>
+                                                                    </div>
+                                                                    <div class="flex-grow-1 flex-md-grow-0 w-md-25 me-5 mb-5 mb-md-0">
+                                                                        <input type="text" class="form-control form-control-solid" data-required="" data-name="reference_address" data-label="Address" placeholder="Address"/>
+                                                                    </div>
+                                                                    <div class="flex-grow-1 flex-md-grow-0 w-md-25 me-5 mb-5 mb-md-0">
+                                                                        <input type="text" class="form-control form-control-solid" data-required="" data-name="reference_tel_no" data-label="Telephone No." placeholder="Telephone Number"/>
+                                                                    </div>
+                                                                    <div class="d-flex align-items-end mb-5 mb-md-0">
+                                                                        <button type="button" href="#" class="btn btn-icon btn-light-danger form-repeater-remove">
+                                                                            <i class="bi bi-trash fs-3"></i>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="flex-grow-1 flex-md-grow-0 w-md-25 me-5 mb-5 mb-md-0">
-                                                                    <input type="text" class="form-control form-control-solid" data-required="" data-name="reference_address" data-label="Address" placeholder="Address"/>
-                                                                </div>
-                                                                <div class="flex-grow-1 flex-md-grow-0 w-md-25 me-5 mb-5 mb-md-0">
-                                                                    <input type="text" class="form-control form-control-solid" data-required="" data-name="reference_tel_no" data-label="Telephone No." placeholder="Telephone Number"/>
-                                                                </div>
-                                                                <div class="d-flex align-items-end mb-5 mb-md-0">
-                                                                    <button type="button" href="#" class="btn btn-icon btn-light-danger form-repeater-remove">
-                                                                        <i class="bi bi-trash fs-3"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
+                                                            <?php endif;?>
                                                             <button type="button" class="btn btn-light-primary btn-outline btn-outline-primary float-end form-repeater-add">Add a Reference</button>
                                                         </div>
                                                     </div>
@@ -2261,60 +2399,60 @@
 
         // Stepper Submit
             $(stepper.btnSubmit).click(function(){
-                const loading_timeout = setTimeout(() => {
-                    pageLoader(true, 'Loading...');
-                }, 500);
-            
-                fetch("<?=base_url()?>/employees/createEmployeeData", {
-                    method: 'post',
-                    body: overall_form_data.personal_information,
-                })
-                .then(data => data.json())
-                .then(async response => {
-                    console.log(response);
+                <?php if(!$is_edit):?>
+                    const loading_timeout = setTimeout(() => {
+                        pageLoader(true, 'Loading...');
+                    }, 500);
+                
+                    fetch("<?=base_url()?>/employees/createEmployeeInfo", {
+                        method: 'post',
+                        body: overall_form_data.personal_information,
+                    })
+                    .then(data => data.json())
+                    .then(async response => {
+                        console.log(response);
 
-                    if(response.error){
-                        errorAlert("Error", response.message, 'error');
-                        return;
-                    }
+                        if(response.error){
+                            errorAlert("Error", response.message, 'error');
+                            return;
+                        }
 
-                    const employee_id = response.data;
+                        const employee_id = response.data;
 
-                    const employee_family_background = await createEmployeeFamilyBackground(overall_form_data.family_background, employee_id);
+                        const employee_family_background = await createEmployeeFamilyBackground(overall_form_data.family_background, employee_id);
 
-                    const employee_educational_background = await createEmployeeEducationalBackground(overall_form_data.educational_background, employee_id);
+                        const employee_educational_background = await createEmployeeEducationalBackground(overall_form_data.educational_background, employee_id);
 
-                    const employee_eligibility = await createEmployeeEligibilities(overall_form_data.eligibility, employee_id);
+                        const employee_eligibility = await createEmployeeEligibilities(overall_form_data.eligibility, employee_id);
 
-                    const employee_work_experience = await createEmployeeWorkExperiences(overall_form_data.work_experience, employee_id);
+                        const employee_work_experience = await createEmployeeWorkExperiences(overall_form_data.work_experience, employee_id);
 
-                    const employee_voluntary_work = await createEmployeeVoluntaryWorks(overall_form_data.voluntary_work, employee_id);
+                        const employee_voluntary_work = await createEmployeeVoluntaryWorks(overall_form_data.voluntary_work, employee_id);
 
-                    const employee_training_programs = await createEmployeeTrainingPrograms(overall_form_data.training_programs, employee_id);
+                        const employee_training_programs = await createEmployeeTrainingPrograms(overall_form_data.training_programs, employee_id);
 
-                    const employee_other_information = await createEmployeeOtherInfo(overall_form_data.other_information, employee_id);
-                    
-                    clearTimeout(loading_timeout)
-                    pageLoader(false, 'Loading...');
+                        const employee_other_information = await createEmployeeOtherInfo(overall_form_data.other_information, employee_id);
+                        
+                        clearTimeout(loading_timeout)
+                        pageLoader(false, 'Loading...');
 
-                    if( !employee_other_information 
-                     || !employee_family_background 
-                     || !employee_educational_background 
-                     || !employee_eligibility 
-                     || !employee_work_experience 
-                     || !employee_voluntary_work 
-                     || !employee_training_programs
-                    ){ return; }
-                    
-                    successAlert("Success!", "Employee data successfully created", ()=>{ window.location.href = "<?=base_url()?>/employees" });
-                });
+                        if( !employee_other_information 
+                        || !employee_family_background 
+                        || !employee_educational_background 
+                        || !employee_eligibility 
+                        || !employee_work_experience 
+                        || !employee_voluntary_work 
+                        || !employee_training_programs
+                        ){ return; }
+                        
+                        successAlert("Success!", "Employee data successfully created", ()=>{ window.location.href = "<?=base_url()?>/employees" });
+                    });
+                <?php else:?>
+                    successAlert("Success!", "Employee data successfully updated", ()=>{ window.location.href = "<?=base_url()?>/employees" });
+                <?php endif;?>
             })
     //
-    // document.addEventListener("keydown", (event) => {
-    //     if(event.keyCode == 192){
-    //         stepper.btnNext.click()
-    //     }
-    // });
+
     // Personal Information
         // Civil Status - Spouse Toggle
             $("#civil-status").change(function(){
@@ -2481,7 +2619,25 @@
 
                 overall_form_data.personal_information = form_data;
 
-                
+                <?php if($is_edit):?>
+                    const loading_timeout = setTimeout(() => {
+                        pageLoader(true, 'Loading...');
+                    }, 500);
+
+                    fetch(`<?=base_url()?>/employees/updateEmployeeInfo/<?=$employee_id?>`, {
+                        method: 'post',
+                        body: form_data,
+                    })
+                    .then(data => data.json())
+                    .then(async response => {
+                        clearTimeout(loading_timeout);
+                        pageLoader(false, 'Loading...');
+
+                        if(response.error){
+                            errorAlert("Error", response.result, "error");
+                        }
+                    });
+                <?php endif;?>
             });
     //
 
@@ -2503,8 +2659,25 @@
 
                 overall_form_data.family_background = form_data;
 
-                // const response = createEmployeeFamilyBackground(form_data, 1);
-                // console.log(response)
+                <?php if($is_edit):?>
+                    const loading_timeout = setTimeout(() => {
+                        pageLoader(true, 'Loading...');
+                    }, 500);
+
+                    fetch(`<?=base_url()?>/employees/updateEmployeeFamilyBackground/<?=$employee_id?>`, {
+                        method: 'post',
+                        body: form_data,
+                    })
+                    .then(data => data.json())
+                    .then(async response => {
+                        clearTimeout(loading_timeout);
+                        pageLoader(false, 'Loading...');
+                        
+                        if(response.error){
+                            errorAlert("Error", response.result, "error");
+                        }
+                    });
+                <?php endif;?>
 
                 stepper.goNext();
             });
@@ -2515,23 +2688,48 @@
         // Educational Background Form
             $("#educational-background-form").submit(function (e) { 
                 e.preventDefault();
+                <?php if($is_edit):?>
+                    const loading_timeout = setTimeout(() => {
+                        pageLoader(true, 'Loading...');
+                    }, 500);
+                <?php endif;?>
+
                 const educational_background = {};
-                $(this).find(".education-background-container").each(function (index, education_background_container) {
+                $(this).find(".education-background-container").each(async function (index, education_background_container) {
                     const educational_level = this.dataset.educationalLevel;
                     $(education_background_container).find(`[name]`).each(function (i, input) {
                         const name = $(this).attr("name");
                         const value = $(this).val();
-                        if(value){
-                            if(!educational_background.hasOwnProperty(educational_level)){
-                                educational_background[educational_level] = {
-                                    educational_level : Number(educational_level)
-                                };
-                            }
-
-                            educational_background[educational_level][name] = value;
+                        
+                        if(!educational_background.hasOwnProperty(educational_level)){
+                            educational_background[educational_level] = {
+                                educational_level : Number(educational_level)
+                            };
                         }
+
+                        educational_background[educational_level][name] = value;
                     });
+                    <?php if($is_edit):?>
+                        const form_data = objectToFormData(educational_background[educational_level]);
+                        const result = await fetch(`<?=base_url()?>/employees/updateEmployeeEducationalBackground/<?=$employee_id?>/${educational_level}`, {
+                                method: 'post',
+                                body: form_data
+                            })
+                            .then(data => data.json())
+                            .then(response => {
+                                return response;
+                            });
+
+                        if(result.error){
+                            errorAlert("Error", response.message, 'error');
+                            return false;
+                        }
+                    <?php endif;?>
                 });
+                <?php if($is_edit):?>
+                    clearTimeout(loading_timeout);
+                    pageLoader(false, 'Loading...');
+                <?php endif;?>
 
                 overall_form_data.educational_background = educational_background;
             });
@@ -2542,14 +2740,36 @@
             const civil_service_eligibility_form_repeater = new formRepeater($("#civil-service-eligibility-form-repeater-container"));
 
         // Eligibility Form
-            $("#eligibility-form").submit(function (e) { 
+            $("#eligibility-form").submit(async function (e) { 
                 e.preventDefault();
                 if(!civil_service_eligibility_form_repeater.is_valid){ return; }
 
                 const form_data = civil_service_eligibility_form_repeater.values;
 
                 overall_form_data.eligibility = form_data;
+                
+                <?php if($is_edit):?>
+                const loading_timeout = setTimeout(() => {
+                    pageLoader(true, 'Loading...');
+                }, 500);
 
+                const reset = await resetEmployeeEligibilities();
+                console.log(reset);
+                if(reset.error){
+                    errorAlert("Error", reset.message, 'error');
+                    return;
+                }
+
+                const result = await createEmployeeEligibilities(form_data, <?=$employee_id?>);
+                if(result.error){
+                    errorAlert("Error", result.message, 'error');
+                    return;
+                }
+
+                clearTimeout(loading_timeout);
+                pageLoader(false, 'Loading...');
+                <?php endif;?>
+                
                 stepper.goNext();
             });
     //
@@ -2559,13 +2779,34 @@
             const work_experience_form_repeater = new formRepeater($("#work-experience-form-repeater-container"));
 
         // Work Experience Form
-            $("#work-experience-form").submit(function (e) { 
+            $("#work-experience-form").submit(async function (e) { 
                 e.preventDefault();
                 if(!work_experience_form_repeater.is_valid){ return; }
 
                 const form_data = work_experience_form_repeater.values;
 
                 overall_form_data.work_experience = form_data;
+
+                <?php if($is_edit):?>
+                const loading_timeout = setTimeout(() => {
+                    pageLoader(true, 'Loading...');
+                }, 500);
+
+                const reset = await resetEmployeeWorkExperiences();
+                if(reset.error){
+                    errorAlert("Error", reset.message, 'error');
+                    return;
+                }
+
+                const result = await createEmployeeWorkExperiences(form_data, <?=$employee_id?>);
+                if(result.error){
+                    errorAlert("Error", result.message, 'error');
+                    return;
+                }
+
+                clearTimeout(loading_timeout);
+                pageLoader(false, 'Loading...');
+                <?php endif;?>
 
                 stepper.goNext();
             });
@@ -2576,14 +2817,33 @@
             const voluntary_work_form_repeater = new formRepeater($("#voluntary-work-form-repeater-container"));
 
         // Voluntary Work Form
-            $("#voluntary-work-form").submit(function (e) { 
+            $("#voluntary-work-form").submit(async function (e) { 
                 e.preventDefault();
                 if(!voluntary_work_form_repeater.is_valid){ return; }
 
                 const form_data = voluntary_work_form_repeater.values;
 
                 overall_form_data.voluntary_work = form_data;
+                <?php if($is_edit):?>
+                const loading_timeout = setTimeout(() => {
+                    pageLoader(true, 'Loading...');
+                }, 500);
 
+                const reset = await resetEmployeeVoluntaryWorks();
+                if(reset.error){
+                    errorAlert("Error", reset.message, 'error');
+                    return;
+                }
+
+                const result = await createEmployeeVoluntaryWorks(form_data, <?=$employee_id?>);
+                if(result.error){
+                    errorAlert("Error", result.message, 'error');
+                    return;
+                }
+
+                clearTimeout(loading_timeout);
+                pageLoader(false, 'Loading...');
+                <?php endif;?>
                 stepper.goNext();
             });
     //
@@ -2593,14 +2853,33 @@
             const training_programs_form_repeater = new formRepeater($("#training-programs-form-repeater-container"));
 
         // Training Programs Form
-            $("#training-program-form").submit(function (e) { 
+            $("#training-program-form").submit(async function (e) { 
                 e.preventDefault();
                 if(!training_programs_form_repeater.is_valid){ return; }
 
                 const form_data = training_programs_form_repeater.values;
 
                 overall_form_data.training_programs = form_data;
+                <?php if($is_edit):?>
+                const loading_timeout = setTimeout(() => {
+                    pageLoader(true, 'Loading...');
+                }, 500);
 
+                const reset = await resetEmployeeTrainingPrograms();
+                if(reset.error){
+                    errorAlert("Error", reset.message, 'error');
+                    return;
+                }
+
+                const result = await createEmployeeTrainingPrograms(form_data, <?=$employee_id?>);
+                if(result.error){
+                    errorAlert("Error", result.message, 'error');
+                    return;
+                }
+
+                clearTimeout(loading_timeout);
+                pageLoader(false, 'Loading...');
+                <?php endif;?>
                 stepper.goNext();
             });
     //
@@ -2663,6 +2942,25 @@
 
                 overall_form_data.other_information = form_data;
 
+                <?php if($is_edit):?>
+                    const loading_timeout = setTimeout(() => {
+                        pageLoader(true, 'Loading...');
+                    }, 500);
+
+                    fetch(`<?=base_url()?>/employees/updateEmployeeOtherInfo/<?=$employee_id?>`, {
+                        method: 'post',
+                        body: form_data,
+                    })
+                    .then(data => data.json())
+                    .then(async response => {
+                        clearTimeout(loading_timeout);
+                        pageLoader(false, 'Loading...');
+
+                        if(response.error){
+                            errorAlert("Error", response.result, "error");
+                        }
+                    });
+                <?php endif;?>
                 stepper.goNext();
             });
     //
@@ -2785,7 +3083,6 @@
     }
 
     async function createEmployeeVoluntaryWorks(voluntary_works, id){
-        console.log("voluntary_works", voluntary_works);
         let is_created = true;
         if(voluntary_works.length == 0){ return true; }
         await voluntary_works.every(async voluntary_work => {
@@ -2853,6 +3150,24 @@
             return !response.error;
         });
     }
+
+    <?php if($is_edit):?>
+    async function resetEmployeeEligibilities(){
+        return await fetch(`<?=base_url()?>/employees/resetEmployeeEligibilities/<?=$employee_id?>`).then(data => data.json()).then(response => response);
+    }
+
+    async function resetEmployeeWorkExperiences(){
+        return await fetch(`<?=base_url()?>/employees/resetEmployeeWorkExperiences/<?=$employee_id?>`).then(data => data.json()).then(response => response);
+    }
+
+    async function resetEmployeeVoluntaryWorks(){
+        return await fetch(`<?=base_url()?>/employees/resetEmployeeVoluntaryWorks/<?=$employee_id?>`).then(data => data.json()).then(response => response);
+    }
+    
+    async function resetEmployeeTrainingPrograms(){
+        return await fetch(`<?=base_url()?>/employees/resetEmployeeTrainingPrograms/<?=$employee_id?>`).then(data => data.json()).then(response => response);
+    }
+    <?php endif;?>
 
     function objectToFormData(object) {
         const form_data = new FormData();

@@ -32,6 +32,20 @@
                 </span>
                 Add Employees
             </a>
+            <input type="checkbox" class="btn-check" id="archive-toggle" autocomplete="off">
+
+            <label for="archive-toggle" class="btn btn-danger d-flex align-items-center">
+                <span class="svg-icon svg-icon-muted svg-icon-1">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="currentColor"/>
+                        <path opacity="0.5" d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z" fill="currentColor"/>
+                        <path opacity="0.5" d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="currentColor"/>
+                    </svg>
+                </span>
+                <span id="archive-text">
+                    View Archived
+                </span>
+            </label>
         </div>
     </div>
 </div>
@@ -134,10 +148,13 @@
                             </button>
                             <div class="dropdown-menu menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-150px py-4" aria-labelledby="dropdownMenuButton" style="">
                                 <div class="menu-item px-3">
-                                    <a class="menu-link px-3 text-nowrap edit-btn" href="<?=base_url()?>/employees/edit_employee/${data}">Edit Employee</a>
+                                    <a class="menu-link px-3 text-nowrap edit-employee" href="<?=base_url()?>/employees/edit_employee/${data}">Edit Employee</a>
                                 </div>
                                 <div class="menu-item px-3">
-                                    <span class="menu-link px-3 text-nowrap access-btn" data-id="${data}">Employment Data</span>
+                                    <span class="menu-link px-3 text-nowrap access-employee" data-id="${data}">Employment Data</span>
+                                </div>
+                                <div class="menu-item px-3">
+                                    <span class="menu-link px-3 text-danger archive-employee" data-id="${data}">Archive</span>
                                 </div>
                             </div>
                         </div>
@@ -167,6 +184,33 @@
                 _dataTablesObj = json.data;
             }
         });
+
+        $("#employees-table").on("click", ".archive-employee", function(){
+            const employee_id = this.dataset.id;
+            const loading_timeout = setTimeout(() => {
+                pageLoader(true, 'Loading...');
+            }, 500);
+
+            fetch(`<?=base_url()?>/employees/archiveEmployee/${employee_id}`)
+            .then(data => data.json())
+            .then(response => {
+                clearTimeout(loading_timeout)
+                pageLoader(false, 'Loading...');
+                reloadDataTable(employees_table);
+            })
+        })
+
+        $("#archive-toggle").change(function(){
+            const button = $(this).next("label");
+            button.toggleClass("btn-danger btn-success")
+            if(this.checked){
+                $("#archive-text").html("Hide Archive");
+                reloadDataTable(employees_table, "<?=base_url()?>/employees/getEmployees/1")
+            }else{
+                $("#archive-text").html("View Archive");
+                reloadDataTable(employees_table, "<?=base_url()?>/employees/getEmployees")
+            }
+        })
     });
 </script>
 <?= $this->endSection(); ?>

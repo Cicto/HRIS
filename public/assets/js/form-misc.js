@@ -121,10 +121,11 @@ const formRepeater = class {
     add_button.click(function(){
       const last_form_repeat = parent.find(".form-repeater-container").last();
       const is_valid = validateRepeat(last_form_repeat);
+      console.log(last_form_repeat)
       if(!is_valid){
         return;
       }
-      const new_form = form_repeat.clone();
+      const new_form = last_form_repeat.clone();
 
       new_form.find(".form-repeater-label").addClass("h-none");
       new_form.insertAfter(last_form_repeat).find("input, select, textarea").val("").trigger("change")
@@ -145,7 +146,8 @@ const formRepeater = class {
     
     if(options.hasOwnProperty("labeled")){
       if(options.labeled){
-        form_repeat.find("[data-name]").each(function (index, element) {
+        const first_form_repeat = parent.find(".form-repeater-container").first();
+        first_form_repeat.find("[data-name]").each(function (index, element) {
           const label = element.dataset.label ? element.dataset.label : "&nbsp;" ;
           const is_required = element.dataset.required == "" ? element.dataset.label ? "required" : "" : "" ;
           let classNames = "";
