@@ -1,5 +1,5 @@
 <!--begin::Export dropdown-->
-<button type="button" class="btn btn-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+<button type="button" class="btn btn-primary " data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
     <i class="bi bi-cloud-arrow-down-fill fs-2"></i>
     Export Report
 </button>

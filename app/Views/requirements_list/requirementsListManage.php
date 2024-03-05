@@ -3,7 +3,7 @@
 
 <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
     <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex flex-stack">
-        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+        <!-- <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
             <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Manage
                 Requirements List
             </h1>
@@ -18,28 +18,54 @@
                     <a class="text-muted">Requirements List</a>
                 </li>
             </ul>
+        </div> -->
+        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Manage Requirement List</h1>
+            <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+                <li class="breadcrumb-item text-muted">
+                    <a href="<?=base_url()?>" class="text-muted text-hover-primary">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item text-muted">
+                    <i class="bi bi-dash"></i>
+                </li>
+                <li class="breadcrumb-item text-muted">
+                    <span class="text-muted">Manage Requirement List</span>
+                </li>
+                <li class="breadcrumb-item text-muted" >
+                    <i id="dash" class="bi bi-dash" hidden></i>
+                </li>
+                <li class="breadcrumb-item text-muted">
+                    <span id="archive-name" class="text-muted"></span>
+                </li>
+            </ul>
         </div>
-        <div class="d-flex col-auto align-items-center gap-2 gap-lg-3">
+        <div class="d-flex align-items-center gap-2 gap-lg-3">
             <button id="add-requirements-btn" data-bs-toggle="modal" data-bs-target="#add_modal"
-                class="btn btn-primary btn-sm"">
-                <span class=" svg-icon svg-icon-muted svg-icon-2 pe-0 me-0">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path opacity="0.3"
-                        d="M3 13V11C3 10.4 3.4 10 4 10H20C20.6 10 21 10.4 21 11V13C21 13.6 20.6 14 20 14H4C3.4 14 3 13.6 3 13Z"
-                        fill="currentColor" />
-                    <path
-                        d="M13 21H11C10.4 21 10 20.6 10 20V4C10 3.4 10.4 3 11 3H13C13.6 3 14 3.4 14 4V20C14 20.6 13.6 21 13 21Z"
-                        fill="currentColor" />
-                </svg>
-                </span>
+                class="btn btn-primary d-flex align-items-center">
+                <span class="svg-icon svg-icon-muted svg-icon-1">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor"/>
+                        <rect x="10.8891" y="17.8033" width="12" height="2" rx="1" transform="rotate(-90 10.8891 17.8033)" fill="currentColor"/>
+                        <rect x="6.01041" y="10.9247" width="12" height="2" rx="1" fill="currentColor"/>
+                    </svg>
+                </span> Add Requirements
             </button>
 
             <?= $this->include('partials/dataTablesExportButton')?>
 
             <input type="checkbox" class="btn-check" id="archive-toggle" autocomplete="off">
 
-            <label id="archive-color" class="btn btn-primary btn-sm btn-danger btn-icon" for="archive-toggle">
-                <i class="bi bi-trash fs-4 "></i>
+            <label id="archive-color" class="btn btn-danger d-flex align-items-center" for="archive-toggle">
+            <span class="svg-icon svg-icon-muted svg-icon-1">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="currentColor"/>
+                        <path opacity="0.5" d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z" fill="currentColor"/>
+                        <path opacity="0.5" d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="currentColor"/>
+                    </svg>
+                </span>
+                <span id="archive-text">
+                    View Archived
+                </span>
             </label>
 
         </div>
@@ -68,7 +94,6 @@
                                     <tr>
                                         <th class="filterhead"></th>
                                         <th class="filterhead"></th>
-                                        <th class=""></th>
                                         <th class=""></th>
                                     </tr>
                                 </thead>
@@ -332,10 +357,16 @@
                 reloadDataTable(table, "<?= base_url()?>/requirements/requirementsListDataTables/1");
                 $("#archive-color").addClass("btn-success");
                 $("#archive-color").removeClass("btn-danger");
+                $('#dash').attr('hidden',false);
+                $('#archive-name').attr('hidden',false);
+                $('#archive-name').text('Archived Requirements');
+
             } else {
                 reloadDataTable(table, "<?= base_url()?>/requirements/requirementsListDataTables/");
                 $("#archive-color").addClass("btn-danger");
                 $("#archive-color").removeClass("btn-success");
+                $('#dash').attr('hidden',true);
+                $('#archive-name').attr('hidden',true);
             }
 
         });
