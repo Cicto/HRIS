@@ -69,7 +69,7 @@ class Employees extends BaseController
         }
         return DataTable::of($this->masterModel->getDataTables(
             'employee_info',
-            'employee_id, firstname, middlename, lastname, photo', 
+            'employee_id, firstname, middlename, lastname, photo, deleted_at', 
             $where_conditions
         ))->toJson(true);
     }
@@ -128,6 +128,12 @@ class Employees extends BaseController
     public function archiveEmployee($employee_id){
         $this->response->setContentType('application/json');
         $delete_employee = $this->masterModel->update("employee_info", ["deleted_at" => date("Y-m-d H:i:s")], ["employee_id" => $employee_id]);
+        return json_encode($delete_employee);
+    }
+
+    public function unarchiveEmployee($employee_id){
+        $this->response->setContentType('application/json');
+        $delete_employee = $this->masterModel->update("employee_info", ["deleted_at" => NULL], ["employee_id" => $employee_id]);
         return json_encode($delete_employee);
     }
 

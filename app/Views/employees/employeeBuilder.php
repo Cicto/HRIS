@@ -38,7 +38,7 @@
 <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
     <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex flex-stack">
         <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
-            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Add Employee</h1>
+            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"><?=$is_edit ? "Update" : "Add"?> Employee</h1>
             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                 <li class="breadcrumb-item text-muted">
                     <a href="<?=base_url()?>" class="text-muted text-hover-primary">Dashboard</a>
@@ -53,7 +53,7 @@
                     <i class="bi bi-dash"></i>
                 </li>
                 <li class="breadcrumb-item text-muted">
-                    <span class="text-muted">Add Employee</span>
+                    <span class="text-muted"><?=$is_edit ? "Update" : "Add"?> Employee</span>
                 </li>
             </ul>
         </div>
@@ -72,7 +72,7 @@
 
                         <div class="col-md-4 col-lg-4 col-xl-3 border-end">
                             <div class="position-relative d-flex justify-content-center">
-                                <img src="<?=base_url()?>/public/assets/media/employee-profile/<?=$is_edit ? $employee_info->photo ? $employee_info->photo : "default-avatar.png" : "default-avatar.png"?>" class="img-fluid rounded-4 border mx-auto" style="aspect-ratio: 1 / 1;" alt="Employee Photo" id="employee-photo-img">
+                                <img src="<?=base_url()?>/public/assets/media/employee-profile/<?=$is_edit ? $employee_info->photo ? $employee_info->photo : "default-avatar.png" : "default-avatar.png"?>" class="img-fluid w-100 rounded-4 border mx-auto" style="aspect-ratio: 1 / 1;" alt="Employee Photo" id="employee-photo-img">
                             </div>
                             
                             <div class="my-6">
@@ -639,7 +639,7 @@
                                                     </div>
                                                 </div>
 
-                                                <input type="text" name="photo" id="photo" class="d-none">
+                                                <input type="text" name="photo" value="<?=$is_edit ? $employee_info->photo : ""?>" id="photo" class="d-none">
 
                                                 <!-- <div class="row mb-6">
                                                     <div class="col-md-4 pt-2">
@@ -2542,7 +2542,10 @@
                     
                     const uploaded_photo = `<?=base_url()?>/public/assets/media/employee-profile/<?=$is_edit ? "" : "temp/"?>${response.data.file_name}`;
                     $("#employee-photo-img").attr("src", uploaded_photo);
-                    $("#photo").val(response.data.file_name);
+                    <?php if(!$is_edit):?>
+                        $("#photo").val(response.data.file_name);
+                    <?php endif;?>
+
                     successAlert("Success", response.message, "success");
 
                     photo_croppper_modal.hide();

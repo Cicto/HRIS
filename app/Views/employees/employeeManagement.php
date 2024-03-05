@@ -59,7 +59,7 @@
                         <table class="table table-hover table-rounded border align-middle gs-7 gy-5 my-0 w-100" id="employees-table">
                             <thead class="text-primary fw-bold border-bottom border-gray-200">
                                 <tr>
-                                    <th class="text-nowrap">Employee ID</th>
+                                    <th class="text-nowrap w-10px">Employee ID</th>
                                     <th class="text-nowrap">First Name</th>
                                     <th class="text-nowrap">Middle Name</th>
                                     <th class="text-nowrap">Last Name</th>
@@ -154,9 +154,14 @@
                                 <div class="menu-item px-3">
                                     <span class="menu-link px-3 text-nowrap access-employee" data-id="${data}">Employment Data</span>
                                 </div>
-                                <div class="menu-item px-3">
+                                ${row.deleted_at ? 
+                                `<div class="menu-item px-3">
+                                    <span class="menu-link px-3 text-success unarchive-employee" data-id="${data}">Unarchive</span>
+                                </div>`: 
+                                `<div class="menu-item px-3">
                                     <span class="menu-link px-3 text-danger archive-employee" data-id="${data}">Archive</span>
-                                </div>
+                                </div>`
+                                }
                             </div>
                         </div>
                         `
@@ -200,6 +205,21 @@
                 reloadDataTable(employees_table);
             })
         })
+        
+        $("#employees-table").on("click", ".unarchive-employee", function(){
+            const employee_id = this.dataset.id;
+            const loading_timeout = setTimeout(() => {
+                pageLoader(true, 'Loading...');
+            }, 500);
+
+            fetch(`<?=base_url()?>/employees/unarchiveEmployee/${employee_id}`)
+            .then(data => data.json())
+            .then(response => {
+                clearTimeout(loading_timeout)
+                pageLoader(false, 'Loading...');
+                reloadDataTable(employees_table);
+            })
+        })
 
         $("#archive-toggle").change(function(){
             const button = $(this).next("label");
@@ -212,6 +232,7 @@
                 reloadDataTable(employees_table, "<?=base_url()?>/employees/getEmployees")
             }
         })
+
     });
 </script>
 <?= $this->endSection(); ?>
