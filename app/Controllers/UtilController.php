@@ -219,30 +219,32 @@ class UtilController extends BaseController
         return $result;
     }
 
-    /**
-     * It moves a file from one directory to another.
-     * 
-     * @param from the directory where the file is currently located
-     * @param to the directory you want to move the file to
-     * @param file_name The name of the file to be moved.
-     * 
-     * @return The result of the rename function.
-     */
-    public function moveFileTo($from, $to, $file_name = TRUE){
-        $slash = gettype($file_name)!=="string" ? "" : "/" ;
-        $from_dir = str_replace("\\","/",ROOTPATH).$from.$slash;
-        $to_dir = str_replace("\\","/",ROOTPATH).$to.$slash;
+    public function moveFileTo($from, $to, $file_name, $new_file_name = FALSE){
+        $from_dir = $this->addSlashToDir($this->getRootPath().$from);
+        $to_dir = $this->addSlashToDir($this->getRootPath().$to);
+
         if (!file_exists($to_dir)) {
             mkdir($to_dir, 0777, true);
         }
 
-        if(gettype($file_name)=="string"){
+        if(gettype($new_file_name)=="boolean"){
             $to_dir = $to_dir.$file_name;
+            $from_dir = $from_dir.$file_name;
+        }else{
+            $to_dir = $to_dir.$new_file_name;
             $from_dir = $from_dir.$file_name;
         }
 
-        $result = rename( $from_dir, $to_dir);
-        return $result;
+        try {
+            $renamed = rename($from_dir, $to_dir);
+            return $renamed;
+        } catch (Exception $e) {
+            if ( copy($from_dir, $to_dir) ) {
+                unlink($from_dir);
+                return TRUE;
+            }
+            return FALSE;
+        }
     }
 
     public function zipFiles($file_list, $zip_path="public/assets/media", $zip_name="archive.zip"){
@@ -323,6 +325,10 @@ class UtilController extends BaseController
     private function addSlashToDir($dir){
         $slash = substr($dir, -1) == "/" ? "" : "/";
         return $dir.$slash;
+    }
+
+    private function getRootPath(){
+        return str_replace("\\","/",ROOTPATH);
     }
 
     /**
