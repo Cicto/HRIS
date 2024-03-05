@@ -90,6 +90,12 @@
                                 </span>
                                 <span class="menu-title">Plantilla</span>
                             </a>
+                            <a class="menu-link" href="<?= base_url()?>/requirements">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Requirements List</span>
+                            </a>
                         </div>
                     </div>
                 </div> 
