@@ -17,7 +17,7 @@
                     <i class="bi bi-dash"></i>
                 </li>
                 <li class="breadcrumb-item text-muted">
-                    <span class="text-muted">Manage Employees</span>
+                    <span class="text-muted">Manage Employees <span class="text-danger opacity-75" id="archive-toggle-label" style="display: none;">: Archived</span></span>
                 </li>
             </ul>
         </div>
@@ -227,9 +227,11 @@
             if(this.checked){
                 $("#archive-text").html("Hide Archive");
                 reloadDataTable(employees_table, "<?=base_url()?>/employees/getEmployees/1")
+                $("#archive-toggle-label").show();
             }else{
                 $("#archive-text").html("View Archive");
                 reloadDataTable(employees_table, "<?=base_url()?>/employees/getEmployees")
+                $("#archive-toggle-label").hide();
             }
         })
 
