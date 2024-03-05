@@ -1,3 +1,6 @@
+writable/cache/*
+writable/cache/7_groups
+!writable/cache/index.html
 
 writable/
 writable/cache
@@ -7,3 +10,27 @@ writable/cache/1_groups
 app/.DS_Store
 .DS_Store
 app/.DS_Store
+writable/logs/*
+!writable/logs/index.html
+
+writable/session/*
+!writable/session/index.html
+
+writable/uploads/*
+!writable/uploads/index.html
+
+writable/debugbar/*
+!writable/debugbar/.gitkeep
+
+writable/**/*.db
+writable/**/*.sqlite
+
+php_errors.log
+
+
+.env
+.env
+.env
+.env
+.env
+.env

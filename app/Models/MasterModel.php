@@ -211,8 +211,11 @@ class MasterModel
     {
         $builder = $this->db->table($tableName);
         $builder->where($whereConditions);
-        $builder->delete();
-        
+        $is_deleted = $builder->delete();
+        if($is_deleted){
+            return ['error' => false, 'message' => 'Record Successfully Deleted.'];
+        }
+        return ['error' => true, 'message' => 'Record not Deleted.'];
     }
 
     

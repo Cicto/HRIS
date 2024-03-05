@@ -17,3 +17,18 @@
         </ul>
     </div>
 </div>
+<div id="loading-overlay" class="position-fixed h-100 w-100 top-0 start-0 " style="
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    display: none;
+    ">
+    <div class="d-flex flex-column align-items-center justify-content-center h-100 w-100">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <span class="text-muted fs-6 fw-semibold mt-5">Loading...</span>
+    </div>
+</div>
