@@ -12,6 +12,7 @@ class Employees extends BaseController
         $this->viewData['title'] = 'System Users';
         $this->viewData['roles'] = $this->getSystemRoles();
         $this->viewData['departments'] = $this->getDepartments();
+        $this->viewData['employment_status'] = $this->masterModel->get("employment_status", "*", ["deleted_at" => NULL]);
 
         return view('employees/employeeManagement', $this->viewData);
     }
@@ -69,8 +70,17 @@ class Employees extends BaseController
         }
         return DataTable::of($this->masterModel->getDataTables(
             'employee_info',
-            'employee_id, firstname, middlename, lastname, photo, deleted_at', 
-            $where_conditions
+            'employee_info.employee_id, qrcode, firstname, middlename, lastname, photo, employee_info.deleted_at,
+             employee_status.employement_status_id, employee_status.department_id, employee_status.position, employee_status.role_id, employee_status.date_hired, 
+             employment_status.es_description,
+             departments.dept_alias, departments.dept_name
+            ', 
+            $where_conditions,
+            [
+                ["employee_status", "employee_status.employee_id = employee_info.employee_id", "left"],
+                ["employment_status", "employment_status.es_id = employee_status.employement_status_id", "left"],
+                ["departments", "departments.dept_id = employee_status.department_id", "left"]
+            ]
         ))->toJson(true);
     }
 
@@ -303,6 +313,43 @@ class Employees extends BaseController
                 "file_name" => $file_name.".".$file_extension
             ]
         ]);
+    }
+
+    private function createEmployeeStatus($employee_status_data){
+        $this->response->setContentType('application/json');
+        $employee_id = $employee_status_data["employee_id"];
+        $department_id = $employee_status_data["department_id"];
+        $insert_employee = $this->masterModel->insert("employee_status", $employee_status_data);
+        if(!$insert_employee["error"]){
+            $this->updateEmployeeQRcode($department_id, $employee_id);
+        }
+        return json_encode($insert_employee);
+    }
+
+    public function updateEmployeeStatus(){
+        $this->response->setContentType('application/json');
+        $data = $this->request->getPost();
+        $employee_id = $data["employee_id"];
+        $department_id = $data["department_id"];
+        $exist = !$this->masterModel->get("employee_status", "employee_id", ["employee_id" => $employee_id])["error"];
+        if($exist){
+            $update_employee = $this->masterModel->update("employee_status", $data, ["employee_id" => $employee_id]);
+            if(!$update_employee["error"]){
+                $this->updateEmployeeQRcode($department_id, $employee_id);
+            }
+            return json_encode($update_employee);
+        }
+        return $this->createEmployeeStatus($data);
+    }
+
+    private function updateEmployeeQRcode($department_id, $employee_id){
+        $util_controller = new UtilController();
+        $this->response->setContentType('application/json');
+        $offsetted_employee_id = $util_controller->offsetZero($employee_id, 4);
+        $offsetted_department_id = $util_controller->offsetZero($department_id, 1);
+        $qrcode = "BALIWAG-EMP-$offsetted_department_id-$offsetted_employee_id";
+        $update_employee = $this->masterModel->update("employee_info", ["qrcode" => $qrcode], ["employee_id" => $employee_id]);
+        return !$update_employee["error"];
     }
 
     public function test(){

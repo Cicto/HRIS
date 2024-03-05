@@ -444,5 +444,41 @@ class UtilController extends BaseController
         }
         return $provinces;
     }
+
+    /**
+     * The function calculates the age based on a given birthdate.
+     * 
+     * @param birthdate The parameter "birthdate" is expected to be a string in the format
+     * "YYYY-MM-DD", representing the date of birth of a person.
+     * 
+     * @return the age calculated based on the given birthdate.
+     */
+    public static function getAge($birthdate){
+        $birthdate = explode("-", $birthdate);
+        $age = (date("md", date("U", mktime(0, 0, 0, $birthdate[1], $birthdate[2], $birthdate[0]))) > date("md")
+            ? ((date("Y") - $birthdate[0]) - 1)
+            : (date("Y") - $birthdate[0]));
+        return $age;
+    }
+
+    /**
+     * The offsetZero function takes a string and an optional offset value, and returns the string with
+     * leading zeros added to make its length equal to the offset value.
+     * 
+     * @param str The input string that needs to be offset with zeros.
+     * @param offset The offset parameter is an optional parameter that specifies the desired length of
+     * the resulting string. If not provided, the default value is set to 5.
+     * 
+     * @return the offsetted string.
+     */
+    public static function offsetZero($str, $offset = 5) {
+        $offsetted_string = strval($str);
+        if (strlen($offsetted_string) <= $offset) {
+          for ($index = strlen($offsetted_string); $index <= $offset; $index++) {
+            $offsetted_string = "0" . $offsetted_string;
+          }
+        }
+        return $offsetted_string;
+    }
 }
 ?>
