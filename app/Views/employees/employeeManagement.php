@@ -107,10 +107,11 @@
                 },
                 {
                     data: 'firstname',
+                    className: "text-nowrap",
                     render: function(data, display, row){
                         return `
                         <div class="symbol symbol-50px me-2ddd">
-                            <img src="http://localhost/hris/public/assets/media/avatars/default-avatar.png" class="ms-5 me-8">
+                            <img src="<?=base_url()?>/public/assets/media/employee-profile/${row.photo ? row.photo : "default-avatar.png"}" class="ms-5 me-8">
                         </div>
                         <span>${data}</span>
                         `;

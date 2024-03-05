@@ -69,9 +69,19 @@ class Employees extends BaseController
         }
         return DataTable::of($this->masterModel->getDataTables(
             'employee_info',
-            'employee_id, firstname, middlename, lastname', 
+            'employee_id, firstname, middlename, lastname, photo', 
             $where_conditions
         ))->toJson(true);
+    }
+
+    private function getSpecificEmployee($employee_id = 0){
+        if($employee_id){
+            $select_employee = $this->masterModel->get("employee_info", "*", ['employee_info.deleted_at' => NULL, "employee_id" => $employee_id]);
+            if(!$select_employee["error"]){
+                return $select_employee["data"][0];
+            }
+        }
+        return FALSE;
     }
     
     public function getCityMun($prov_code){
@@ -89,6 +99,20 @@ class Employees extends BaseController
     public function createEmployeeInfo(){
         $this->response->setContentType('application/json');
         $data = $this->request->getPost();
+
+        if($data["photo"]){
+            $util_controller = new UtilController();
+            $old_file_name = $data["photo"];
+            $new_file_name = str_replace(" ", "", ucwords($data["firstname"]." ".$data["middlename"]." ".$data["lastname"]))."-".$old_file_name;
+            $is_moved = $util_controller->moveFileTo("public/assets/media/employee-profile/temp", "public/assets/media/employee-profile", $old_file_name, $new_file_name);
+            
+            if(!$is_moved){
+                return json_encode(['error' => true, 'message' => 'Something went wrong with moving the photo', 'data' => false]);
+            }
+
+            $data["photo"] = $new_file_name;
+        }
+
         $insert_employee = $this->masterModel->insert("employee_info", $data);
         return json_encode($insert_employee);
     }
@@ -206,6 +230,73 @@ class Employees extends BaseController
         $data = $this->request->getPost();
         $update_employee = $this->masterModel->update("employee_other_info", $data, ["employee_id" => $employee_id]);
         return json_encode($update_employee);
+    }
+
+    public function uploadTempEmployeePhoto(){
+        $util_controller = new UtilController();
+
+        $this->response->setContentType('application/json');
+        $data_url = $this->request->getPost("photo");
+
+        $directory = "public/assets/media/employee-profile/temp";
+        $file_name = date("YmdHis");
+        $file_extension = "png";
+
+        $is_uploaded = $util_controller->uploadImageTo($data_url, $directory, $file_name, $file_extension);
+
+        if($is_uploaded){
+            return json_encode([
+                "error" => false,
+                "message" => "Employee photo successfully uploaded",
+                "data" => [
+                    "file_name" => $file_name.".".$file_extension
+                ]
+            ]);
+        }
+        return json_encode([
+            "error" => true,
+            "message" => "Employee photo not uploaded",
+            "data" => [
+                "file_name" => $file_name.".".$file_extension
+            ]
+        ]);
+    }
+
+    public function updateEmployeePhoto($employee_id){
+        $util_controller = new UtilController();
+        $employee = $this->getSpecificEmployee($employee_id);
+        $current_employee_photo = str_replace(" ", "", ucwords($employee->firstname." ".$employee->middlename." ".$employee->lastname));
+        
+        $this->response->setContentType('application/json');
+        $data_url = $this->request->getPost("photo");
+
+        $directory = "public/assets/media/employee-profile";
+        
+        $new_employee_photo = $current_employee_photo."-".date("YmdHis");
+        $file_extension = "png";
+
+        $is_uploaded = $util_controller->uploadImageTo($data_url, $directory, $new_employee_photo, $file_extension);
+
+        if($is_uploaded){
+            $update_employee_photo = $this->masterModel->update("employee_info", ["photo" => $new_employee_photo.".".$file_extension], ["employee_id" => $employee_id]);
+            if(!$update_employee_photo["error"]){
+                return json_encode([
+                    "error" => false,
+                    "message" => "Employee photo successfully uploaded",
+                    "data" => [
+                        "file_name" => $new_employee_photo.".".$file_extension
+                    ]
+                ]);
+            }
+        }
+
+        return json_encode([
+            "error" => true,
+            "message" => "Employee photo not uploaded",
+            "data" => [
+                "file_name" => $file_name.".".$file_extension
+            ]
+        ]);
     }
 
     public function test(){
