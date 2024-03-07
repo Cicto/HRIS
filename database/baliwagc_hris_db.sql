@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 04, 2024 at 06:29 AM
+-- Generation Time: Mar 07, 2024 at 01:53 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,31 @@ SET time_zone = "+00:00";
 --
 -- Database: `baliwagc_hris_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `attendance_logs`
+--
+
+CREATE TABLE `attendance_logs` (
+  `attendance_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `time_in` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `attendance_logs`
+--
+
+INSERT INTO `attendance_logs` (`attendance_id`, `employee_id`, `time_in`) VALUES
+(1, 6, '2024-03-01 16:12:35'),
+(2, 6, '2024-03-04 16:14:49'),
+(3, 6, '2024-03-05 16:23:58'),
+(12, 6, '2024-03-06 17:00:51'),
+(23, 7, '2024-03-07 08:25:30'),
+(24, 5, '2024-03-07 08:25:49'),
+(25, 6, '2024-03-07 08:29:46');
 
 -- --------------------------------------------------------
 
@@ -692,7 +717,10 @@ INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `succ
 (601, '127.0.0.1', 'admin.darrel', NULL, '2024-02-29 08:53:08', 0),
 (602, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-02-29 08:53:13', 1),
 (603, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-02-29 13:35:59', 1),
-(604, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-03-04 09:08:03', 1);
+(604, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-03-04 09:08:03', 1),
+(605, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-03-05 08:02:33', 1),
+(606, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-03-06 08:12:24', 1),
+(607, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-03-07 07:40:13', 1);
 
 -- --------------------------------------------------------
 
@@ -1985,7 +2013,7 @@ CREATE TABLE `employee_attended_trainings` (
 INSERT INTO `employee_attended_trainings` (`employee_attended_training_id`, `employee_id`, `training_program`, `inclusive_dates_from`, `inclusive_dates_to`, `number_of_hours`, `ld_type`, `conducted_sponsored_by`) VALUES
 (1, 1, 'Aliquid officiis in ', '2010-07-22', '1976-02-15', '45', 'Sit quis reprehender', 'Velit proident nesc'),
 (2, 1, 'Dolores expedita nob', '1994-01-10', '1980-12-21', '76', 'Enim quos inventore ', 'Ad sed irure Nam vel'),
-(3, 5, 'Sapiente nesciunt m', '1991-07-13', '2008-08-24', '76', 'Ullam consequat Et ', 'Ipsa ad sed non non');
+(5, 5, 'Sapiente nesciunt m', '1991-07-13', '2008-08-24', '76', 'Ullam consequat Et ', 'Ipsa ad sed non non');
 
 -- --------------------------------------------------------
 
@@ -2016,11 +2044,21 @@ INSERT INTO `employee_educational_backgrounds` (`employee_family_background_id`,
 (3, 2, 3, 'Theodore Randall', 'Optio in laboriosam', '2021-01-19', '1994-06-17', 'Voluptas illum numq', 201, 'Fugiat aut eius repe'),
 (4, 2, 4, 'Tyler Cortez', 'Amet voluptas paria', '1981-10-02', '1995-12-06', 'Aliquam consequatur ', 1997, 'Ad lorem eum odio do'),
 (5, 2, 5, 'Denton Acosta', 'Tempora quisquam deb', '1972-10-24', '2008-07-27', 'Nam qui dolores volu', 1977, 'Voluptatum esse aut'),
-(6, 5, 1, 'Bell Langley', 'Quos aut incidunt a', '2014-01-28', '1999-05-23', 'Eius consequat Sit ', 2, 'Consequatur corporis'),
+(6, 5, 1, 'Bell Langley Eleme', 'Quos aut incidunt a', '2014-01-28', '1999-05-23', 'Eius consequat Sit ', 2, 'Consequatur corporis'),
 (7, 5, 2, 'Lacey Berry', 'Doloribus dolores ad', '1975-08-05', '1991-10-22', 'Minus minus nostrud ', 20, 'Eveniet et dolor eu'),
 (8, 5, 3, 'Jackson Wong', 'Soluta dolor tempori', '1988-06-18', '2000-01-03', 'In cupiditate vel ab', 201, 'Do consequatur Tota'),
-(9, 5, 4, 'Dai Jones', 'Illo elit laborum ', '2019-06-09', '2022-11-20', 'Possimus corrupti ', 1998, 'Expedita ea tempore'),
-(10, 5, 5, 'Julian Sloan', 'Cillum iste omnis cu', '2020-04-05', '1977-10-13', 'Duis rerum nihil est', 1998, 'Ut aliquam reprehend');
+(9, 5, 4, 'Dai Jones', '', '2019-06-09', '2022-11-20', 'Possimus corrupti ', 1998, 'Expedita ea tempore'),
+(10, 5, 5, '', '', '0000-00-00', '0000-00-00', '', 0, ''),
+(11, 6, 1, 'Kelsie Duran', 'Nesciunt magnam rat', '2014-08-22', '1981-02-28', 'Deserunt quasi expli', 1972, 'Occaecat qui quia si'),
+(12, 6, 2, 'Mary Luna', 'Numquam aut aut dolo', '1985-05-27', '2020-05-18', 'Maiores exercitation', 1975, 'Voluptates aut quide'),
+(13, 6, 3, 'Olga Mason', 'Ut aliquid earum lab', '1998-03-01', '2024-02-01', 'Veniam vel ducimus', 1998, 'Neque cum repudianda'),
+(14, 6, 4, 'Vaughan Buckley', 'Cillum magnam volupt', '1985-04-07', '1972-02-10', 'Ea proident deserun', 1970, 'Quaerat nisi ut moll'),
+(15, 6, 5, 'Carter Lee', 'Ullamco sed eligendi', '1980-11-18', '2022-07-22', 'Distinctio Est qui', 1974, 'Fuga Esse aut conse'),
+(16, 7, 1, 'Rinah Wilkinson', 'Elit laborum qui di', '1996-05-20', '2023-02-18', 'Minim et est reicien', 2005, 'Est accusantium sint'),
+(17, 7, 2, 'Jesse Suarez', 'Rerum sed sunt nihil', '1985-09-09', '2014-09-21', 'Dolore ex deserunt c', 1974, 'Alias et et ullamco '),
+(18, 7, 3, 'Kelly Le', 'Saepe in quam quaera', '2016-06-04', '1974-09-11', 'Tempor eveniet perf', 1970, 'Sunt sed tenetur rep'),
+(19, 7, 4, 'Kelsey Patel', 'Libero cupidatat dol', '1986-03-21', '2005-07-12', 'Qui reprehenderit la', 2003, 'Reprehenderit eu el'),
+(20, 7, 5, '', '', '0000-00-00', '0000-00-00', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -2046,8 +2084,10 @@ CREATE TABLE `employee_eligibilities` (
 INSERT INTO `employee_eligibilities` (`employee_eligibility_id`, `employee_id`, `eligibility`, `rating`, `examination_date`, `examination_place`, `license_number`, `date_of_validity`) VALUES
 (1, 1, 'Ipsum in incididunt', 'Ut a labore quidem q', '1986-04-02', 'Magni aute corporis ', 'Officiis nisi nostru', '1978-06-03'),
 (2, 1, 'Consectetur est ve', 'Ea inventore nulla a', '2001-12-24', 'Obcaecati repudianda', 'Fugiat quaerat deser', '1996-03-22'),
-(3, 5, 'Labore vero reprehen', 'Fugit numquam quos ', '2021-02-07', 'Quia dolor nihil vol', 'Sint obcaecati cons', '1980-02-07'),
-(4, 5, 'Proident sint aut ', 'Officiis quia enim s', '1988-08-06', 'Consectetur expedita', 'Non quibusdam labori', '1982-03-09');
+(8, 5, 'Consequat Et error ', 'Ab sit maxime laboru', '2000-04-23', 'Asperiores eligendi ', 'Dolor aut dolore qui', '2014-06-23'),
+(9, 5, 'Maiores esse minim c', 'Amet blanditiis eiu', '2020-02-06', 'Porro qui commodi ve', 'Quo proident dolori', '2006-01-06'),
+(12, 6, 'Aut placeat ut repr', 'Magni mollit et ipsa', '1986-06-11', 'Molestiae nulla ea d', 'Nisi illo officia om', '2014-09-07'),
+(13, 6, 'Nobis illum autem n', 'Impedit obcaecati a', '2018-03-02', 'Irure elit esse an', 'Eos dolorem est non ', '2002-05-27');
 
 -- --------------------------------------------------------
 
@@ -2085,7 +2125,9 @@ INSERT INTO `employee_family_backgrounds` (`employee_family_background_id`, `emp
 (2, 2, '', '', '', '', '', '', '', '', 'father_firstname', 'father_middlename', 'father_lastname', 'father_suffix', 'mother_firstname', 'mother_middlename', 'mother_lastname', '[]'),
 (3, 3, '', '', '', '', '', '', '', '', 'father_firstname', 'father_middlename', 'father_lastname', 'father_suffix', 'mother_firstname', 'mother_middlename', 'mother_lastname', '[]'),
 (4, 4, '', '', '', '', '', '', '', '', 'father_firstname', 'father_middlename', 'father_lastname', 'father_suffix', 'mother_firstname', 'mother_middlename', 'mother_lastname', '[]'),
-(5, 5, 'Winifred', 'Calista Pate', 'Weeks', 'Et nulla dolore quos', 'Animi blanditiis am', 'Vaughan Sampson', 'Labore earum autem q', '+1 (599) 944-7567', 'Owen', 'Ferris Hill', 'Kinney', 'Voluptatem Voluptat', 'Tamara', 'Dillon Chan', 'Curry', '[{\"child_name\":\"Consectetur nihil du\",\"child_birthdate\":\"1975-04-15\"}]');
+(5, 5, 'Winifred', 'Calista Pate', 'Weeks', 'Et nulla dolore quos', 'Animi blanditiis am', 'Vaughan Sampson', 'Labore earum autem q', '+1 (599) 944-7567', 'Owen', 'Ferris Hill', 'Kinney', '', 'Tamara', 'Dillon Chan', 'Curry', '[{\"child_name\":\"Consectetur nihil du\",\"child_birthdate\":\"1975-04-15\"},{\"child_name\":\"Juan Dela Cruz\",\"child_birthdate\":\"2024-03-05\"}]'),
+(6, 6, 'Whoopi', 'Ryan Vaughn', 'Sullivan', 'Eos distinctio Elig', 'Dolore ad occaecat c', 'Isabella Stephens', 'Porro molestias cons', '+1 (453) 203-9995', 'Kato', 'Lucas Ramirez', 'Manning', 'Ratione omnis aut di', 'Jasper', 'Ciara Dillard', 'Mcclain', '[{\"child_name\":\"Qui laborum Perfere\",\"child_birthdate\":\"2000-02-10\"}]'),
+(7, 7, 'Yvette', 'Diana Soto', 'Castro', 'Explicabo Sint vol', 'Corporis dicta ut as', 'Marcia Ray', 'Ut necessitatibus re', '+1 (759) 646-8359', 'Rhiannon', 'Larissa Cortez', 'Walls', 'Dolor incidunt nost', 'Samantha', 'Neil Guzman', 'Mccoy', '[{\"child_name\":\"Voluptates repellend\",\"child_birthdate\":\"1977-05-27\"},{\"child_name\":\"Lorem et ut sit lab\",\"child_birthdate\":\"1981-09-10\"}]');
 
 -- --------------------------------------------------------
 
@@ -2095,6 +2137,7 @@ INSERT INTO `employee_family_backgrounds` (`employee_family_background_id`, `emp
 
 CREATE TABLE `employee_info` (
   `employee_id` int(11) NOT NULL,
+  `qrcode` varchar(255) DEFAULT NULL,
   `firstname` varchar(255) NOT NULL,
   `middlename` varchar(255) NOT NULL,
   `lastname` varchar(255) NOT NULL,
@@ -2137,6 +2180,7 @@ CREATE TABLE `employee_info` (
   `telephone_number` varchar(20) NOT NULL,
   `mobile_number` varchar(20) NOT NULL,
   `email_address` varchar(255) NOT NULL,
+  `photo` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
@@ -2146,12 +2190,14 @@ CREATE TABLE `employee_info` (
 -- Dumping data for table `employee_info`
 --
 
-INSERT INTO `employee_info` (`employee_id`, `firstname`, `middlename`, `lastname`, `suffix`, `birthdate`, `sex`, `civil_status`, `height`, `weight`, `blood_type`, `gsis_id`, `pag_ibig_id`, `philhealth_id`, `sss_id`, `tin_id`, `agency_employee_id`, `is_filipino`, `has_dual_citizenship`, `is_citizen_by_birth`, `is_citizen_by_naturalization`, `citizenship_country`, `residential_house_number`, `residential_street`, `residential_barangay_code`, `residential_barangay`, `residential_city_mun_code`, `residential_city_mun`, `residential_province_code`, `residential_province`, `residential_zip_code`, `permanent_house_number`, `permanent_street`, `permanent_barangay_code`, `permanent_barangay`, `permanent_city_mun_code`, `permanent_city_mun`, `permanent_province_code`, `permanent_province`, `permanent_zip_code`, `telephone_number`, `mobile_number`, `email_address`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Darrel', 'Bayaras', 'Geslani', '', '2024-02-29', 'Male', 'Single', 1.67, 65, 'blood_type', 'gsis_id', 'pag_ibig_id', 'philhealth_id', 'sss_id', 'tin_id', 'agency_employee_id', 1, 0, 1, 0, '', 'residential_house_number', 'residential_street', '031403023', 'Sulivan', '031403', 'BALIWAG', '0314', 'BULACAN', '3006', 'permanent_house_number', 'permanent_street', '031403023', 'Sulivan', '031403', 'BALIWAG', '0314', 'BULACAN', '3006', '', '0905-672-0113', '', '2024-02-29 15:06:55', NULL, NULL),
-(2, 'Darrel', 'Bayaras', 'Geslani', '', '2024-02-29', 'Male', 'Single', 1.67, 65, 'blood_type', 'gsis_id', 'pag_ibig_id', 'philhealth_id', 'sss_id', 'tin_id', 'agency_employee_id', 1, 0, 1, 0, '', 'residential_house_number', 'residential_street', '031403023', 'Sulivan', '031403', 'BALIWAG', '0314', 'BULACAN', '3006', 'permanent_house_number', 'permanent_street', '031403023', 'Sulivan', '031403', 'BALIWAG', '0314', 'BULACAN', '3006', '', '0905-672-0113', '', '2024-02-29 15:52:03', NULL, NULL),
-(3, 'Wynter', 'Chanda Byers', 'Marshall', 'Totam cons', '2009-06-24', 'Male', 'Widowed', 0, 0, 'Autem dolo', 'Corrupti est conseq', 'Officiis laboriosam', 'Dolor vel quia sit s', 'Est dolorem digniss', 'Ut aut delectus odi', 'Non qui inventore et', 1, 1, 1, 0, 'Liberia', '614', 'Ullamco aperiam qui ', '036902003', 'Bangcu', '036902', 'BAMBAN', '0369', 'TARLAC', '8240', '614', 'Ullamco aperiam qui ', '036902003', 'Bangcu', '036902', 'BAMBAN', '0369', 'TARLAC', '8240', '+1 (921) 717-4068', '0', '', '2024-03-04 10:11:22', NULL, NULL),
-(4, 'Brendan', 'Keith Hood', 'Kidd', '', '2024-03-04', 'Male', 'Single', 1.67, 65, 'blood_type', 'gsis_id', 'pag_ibig_id', 'philhealth_id', 'sss_id', 'tin_id', 'agency_employee_id', 1, 0, 1, 0, '', 'residential_house_number', 'residential_street', '031404004', 'Batia', '031404', 'BOCAUE', '0314', 'BULACAN', '3006', 'residential_house_number', 'residential_street', '031404004', 'Batia', '031404', 'BOCAUE', '0314', 'BULACAN', '3006', '', '0905-672-0113', '', '2024-03-04 10:16:56', NULL, NULL),
-(5, 'Julie', 'Donna Morales', 'Rodriquez', 'Labore fac', '2016-07-05', 'Female', 'Live-in', 0, 0, 'Maiores ex', 'Reprehenderit facil', 'Ea et nihil dignissi', 'Saepe id autem repr', 'In consectetur est a', 'Exercitationem repel', 'Eligendi exercitatio', 1, 1, 0, 0, 'Liberia', '534', 'Molestiae et molesti', '034904002', 'Bagong Sikat', '034904', 'CABIAO', '0349', 'NUEVA ECIJA', '4480', '534', 'Molestiae et molesti', '034904002', 'Bagong Sikat', '034904', 'CABIAO', '0349', 'NUEVA ECIJA', '4480', '+1 (144) 434-9143', '0905-672-0113', 'geslanidarrel@gmail.com', '2024-03-04 10:21:56', NULL, NULL);
+INSERT INTO `employee_info` (`employee_id`, `qrcode`, `firstname`, `middlename`, `lastname`, `suffix`, `birthdate`, `sex`, `civil_status`, `height`, `weight`, `blood_type`, `gsis_id`, `pag_ibig_id`, `philhealth_id`, `sss_id`, `tin_id`, `agency_employee_id`, `is_filipino`, `has_dual_citizenship`, `is_citizen_by_birth`, `is_citizen_by_naturalization`, `citizenship_country`, `residential_house_number`, `residential_street`, `residential_barangay_code`, `residential_barangay`, `residential_city_mun_code`, `residential_city_mun`, `residential_province_code`, `residential_province`, `residential_zip_code`, `permanent_house_number`, `permanent_street`, `permanent_barangay_code`, `permanent_barangay`, `permanent_city_mun_code`, `permanent_city_mun`, `permanent_province_code`, `permanent_province`, `permanent_zip_code`, `telephone_number`, `mobile_number`, `email_address`, `photo`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, NULL, 'Darrel', 'Bayaras', 'Geslani', '', '2024-02-29', 'Male', 'Single', 1.67, 65, 'blood_type', 'gsis_id', 'pag_ibig_id', 'philhealth_id', 'sss_id', 'tin_id', 'agency_employee_id', 1, 0, 1, 0, '', 'residential_house_number', 'residential_street', '031403023', 'Sulivan', '031403', 'BALIWAG', '0314', 'BULACAN', '3006', 'permanent_house_number', 'permanent_street', '031403023', 'Sulivan', '031403', 'BALIWAG', '0314', 'BULACAN', '3006', '', '0905-672-0113', '', '', '2024-02-29 15:06:55', NULL, '2024-03-05 13:17:50'),
+(2, NULL, 'Darrel', 'Bayaras', 'Geslani', '', '2024-02-29', 'Male', 'Single', 1.67, 65, 'blood_type', 'gsis_id', 'pag_ibig_id', 'philhealth_id', 'sss_id', 'tin_id', 'agency_employee_id', 1, 0, 1, 0, '', 'residential_house_number', 'residential_street', '031403023', 'Sulivan', '031403', 'BALIWAG', '0314', 'BULACAN', '3006', 'permanent_house_number', 'permanent_street', '031403023', 'Sulivan', '031403', 'BALIWAG', '0314', 'BULACAN', '3006', '', '0905-672-0113', '', '', '2024-02-29 15:52:03', NULL, '2024-03-04 16:53:14'),
+(3, NULL, 'Wynter', 'Chanda Byers', 'Marshall', 'Totam cons', '2009-06-24', 'Male', 'Widowed', 0, 0, 'Autem dolo', 'Corrupti est conseq', 'Officiis laboriosam', 'Dolor vel quia sit s', 'Est dolorem digniss', 'Ut aut delectus odi', 'Non qui inventore et', 1, 1, 1, 0, 'Liberia', '614', 'Ullamco aperiam qui ', '036902003', 'Bangcu', '036902', 'BAMBAN', '0369', 'TARLAC', '8240', '614', 'Ullamco aperiam qui ', '036902003', 'Bangcu', '036902', 'BAMBAN', '0369', 'TARLAC', '8240', '+1 (921) 717-4068', '0', '', '', '2024-03-04 10:11:22', NULL, '2024-03-04 16:53:46'),
+(4, NULL, 'Brendan', 'Keith Hood', 'Kidd', '', '2024-03-04', 'Male', 'Single', 1.67, 65, 'blood_type', 'gsis_id', 'pag_ibig_id', 'philhealth_id', 'sss_id', 'tin_id', 'agency_employee_id', 1, 0, 1, 0, '', 'residential_house_number', 'residential_street', '031404004', 'Batia', '031404', 'BOCAUE', '0314', 'BULACAN', '3006', 'residential_house_number', 'residential_street', '031404004', 'Batia', '031404', 'BOCAUE', '0314', 'BULACAN', '3006', '', '0905-672-0113', '', '', '2024-03-04 10:16:56', NULL, '2024-03-05 11:16:36'),
+(5, 'BALIWAG-EMP-01-00005', 'Julie', 'Donna Morales', 'Rodriquez', 'Labore fac', '2016-07-05', 'Female', 'Live-in', 0, 0, 'Maiores ex', '0123-4567890-12', '0123-4567-8901', 'Saepe id autem repr', 'In consectetur est a', 'Exercitationem repel', 'Eligendi exercitatio', 1, 1, 0, 0, 'Liberia', '534', 'Molestiae et molesti', '034904002', 'Bagong Sikat', '034904', 'CABIAO', '0349', 'NUEVA ECIJA', '4480', '534', 'Molestiae et molesti', '034904002', 'Bagong Sikat', '034904', 'CABIAO', '0349', 'NUEVA ECIJA', '4480', '+1 (144) 434-9143', '0905-672-0113', 'geslanidarrel@gmail.com', '', '2024-03-04 10:21:56', '2024-03-04 16:45:41', NULL),
+(6, 'BALIWAG-EMP-02-00006', 'Upton', 'Thomas Moore', 'Montoya', 'Suscipit c', '2012-09-10', 'Female', 'Separated', 0, 0, 'Itaque rer', 'Quidem id suscipit p', 'Odio labore velit i', 'Nesciunt doloribus ', 'Fugit explicabo Mi', 'Quam vel quae non vo', 'Aliquip fugiat cons', 1, 0, 1, 0, '', '196', 'Asperiores itaque do', '013304003', 'Cambaly', '013304', 'BAGULIN', '0133', 'LA UNION', '8322', '196', 'Asperiores itaque do', '013304003', 'Cambaly', '013304', 'BAGULIN', '0133', 'LA UNION', '8322', '+1 (882) 702-7108', '', 'lanykexoja@mailinator.com', 'UptonThomasMooreMontoya-20240305131343.png', '2024-03-05 11:14:57', '2024-03-05 11:47:54', NULL),
+(7, 'BALIWAG-EMP-03-00007', 'Brenden', 'Alika Bender', 'Blevins', 'Non dignis', '1998-05-27', 'Female', 'Live-in', 0, 0, 'Est corrup', 'Veniam quasi molest', 'Voluptatem In conse', 'Sit unde voluptates', 'Cum exercitationem f', 'Sit ex maxime sed ma', 'Nam consequuntur nec', 0, 0, 1, 0, '', '456', 'Illo consequatur Qu', '045602002', 'Bacong', '045602', 'ALABAT', '0456', 'QUEZON', '6833', '456', 'Illo consequatur Qu', '045602002', 'Bacong', '045602', 'ALABAT', '0456', 'QUEZON', '6833', '+1 (636) 323-3018', '', 'xajicosa@mailinator.com', 'BrendenAlikaBenderBlevins-20240305111747.png', '2024-03-05 11:19:20', '2024-03-05 13:21:46', NULL);
 
 -- --------------------------------------------------------
 
@@ -2198,7 +2244,33 @@ CREATE TABLE `employee_other_info` (
 --
 
 INSERT INTO `employee_other_info` (`employee_other_info_id`, `employee_id`, `special_skills_and_hobbies`, `non_academic_distinctions_recognitions`, `membership_in_associations_organizations`, `related_within_the_third_degree`, `related_within_the_fourth_degree`, `related_within_the_fourth_degree_details`, `found_guilty`, `found_guilty_details`, `criminally_charged`, `criminally_charged_details`, `criminally_charged_date_filed`, `criminally_charged_case_status`, `convicted_of_crime`, `convicted_of_crime_details`, `separated_from_the_service`, `separated_from_the_service_details`, `election_candidate`, `election_candidate_details`, `resigned_for_candidacy`, `resigned_for_candidacy_details`, `resident_of_another_country`, `resident_of_another_country_details`, `indigenous_member`, `indigenous_member_specify`, `person_with_disability`, `person_with_disability_id`, `solo_parent`, `solo_parent_id`, `references`) VALUES
-(1, 5, '[{\"special_skill_or_hobby\":\"Special Skills and Hobbies\"}]', '[{\"non_academic_distinction_or_recognition\":\"Non-Academic Distinctions / Recognitions\"}]', '[{\"membership_in_association_organization\":\"Membership In Associations / Organizations\"}]', 0, 0, '', 0, '', 0, '', '0000-00-00', '', 0, '', 0, '', 0, '', 0, '', 0, '', 0, '', 1, '12345543', 0, '', '[{\"reference_name\":\"Darrel Geslani\",\"reference_address\":\"Somewhere\",\"reference_tel_no\":\"123456\"}]');
+(1, 5, '[]', '[{\"non_academic_distinction_or_recognition\":\"Non-Academic Distinctions / Recognitions\"}]', '[{\"membership_in_association_organization\":\"Membership In Associations / Organizations\"}]', 1, 0, '', 0, '', 0, '', '0000-00-00', '', 0, '', 0, '', 0, '', 0, '', 0, '', 0, '', 1, '12345543', 0, '', '[{\"reference_name\":\"Darrel Geslani\",\"reference_address\":\"Somewhere\",\"reference_tel_no\":\"123456\"},{\"reference_name\":\"asdasd\",\"reference_address\":\"asdasd\",\"reference_tel_no\":\"asdasd\"}]'),
+(2, 6, '[{\"special_skill_or_hobby\":\"Stealth\"},{\"special_skill_or_hobby\":\"Mugging\"}]', '[{\"non_academic_distinction_or_recognition\":\"Best Assasin\"}]', '[{\"membership_in_association_organization\":\"Rouge Club\"}]', 0, 1, 'Incestual', 1, 'Thief', 0, '', '0000-00-00', '', 1, 'Thief', 0, '', 0, '', 0, '', 0, '', 0, '', 0, '', 1, '42069', '[]'),
+(3, 7, '[{\"special_skill_or_hobby\":\"Searching\"}]', '[]', '[]', 0, 0, '', 0, '', 0, '', '0000-00-00', '', 0, '', 0, '', 0, '', 0, '', 0, '', 0, '', 1, '123123123', 0, '', '[]');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employee_status`
+--
+
+CREATE TABLE `employee_status` (
+  `employee_id` int(11) NOT NULL,
+  `employement_status_id` int(11) NOT NULL,
+  `department_id` int(11) NOT NULL,
+  `position` varchar(255) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `date_hired` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employee_status`
+--
+
+INSERT INTO `employee_status` (`employee_id`, `employement_status_id`, `department_id`, `position`, `role_id`, `date_hired`) VALUES
+(6, 4, 2, 'Tech Support', 8, '2024-03-05'),
+(5, 4, 1, 'System Developer', 8, '2024-03-07'),
+(7, 4, 3, '', 8, '2024-03-07');
 
 -- --------------------------------------------------------
 
@@ -2222,7 +2294,12 @@ CREATE TABLE `employee_voluntary_works` (
 
 INSERT INTO `employee_voluntary_works` (`employee_voluntary_work_id`, `employee_id`, `organization_name_and_address`, `inclusive_dates_from`, `inclusive_dates_to`, `number_of_hours`, `position_nature_of_work`) VALUES
 (1, 1, 'Velit optio fuga V', '2003-07-17', '1975-01-06', '93', 'Ut est consequatur '),
-(2, 2, 'At debitis pariatur', '2018-01-15', '2017-04-17', '89', 'Ut ea delectus temp');
+(2, 2, 'At debitis pariatur', '2018-01-15', '2017-04-17', '89', 'Ut ea delectus temp'),
+(6, 7, 'Natus rerum distinct', '2019-02-20', '1989-07-23', '28', 'Cum reprehenderit p'),
+(7, 7, 'Voluptatem id et qu', '1999-12-08', '1984-05-09', '81', 'Magni aspernatur qua'),
+(8, 6, 'Fugit ea quia duis ', '2017-02-21', '1974-10-16', '76', 'Ex recusandae Neque'),
+(9, 6, 'Qui fugiat quam dign', '2012-05-04', '2023-12-23', '47', 'Nisi natus non et ex'),
+(10, 6, 'Hic mollitia quia do', '1980-06-27', '2009-10-07', '56', 'Veritatis nihil veri');
 
 -- --------------------------------------------------------
 
@@ -2251,7 +2328,10 @@ INSERT INTO `employee_work_experiences` (`employee_work_experience_id`, `employe
 (1, 1, '2009-12-08', '2009-01-07', 'Qui consequat Id ve', 'Beatae in maiores fu', '39', 'Minim non eaque exce', 'Rerum hic quos verit', 'Y'),
 (2, 2, '1972-03-19', '1982-09-14', 'Odio sunt sit incid', 'Tenetur elit volupt', '86', 'Et laboris placeat ', 'Molestiae excepturi ', 'Y'),
 (3, 2, '2020-01-20', '2022-02-25', 'Ut aliquam veniam d', 'Dolore in est quo in', '16', 'Numquam deserunt ali', 'Est id amet debiti', 'N'),
-(4, 5, '1990-08-11', '1985-01-23', 'Et sint fugiat duci', 'Non ea anim eius id ', '100', 'Ratione aliqua Non ', 'Quos iste ea lorem a', 'Y');
+(9, 5, '2002-05-02', '1977-04-11', 'Laudantium sed est ', 'Quis qui soluta occa', '83', 'Ducimus earum qui e', 'Consequuntur at sed ', 'N'),
+(10, 5, '1988-07-08', '1993-11-28', 'Nobis adipisci iusto', 'Est placeat cum eaq', '2', 'Adipisci quam expedi', 'Ipsa in optio nobi', 'N'),
+(12, 7, '1977-08-28', '2018-03-02', 'Iure non rerum et es', 'Aut nobis voluptate ', '33', 'Ut consequatur ipsu', 'Amet et ullam simil', 'N'),
+(13, 6, '2014-11-28', '2021-05-19', 'Corporis quasi assum', 'Qui magna fugiat ten', '95', 'Recusandae Exercita', 'Sint sed et quia au', 'N');
 
 -- --------------------------------------------------------
 
@@ -4927,7 +5007,10 @@ INSERT INTO `logs` (`log_id`, `log_action`, `log_data`, `user_id`, `log_actor`, 
 (2617, 'User log in failed: admin.darrel', '{\"email\":\"admin.darrel\",\"ip_address\":\"127.0.0.1\",\"user_id\":null,\"success\":false}', NULL, 'admin.darrel', '2024-02-29 08:53:08'),
 (2618, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-02-29 08:53:13'),
 (2619, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-02-29 13:35:59'),
-(2620, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-03-04 09:08:03');
+(2620, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-03-04 09:08:03'),
+(2621, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-03-05 08:02:33'),
+(2622, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-03-06 08:12:24'),
+(2623, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-03-07 07:40:13');
 
 -- --------------------------------------------------------
 
@@ -49270,6 +49353,12 @@ INSERT INTO `user_info` (`ui_id`, `user_id`, `user_qrcode`, `firstname`, `middle
 --
 
 --
+-- Indexes for table `attendance_logs`
+--
+ALTER TABLE `attendance_logs`
+  ADD PRIMARY KEY (`attendance_id`);
+
+--
 -- Indexes for table `auth_activation_attempts`
 --
 ALTER TABLE `auth_activation_attempts`
@@ -49457,6 +49546,12 @@ ALTER TABLE `user_info`
 --
 
 --
+-- AUTO_INCREMENT for table `attendance_logs`
+--
+ALTER TABLE `attendance_logs`
+  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
 -- AUTO_INCREMENT for table `auth_activation_attempts`
 --
 ALTER TABLE `auth_activation_attempts`
@@ -49472,7 +49567,7 @@ ALTER TABLE `auth_groups`
 -- AUTO_INCREMENT for table `auth_logins`
 --
 ALTER TABLE `auth_logins`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=605;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=608;
 
 --
 -- AUTO_INCREMENT for table `auth_permissions`
@@ -49508,49 +49603,49 @@ ALTER TABLE `employees`
 -- AUTO_INCREMENT for table `employee_attended_trainings`
 --
 ALTER TABLE `employee_attended_trainings`
-  MODIFY `employee_attended_training_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `employee_attended_training_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `employee_educational_backgrounds`
 --
 ALTER TABLE `employee_educational_backgrounds`
-  MODIFY `employee_family_background_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `employee_family_background_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `employee_eligibilities`
 --
 ALTER TABLE `employee_eligibilities`
-  MODIFY `employee_eligibility_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `employee_eligibility_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `employee_family_backgrounds`
 --
 ALTER TABLE `employee_family_backgrounds`
-  MODIFY `employee_family_background_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `employee_family_background_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `employee_info`
 --
 ALTER TABLE `employee_info`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `employee_other_info`
 --
 ALTER TABLE `employee_other_info`
-  MODIFY `employee_other_info_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `employee_other_info_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `employee_voluntary_works`
 --
 ALTER TABLE `employee_voluntary_works`
-  MODIFY `employee_voluntary_work_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `employee_voluntary_work_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `employee_work_experiences`
 --
 ALTER TABLE `employee_work_experiences`
-  MODIFY `employee_work_experience_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `employee_work_experience_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `employment_status`
@@ -49562,7 +49657,7 @@ ALTER TABLE `employment_status`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2621;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2624;
 
 --
 -- AUTO_INCREMENT for table `migrations`
