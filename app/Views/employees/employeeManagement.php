@@ -321,6 +321,7 @@
                     return;
                 }
                 successAlert("Success", response.message, "success");
+                reloadDataTable(employees_table);
                 employment_status_modal.hide();
             })
         });
