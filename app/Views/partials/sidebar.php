@@ -88,7 +88,7 @@
                         <span class="menu-title">Configurations</span>
                         <span class="menu-arrow"></span>
                     </span>
-                    <div class="menu-sub menu-sub-accordion" kt-hidden-height="248" style="display: none; overflow: hidden;">
+                    <div class="menu-sub menu-sub-accordion" style="display: none; overflow: hidden;">
                         <div class="menu-item">
                             <a class="menu-link" href="<?= base_url()?>/departments">
                                 <span class="menu-bullet">
