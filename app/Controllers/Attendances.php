@@ -14,7 +14,54 @@ class Attendances extends BaseController
         $this->viewData['roles'] = $this->getSystemRoles();
         $this->viewData['departments'] = $this->getDepartments();
 
+        return view('attendances/attendanceLogs', $this->viewData);
+    }
+
+    public function scan(){   
+        $this->viewData['title'] = 'Attendance';
+        $this->viewData['roles'] = $this->getSystemRoles();
+        $this->viewData['departments'] = $this->getDepartments();
+
         return view('attendances/attendanceScan', $this->viewData);
+    }
+
+    public function attendanceLogsDataTable(){
+        $date = $this->request->getPost("date");
+        $is_deleted = filter_var($this->request->getPost("is_deleted"), FILTER_VALIDATE_BOOLEAN) ? "IS NOT" : "IS" ;
+        return DataTable::of($this->masterModel->getDataTables(
+            'employee_info',
+            'employee_info.employee_id, qrcode, firstname, middlename, lastname, photo, 
+             departments.dept_alias, departments.dept_name, 
+             attendance_logs.time_in, attendance_logs.attendance_id, attendance_logs.deleted_at
+            ', 
+            "DATE(`time_in`) = '$date' AND attendance_logs.deleted_at $is_deleted NULL",
+            [
+                ["employee_status", "employee_status.employee_id = employee_info.employee_id", "inner"],
+                ["departments", "departments.dept_id = employee_status.department_id", "inner"],
+                ["attendance_logs", "attendance_logs.employee_id = employee_info.employee_id", "inner"]
+            ],
+            "attendance_logs.attendance_id DESC"
+        ))->toJson(true);
+    }
+
+    public function getAttendanceLogs(){
+        $this->response->setContentType('application/json');
+        $date = $this->request->getGet("date");
+        $attendance_logs = $this->masterModel->get(
+            'employee_info',
+            'employee_info.employee_id, qrcode, firstname, middlename, lastname, photo, 
+             departments.dept_alias, departments.dept_name, 
+             attendance_logs.time_in, attendance_logs.attendance_id, attendance_logs.deleted_at
+            ', 
+            ["DATE(time_in)" => $date, "attendance_logs.deleted_at" => NULL],
+            [
+                ["employee_status", "employee_status.employee_id = employee_info.employee_id", "inner"],
+                ["departments", "departments.dept_id = employee_status.department_id", "inner"],
+                ["attendance_logs", "attendance_logs.employee_id = employee_info.employee_id", "inner"]
+            ],
+            "attendance_logs.time_in DESC"
+        );
+        return json_encode($attendance_logs);
     }
 
     public function getAttendanceTodayDataTable(){
@@ -32,6 +79,24 @@ class Attendances extends BaseController
             ],
             "attendance_logs.attendance_id DESC"
         ))->toJson(true);
+    }
+
+    public function getMonthAttendance($year = 0, $month = 0){
+        $this->response->setContentType('application/json');
+        $result = $this->masterModel->customQuery("
+            SELECT
+                COUNT(`attendance_id`) AS total,
+                DAY(`time_in`) AS day,
+                `time_in`
+            FROM
+                `attendance_logs`
+            WHERE
+                YEAR(`time_in`) = $year AND MONTH(`time_in`) = $month
+            GROUP BY
+                DATE(`time_in`)
+        ");
+
+        return json_encode($result);
     }
 
     public function logEmployeeAttendance($qrcode){
@@ -81,6 +146,16 @@ class Attendances extends BaseController
             return json_encode($insert_attendance);
         }
         return json_encode($get_employee);
+    }
+
+    public function archiveAttendanceRecord($attendance_id){
+        $update_result = $this->masterModel->update("attendance_logs", ["deleted_at" => date("Y-m-d H:i:s"), "deleted_by" => user_id()], ["attendance_id" => $attendance_id]);
+        return json_encode($update_result);
+    }
+
+    public function unarchiveAttendanceRecord($attendance_id){
+        $update_result = $this->masterModel->update("attendance_logs", ["deleted_at" => NULL ], ["attendance_id" => $attendance_id]);
+        return json_encode($update_result);
     }
 }
 
