@@ -154,8 +154,12 @@
                                     <span class="menu-link px-3 text-nowrap access-employee" data-id="${data}">Employment Data</span>
                                 </div>
                                 <div class="menu-item px-3">
+                                    <a class="menu-link px-3 text-nowrap" href="<?=base_url()?>/file201/index/${data}">View 201 File </a>
+                                </div>
+                                <div class="menu-item px-3">
                                     <span class="menu-link px-3 text-danger archive-employee" data-id="${data}">Archive</span>
                                 </div>
+                                
                             </div>
                         </div>
                         `
