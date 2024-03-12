@@ -71,8 +71,8 @@ class Employees extends BaseController
         return DataTable::of($this->masterModel->getDataTables(
             'employee_info',
             'employee_info.employee_id, qrcode, firstname, middlename, lastname, photo, employee_info.deleted_at,
-             employee_status.employement_status_id, employee_status.department_id, employee_status.position, employee_status.role_id, employee_status.date_hired, 
-             employment_status.es_description,
+             employee_status.employement_status_id, employee_status.department_id, employee_status.position, employee_status.role_id, employee_status.date_hired, employee_status.is_for_plantilia,  
+             employment_status.es_description, 
              departments.dept_alias, departments.dept_name
             ', 
             $where_conditions,

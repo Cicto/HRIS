@@ -133,6 +133,15 @@
                         <label class="form-label">Date Hired</label>
                         <input type="date" class="form-control form-control-solid" id="date-hired" name="date_hired" required="">
                     </div>
+                    <!-- <div class="mb-6">
+                        <label class="form-label">Valid for Plantilia</label>
+                        <div class="form-check form-switch form-check-custom form-check-solid">
+                            <input class="form-check-input" type="checkbox" value="1" name="is_for_plantilia" id="is-for-plantilia"/>
+                            <label class="form-check-label" for="is-for-plantilia">
+                                Employee has a Plantilia
+                            </label>
+                        </div>
+                    </div> -->
                     <input type="submit" value="submit" id="employment-status-form-submit" class="d-none">
                 </form>
             </div>
@@ -296,6 +305,7 @@
                     $(`#employment-status-form [name="${name}"]`).val(value).trigger("change");
                 }
             }
+            // $("#is-for-plantilia").prop("checked", Number(employee_data.is_for_plantilia) ? true : false);
             employment_status_modal.show();
         })
 
