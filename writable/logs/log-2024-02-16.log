@@ -1,0 +1,33 @@
+CRITICAL - 2024-02-16 14:55:48 --> Attempt to read property "dept_id" on bool
+#0 C:\xampp\htdocs\HRIS\app\Views\plantilla\dashboard.php(129): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read...', 'C:\\xampp\\htdocs...', 129)
+#1 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('plantilla/dashb...', Array, true)
+#4 C:\xampp\htdocs\HRIS\app\Controllers\Plantilla.php(22): view('plantilla/dashb...', Array)
+#5 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Plantilla->index()
+#6 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Plantilla))
+#7 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\HRIS\index.php(38): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2024-02-16 15:05:34 --> Attempt to read property "dept_id" on bool
+#0 C:\xampp\htdocs\HRIS\app\Views\plantilla\dashboard.php(129): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Attempt to read...', 'C:\\xampp\\htdocs...', 129)
+#1 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('plantilla/dashb...', Array, true)
+#4 C:\xampp\htdocs\HRIS\app\Controllers\Plantilla.php(22): view('plantilla/dashb...', Array)
+#5 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Plantilla->index()
+#6 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Plantilla))
+#7 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\HRIS\index.php(38): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2024-02-16 15:36:08 --> Undefined property: App\Controllers\Plantilla::$master_model
+#0 C:\xampp\htdocs\HRIS\app\Controllers\Plantilla.php(59): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined prope...', 'C:\\xampp\\htdocs...', 59)
+#1 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Plantilla->addPlantilla()
+#2 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Plantilla))
+#3 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 C:\xampp\htdocs\HRIS\index.php(38): CodeIgniter\CodeIgniter->run()
+#5 {main}
+ERROR - 2024-02-16 15:38:27 --> Table 'baliwagc_hris_db.forms' doesn't exist
+ERROR - 2024-02-16 15:39:52 --> Column 'position_title' cannot be null
+ERROR - 2024-02-16 15:40:01 --> Column 'position_title' cannot be null
+ERROR - 2024-02-16 15:40:46 --> Column 'position_title' cannot be null

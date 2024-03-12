@@ -96,9 +96,21 @@
                                 </span>
                                 <span class="menu-title">Departments</span>
                             </a>
+                            <a class="menu-link" href="<?= base_url()?>/plantilla">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Plantilla</span>
+                            </a>
+                            <a class="menu-link" href="<?= base_url()?>/requirements">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Requirements List</span>
+                            </a>
                         </div>
                     </div>
-                </div>  
+                </div> 
                 <div class="menu-item pt-5">
                     <div class="menu-content">
                         <span class="menu-heading fw-bold text-uppercase fs-7">User Management</span>
