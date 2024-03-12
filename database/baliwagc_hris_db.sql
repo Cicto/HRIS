@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2024 at 01:53 AM
+-- Generation Time: Mar 12, 2024 at 08:07 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -30,21 +30,23 @@ SET time_zone = "+00:00";
 CREATE TABLE `attendance_logs` (
   `attendance_id` int(11) NOT NULL,
   `employee_id` int(11) NOT NULL,
-  `time_in` datetime NOT NULL DEFAULT current_timestamp()
+  `time_in` datetime NOT NULL DEFAULT current_timestamp(),
+  `deleted_by` int(11) NOT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `attendance_logs`
 --
 
-INSERT INTO `attendance_logs` (`attendance_id`, `employee_id`, `time_in`) VALUES
-(1, 6, '2024-03-01 16:12:35'),
-(2, 6, '2024-03-04 16:14:49'),
-(3, 6, '2024-03-05 16:23:58'),
-(12, 6, '2024-03-06 17:00:51'),
-(23, 7, '2024-03-07 08:25:30'),
-(24, 5, '2024-03-07 08:25:49'),
-(25, 6, '2024-03-07 08:29:46');
+INSERT INTO `attendance_logs` (`attendance_id`, `employee_id`, `time_in`, `deleted_by`, `deleted_at`) VALUES
+(1, 6, '2024-03-01 16:12:35', 0, NULL),
+(2, 6, '2024-03-04 16:14:49', 0, NULL),
+(3, 6, '2024-03-05 16:23:58', 0, NULL),
+(12, 6, '2024-03-06 17:00:51', 0, NULL),
+(23, 7, '2024-03-07 08:25:30', 2, NULL),
+(24, 5, '2024-03-07 08:25:49', 2, NULL),
+(25, 6, '2024-03-07 08:29:46', 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -720,7 +722,9 @@ INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `succ
 (604, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-03-04 09:08:03', 1),
 (605, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-03-05 08:02:33', 1),
 (606, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-03-06 08:12:24', 1),
-(607, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-03-07 07:40:13', 1);
+(607, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-03-07 07:40:13', 1),
+(608, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-03-11 08:57:33', 1),
+(609, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-03-12 07:35:51', 1);
 
 -- --------------------------------------------------------
 
@@ -2260,6 +2264,7 @@ CREATE TABLE `employee_status` (
   `department_id` int(11) NOT NULL,
   `position` varchar(255) NOT NULL,
   `role_id` int(11) NOT NULL,
+  `is_for_plantilia` tinyint(1) NOT NULL DEFAULT 0,
   `date_hired` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -2267,10 +2272,10 @@ CREATE TABLE `employee_status` (
 -- Dumping data for table `employee_status`
 --
 
-INSERT INTO `employee_status` (`employee_id`, `employement_status_id`, `department_id`, `position`, `role_id`, `date_hired`) VALUES
-(6, 4, 2, 'Tech Support', 8, '2024-03-05'),
-(5, 4, 1, 'System Developer', 8, '2024-03-07'),
-(7, 4, 3, '', 8, '2024-03-07');
+INSERT INTO `employee_status` (`employee_id`, `employement_status_id`, `department_id`, `position`, `role_id`, `is_for_plantilia`, `date_hired`) VALUES
+(6, 4, 2, 'Tech Support', 8, 0, '2024-03-05'),
+(5, 4, 1, 'System Developer', 8, 1, '2024-03-07'),
+(7, 4, 3, '', 8, 0, '2024-03-07');
 
 -- --------------------------------------------------------
 
@@ -5010,7 +5015,9 @@ INSERT INTO `logs` (`log_id`, `log_action`, `log_data`, `user_id`, `log_actor`, 
 (2620, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-03-04 09:08:03'),
 (2621, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-03-05 08:02:33'),
 (2622, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-03-06 08:12:24'),
-(2623, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-03-07 07:40:13');
+(2623, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-03-07 07:40:13'),
+(2624, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-03-11 08:57:33'),
+(2625, 'User logged in successfully: admin.darrel@baliwag.gov.ph', '{\"email\":\"admin.darrel@baliwag.gov.ph\",\"ip_address\":\"127.0.0.1\",\"user_id\":2,\"success\":true}', 2, 'admin.darrel@baliwag.gov.ph', '2024-03-12 07:35:51');
 
 -- --------------------------------------------------------
 
@@ -49253,6 +49260,47 @@ INSERT INTO `refprovince` (`id`, `psgcCode`, `provDesc`, `regCode`, `provCode`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `requirements_list`
+--
+
+CREATE TABLE `requirements_list` (
+  `id` int(11) NOT NULL,
+  `document_type` varchar(255) NOT NULL,
+  `employee_type` tinyint(1) NOT NULL COMMENT '0 = JO / COS\r\n1 = With Plantilla',
+  `created_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `requirements_list`
+--
+
+INSERT INTO `requirements_list` (`id`, `document_type`, `employee_type`, `created_at`, `deleted_at`) VALUES
+(1, 'PDS', 1, '2024-03-05 09:16:39', NULL),
+(2, 'COS Form 33-A', 1, '2024-03-05 00:00:00', NULL),
+(3, 'Description Form', 1, '2024-03-05 00:00:00', NULL),
+(4, 'Notice of Assumption', 1, '2024-03-05 00:00:00', NULL),
+(5, 'Oath of Office Position', 1, '2024-03-05 00:00:00', NULL),
+(6, 'Diploma', 1, '2024-03-05 00:00:00', NULL),
+(7, 'TOR', 1, '2024-03-05 00:00:00', NULL),
+(8, 'Awards', 1, '2024-03-05 00:00:00', NULL),
+(9, 'Medical Certificate', 1, '2024-03-05 00:00:00', NULL),
+(10, 'NBI / Baranggay Clearance', 1, '2024-03-05 00:00:00', NULL),
+(11, 'PDS Resume', 0, '2024-03-05 00:00:00', NULL),
+(12, 'COE', 0, '2024-03-05 00:00:00', NULL),
+(13, 'Seminars', 0, '2024-03-05 00:00:00', NULL),
+(14, 'Awards', 0, '2024-03-05 00:00:00', NULL),
+(15, 'Contract', 0, '2024-03-05 00:00:00', NULL),
+(16, 'Sworn Statement', 0, '2024-03-05 00:00:00', NULL),
+(17, 'BIR', 0, '2024-03-05 00:00:00', NULL),
+(18, 'a', 1, NULL, '2024-03-05 14:24:36'),
+(19, 'BIR', 0, NULL, '2024-03-05 16:11:24'),
+(20, 'aqq', 1, NULL, '2024-03-05 13:25:43'),
+(21, 'a1', 0, NULL, '2024-03-05 13:25:38');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `roles`
 --
 
@@ -49522,6 +49570,12 @@ ALTER TABLE `refprovince`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `requirements_list`
+--
+ALTER TABLE `requirements_list`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -49549,7 +49603,7 @@ ALTER TABLE `user_info`
 -- AUTO_INCREMENT for table `attendance_logs`
 --
 ALTER TABLE `attendance_logs`
-  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `auth_activation_attempts`
@@ -49567,7 +49621,7 @@ ALTER TABLE `auth_groups`
 -- AUTO_INCREMENT for table `auth_logins`
 --
 ALTER TABLE `auth_logins`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=608;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=610;
 
 --
 -- AUTO_INCREMENT for table `auth_permissions`
@@ -49657,7 +49711,7 @@ ALTER TABLE `employment_status`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2624;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2626;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -49688,6 +49742,12 @@ ALTER TABLE `refcitymun`
 --
 ALTER TABLE `refprovince`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+
+--
+-- AUTO_INCREMENT for table `requirements_list`
+--
+ALTER TABLE `requirements_list`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `roles`
