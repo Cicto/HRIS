@@ -12,6 +12,7 @@ class Employees extends BaseController
         $this->viewData['title'] = 'System Users';
         $this->viewData['roles'] = $this->getSystemRoles();
         $this->viewData['departments'] = $this->getDepartments();
+        $this->viewData['employment_status'] = $this->masterModel->get("employment_status", "*", ["deleted_at" => NULL]);
 
         return view('employees/employeeManagement', $this->viewData);
     }
@@ -69,9 +70,28 @@ class Employees extends BaseController
         }
         return DataTable::of($this->masterModel->getDataTables(
             'employee_info',
-            'employee_id, firstname, middlename, lastname', 
-            $where_conditions
+            'employee_info.employee_id, qrcode, firstname, middlename, lastname, photo, employee_info.deleted_at,
+             employee_status.employement_status_id, employee_status.department_id, employee_status.position, employee_status.role_id, employee_status.date_hired, employee_status.is_for_plantilia,  
+             employment_status.es_description, 
+             departments.dept_alias, departments.dept_name
+            ', 
+            $where_conditions,
+            [
+                ["employee_status", "employee_status.employee_id = employee_info.employee_id", "left"],
+                ["employment_status", "employment_status.es_id = employee_status.employement_status_id", "left"],
+                ["departments", "departments.dept_id = employee_status.department_id", "left"]
+            ]
         ))->toJson(true);
+    }
+
+    private function getSpecificEmployee($employee_id = 0){
+        if($employee_id){
+            $select_employee = $this->masterModel->get("employee_info", "*", ['employee_info.deleted_at' => NULL, "employee_id" => $employee_id]);
+            if(!$select_employee["error"]){
+                return $select_employee["data"][0];
+            }
+        }
+        return FALSE;
     }
     
     public function getCityMun($prov_code){
@@ -89,6 +109,20 @@ class Employees extends BaseController
     public function createEmployeeInfo(){
         $this->response->setContentType('application/json');
         $data = $this->request->getPost();
+
+        if($data["photo"]){
+            $util_controller = new UtilController();
+            $old_file_name = $data["photo"];
+            $new_file_name = str_replace(" ", "", ucwords($data["firstname"]." ".$data["middlename"]." ".$data["lastname"]))."-".$old_file_name;
+            $is_moved = $util_controller->moveFileTo("public/assets/media/employee-profile/temp", "public/assets/media/employee-profile", $old_file_name, $new_file_name);
+            
+            if(!$is_moved){
+                return json_encode(['error' => true, 'message' => 'Something went wrong with moving the photo', 'data' => false]);
+            }
+
+            $data["photo"] = $new_file_name;
+        }
+
         $insert_employee = $this->masterModel->insert("employee_info", $data);
         return json_encode($insert_employee);
     }
@@ -104,6 +138,12 @@ class Employees extends BaseController
     public function archiveEmployee($employee_id){
         $this->response->setContentType('application/json');
         $delete_employee = $this->masterModel->update("employee_info", ["deleted_at" => date("Y-m-d H:i:s")], ["employee_id" => $employee_id]);
+        return json_encode($delete_employee);
+    }
+
+    public function unarchiveEmployee($employee_id){
+        $this->response->setContentType('application/json');
+        $delete_employee = $this->masterModel->update("employee_info", ["deleted_at" => NULL], ["employee_id" => $employee_id]);
         return json_encode($delete_employee);
     }
 
@@ -206,6 +246,110 @@ class Employees extends BaseController
         $data = $this->request->getPost();
         $update_employee = $this->masterModel->update("employee_other_info", $data, ["employee_id" => $employee_id]);
         return json_encode($update_employee);
+    }
+
+    public function uploadTempEmployeePhoto(){
+        $util_controller = new UtilController();
+
+        $this->response->setContentType('application/json');
+        $data_url = $this->request->getPost("photo");
+
+        $directory = "public/assets/media/employee-profile/temp";
+        $file_name = date("YmdHis");
+        $file_extension = "png";
+
+        $is_uploaded = $util_controller->uploadImageTo($data_url, $directory, $file_name, $file_extension);
+
+        if($is_uploaded){
+            return json_encode([
+                "error" => false,
+                "message" => "Employee photo successfully uploaded",
+                "data" => [
+                    "file_name" => $file_name.".".$file_extension
+                ]
+            ]);
+        }
+        return json_encode([
+            "error" => true,
+            "message" => "Employee photo not uploaded",
+            "data" => [
+                "file_name" => $file_name.".".$file_extension
+            ]
+        ]);
+    }
+
+    public function updateEmployeePhoto($employee_id){
+        $util_controller = new UtilController();
+        $employee = $this->getSpecificEmployee($employee_id);
+        $current_employee_photo = str_replace(" ", "", ucwords($employee->firstname." ".$employee->middlename." ".$employee->lastname));
+        
+        $this->response->setContentType('application/json');
+        $data_url = $this->request->getPost("photo");
+
+        $directory = "public/assets/media/employee-profile";
+        
+        $new_employee_photo = $current_employee_photo."-".date("YmdHis");
+        $file_extension = "png";
+
+        $is_uploaded = $util_controller->uploadImageTo($data_url, $directory, $new_employee_photo, $file_extension);
+
+        if($is_uploaded){
+            $update_employee_photo = $this->masterModel->update("employee_info", ["photo" => $new_employee_photo.".".$file_extension], ["employee_id" => $employee_id]);
+            if(!$update_employee_photo["error"]){
+                return json_encode([
+                    "error" => false,
+                    "message" => "Employee photo successfully uploaded",
+                    "data" => [
+                        "file_name" => $new_employee_photo.".".$file_extension
+                    ]
+                ]);
+            }
+        }
+
+        return json_encode([
+            "error" => true,
+            "message" => "Employee photo not uploaded",
+            "data" => [
+                "file_name" => $file_name.".".$file_extension
+            ]
+        ]);
+    }
+
+    private function createEmployeeStatus($employee_status_data){
+        $this->response->setContentType('application/json');
+        $employee_id = $employee_status_data["employee_id"];
+        $department_id = $employee_status_data["department_id"];
+        $insert_employee = $this->masterModel->insert("employee_status", $employee_status_data);
+        if(!$insert_employee["error"]){
+            $this->updateEmployeeQRcode($department_id, $employee_id);
+        }
+        return json_encode($insert_employee);
+    }
+
+    public function updateEmployeeStatus(){
+        $this->response->setContentType('application/json');
+        $data = $this->request->getPost();
+        $employee_id = $data["employee_id"];
+        $department_id = $data["department_id"];
+        $exist = !$this->masterModel->get("employee_status", "employee_id", ["employee_id" => $employee_id])["error"];
+        if($exist){
+            $update_employee = $this->masterModel->update("employee_status", $data, ["employee_id" => $employee_id]);
+            if(!$update_employee["error"]){
+                $this->updateEmployeeQRcode($department_id, $employee_id);
+            }
+            return json_encode($update_employee);
+        }
+        return $this->createEmployeeStatus($data);
+    }
+
+    private function updateEmployeeQRcode($department_id, $employee_id){
+        $util_controller = new UtilController();
+        $this->response->setContentType('application/json');
+        $offsetted_employee_id = $util_controller->offsetZero($employee_id, 4);
+        $offsetted_department_id = $util_controller->offsetZero($department_id, 1);
+        $qrcode = "BALIWAG-EMP-$offsetted_department_id-$offsetted_employee_id";
+        $update_employee = $this->masterModel->update("employee_info", ["qrcode" => $qrcode], ["employee_id" => $employee_id]);
+        return !$update_employee["error"];
     }
 
     public function test(){

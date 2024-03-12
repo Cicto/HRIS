@@ -21,6 +21,12 @@
         height: 100%;
         z-index: 1;
     }
+
+    .cropper-crop-box{
+        overflow: hidden;
+        border-radius: 1rem !important;
+        border: 1px rgba(255, 255, 255, .5) solid;
+    }
 </style>
 <?= $this->endSection(); ?>
 
@@ -32,7 +38,7 @@
 <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
     <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex flex-stack">
         <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
-            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Add Employee</h1>
+            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"><?=$is_edit ? "Update" : "Add"?> Employee</h1>
             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                 <li class="breadcrumb-item text-muted">
                     <a href="<?=base_url()?>" class="text-muted text-hover-primary">Dashboard</a>
@@ -47,7 +53,7 @@
                     <i class="bi bi-dash"></i>
                 </li>
                 <li class="breadcrumb-item text-muted">
-                    <span class="text-muted">Add Employee</span>
+                    <span class="text-muted"><?=$is_edit ? "Update" : "Add"?> Employee</span>
                 </li>
             </ul>
         </div>
@@ -66,14 +72,12 @@
 
                         <div class="col-md-4 col-lg-4 col-xl-3 border-end">
                             <div class="position-relative d-flex justify-content-center">
-                                <!-- <div class="position-absolute w-100 h-100 bg-danger rounded-4 pointer d-flex flex-column justify-content-center align-items-center">
-                                    <div class=""></div>
-                                </div> -->
-                                <img src="<?=base_url()?>/public/assets/media/employee-profile/default-avatar.png" class="img-fluid rounded-4 border mx-auto" style="aspect-ratio: 1 / 1;" alt="">
+                                <img src="<?=base_url()?>/public/assets/media/employee-profile/<?=$is_edit ? $employee_info->photo ? $employee_info->photo : "default-avatar.png" : "default-avatar.png"?>" class="img-fluid w-100 rounded-4 border mx-auto" style="aspect-ratio: 1 / 1;" alt="Employee Photo" id="employee-photo-img">
                             </div>
                             
                             <div class="my-6">
-                                <button type="button" class="btn btn-primary w-100 btn-icon"><i class="fas fa-file-image me-2"></i> Set employee photo</button>
+                                <input type="file" id="employee-photo" class="d-none" accept="image/png, image/gif, image/jpeg" >
+                                <label for="employee-photo" class="btn btn-primary w-100 btn-icon"><i class="fas fa-file-image me-2"></i> Set employee photo</label>
                             </div>
             
                             <div class="d-none d-md-flex flex-row-auto w-100">
@@ -634,6 +638,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <input type="text" name="photo" value="<?=$is_edit ? $employee_info->photo : ""?>" id="photo" class="d-none">
 
                                                 <!-- <div class="row mb-6">
                                                     <div class="col-md-4 pt-2">
@@ -2349,6 +2355,24 @@
     </div>
 </div>
 
+<div class="modal fade" id="photo-croppper-modal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Crop Photo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0" style="min-height: 75vh;">
+                <img src="<?=base_url()?>/public/assets/media/employee-profile/default-avatar.png" id="photo-cropper-img" class="w-100 d-block" alt="">
+            </div>
+            <div class="modal-footer d-flex">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary flex-grow-1" id="photo-cropper-crop">Upload Photo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?= $this->endSection(); ?>
 
 <?= $this->section('javascript'); ?>
@@ -2357,19 +2381,19 @@
     const overall_form_data = {};
     const employee_address = {
         permanent : {
-            province_code : "<?=$is_edit ? $employee_info->permanent_province_code : 0?>",
-            city_mun_code : "<?=$is_edit ? $employee_info->permanent_city_mun_code : 0?>",
-            barangay_code : "<?=$is_edit ? $employee_info->permanent_barangay_code : 0?>",
+            province_code : <?=$is_edit ? "'$employee_info->permanent_province_code'" : 0?>,
+            city_mun_code : <?=$is_edit ? "'$employee_info->permanent_city_mun_code'" : 0?>,
+            barangay_code : <?=$is_edit ? "'$employee_info->permanent_barangay_code'" : 0?>,
         },
         residential : {
-            province_code : "<?=$is_edit ? $employee_info->residential_province_code : 0?>",
-            city_mun_code : "<?=$is_edit ? $employee_info->residential_city_mun_code : 0?>",
-            barangay_code : "<?=$is_edit ? $employee_info->residential_barangay_code : 0?>",
+            province_code : <?=$is_edit ? "'$employee_info->residential_province_code'" : 0?>,
+            city_mun_code : <?=$is_edit ? "'$employee_info->residential_city_mun_code'" : 0?>,
+            barangay_code : <?=$is_edit ? "'$employee_info->residential_barangay_code'" : 0?>,
         }
     };
 
+    let employee_photo_cropper;
     $(function () {
-        
 
     // Stepper
         // Stepper Initialization
@@ -2453,6 +2477,82 @@
             })
     //
 
+    // Photo
+        // Modal Cropper Re-initialization
+            $("#photo-croppper-modal").on("shown.bs.modal", function(){
+                employee_photo_cropper = new Cropper($("#photo-cropper-img")[0], {
+                    dragMode: 'move',
+                    aspectRatio: 1/1,
+                    cropBoxMovable: false,
+                    cropBoxResizable: false,
+                });
+            });
+        // Employee Photo input listener
+            $("#employee-photo").change(function(){
+                const photo_croppper_modal = bootstrap.Modal.getOrCreateInstance("#photo-croppper-modal");
+                const selected_photo = this.files[0];
+
+                if(selected_photo){
+                    const file_reader = new FileReader();
+                    file_reader.onload = event => {
+
+                        if(employee_photo_cropper){
+                            employee_photo_cropper.destroy()
+                        }
+
+                        $("#photo-cropper-img").attr("src", event.target.result).on("load", function(){
+                            photo_croppper_modal.show();
+                        })
+                    }
+
+                    file_reader.readAsDataURL(selected_photo);
+                }
+            })
+        // Crop and Upload
+            $("#photo-cropper-crop").click(function(){
+                if(!employee_photo_cropper){
+                    errorAlert("Error", "Something went wrong", "error");
+                    return;
+                }
+
+                const photo_croppper_modal = bootstrap.Modal.getOrCreateInstance("#photo-croppper-modal");
+                const cropped_image = employee_photo_cropper.getCroppedCanvas({
+                    fillColor: "white"
+                }).toDataURL("image/png");
+                const form_data = new FormData();
+
+                form_data.append('photo', cropped_image);
+
+                let endpoint = `<?=base_url()?>/employees/uploadTempEmployeePhoto`;
+                <?php if($is_edit):?>
+                    endpoint = `<?=base_url()?>/employees/updateEmployeePhoto/<?=$employee_id?>`;
+                <?php endif;?>
+
+                fetch(endpoint, {
+                    method: 'post',
+                    body: form_data,
+                })
+                .then(data => data.json())
+                .then(async response => {
+                    
+                    if(response.error){
+                    errorAlert("Error", response.message, "error");
+                    return; 
+                    }
+                    
+                    const uploaded_photo = `<?=base_url()?>/public/assets/media/employee-profile/<?=$is_edit ? "" : "temp/"?>${response.data.file_name}`;
+                    $("#employee-photo-img").attr("src", uploaded_photo);
+                    <?php if(!$is_edit):?>
+                        $("#photo").val(response.data.file_name);
+                    <?php endif;?>
+
+                    successAlert("Success", response.message, "success");
+
+                    photo_croppper_modal.hide();
+                })
+            })
+    //
+
     // Personal Information
         // Civil Status - Spouse Toggle
             $("#civil-status").change(function(){
@@ -2491,6 +2591,7 @@
                             $("#residential-city-mun-code").append(`<option value="${city_municipality.citymunCode}" ${employee_city_municipality ? employee_city_municipality == city_municipality.citymunCode ? "selected" : "" : ""}>${city_municipality.citymunDesc}</option>`);
                         });
                         $("#residential-city-mun-code").select2();
+                        console.log(employee_city_municipality)
                         if(employee_city_municipality){
                             $("#residential-city-mun-code").trigger("change")
                         }
@@ -2528,7 +2629,9 @@
                 $(this).parent().find(".address-text").val(barangay_text);
             });
 
+            <?php if($is_edit):?>
             $("#residential-province-code").val(employee_address.residential.province_code).trigger("change");
+            <?php endif;?>
 
             $("#permanent-province-code").change(function(){
                 const province_code = this.value;
@@ -2581,7 +2684,9 @@
                 $(this).parent().find(".address-text").val(barangay_text);
             });
 
+            <?php if($is_edit):?>
             $("#permanent-province-code").val(employee_address.permanent.province_code).trigger("change");
+            <?php endif;?>
 
             $("#same-as-residential-address").click(function (e) { 
                 e.preventDefault();
@@ -3206,7 +3311,7 @@
             buttonsStyling: false,
         }).then((result) => {
             if (result.isConfirmed) {
-                if(callback){
+                if(typeof callback == "function"){
                     callback();
                 }
             }

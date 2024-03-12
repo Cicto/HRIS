@@ -146,6 +146,104 @@ document.querySelector("#change-password-modal").addEventListener('hidden.bs.mod
 })
 
 /**
+ * It takes a number and returns the month name
+ * @param val - The value of the month you want to convert.
+ * @param [bool=false] - If true, it will return the month name of the previous month.
+ * @returns A function that takes two parameters, val and bool.
+ */
+function toMonth(val, bool = false) {
+    if (val >= 0) {
+      if ((bool == false && val <= 11) || (bool == true && val <= 12)) {
+        var months = [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+        ];
+        if (bool) {
+          val = -1;
+        }
+        return months[val];
+      } else {
+        return new Error("Invalid values given");
+      }
+    } else {
+      return new Error("Invalid values given");
+    }
+}
+
+/**
+ * It takes a string in the format of a MySQL date (YYYY-MM-DD) and returns a string in the format of a
+ * human readable date (Month DD, YYYY).
+ * @param str - The string that you want to convert.
+ * @returns A string in the format of "Month day, year"
+ */
+function mySQLDateToText(str) {
+    str = str.split(" ")[0];
+    const month = toMonth(Number(str.split("-")[1] - 1));
+    const day = str.split("-")[2];
+    const year = str.split("-")[0];
+    return `${month} ${day}, ${year}`;
+}
+
+/**
+ * If the hour is greater than 12, subtract 12 from the hour and add 'pm' to the end of the string,
+ * otherwise add 'am' to the end of the string.
+ * @param str - The time in mySQL format (HH:MM:SS)
+ */
+function mySQLTimeToText(str) {
+let hour = Number(str.split(":")[0]);
+let minute = Number(str.split(":")[1]);
+
+let meridiem = hour >= 12 ? "pm" : "am";
+if (hour > 12) {
+    hour -= 12;
+}
+hour = hour < 10 ? `0${hour}` : hour;
+minute = minute < 10 ? `0${minute}` : minute;
+
+return `${hour}:${minute} ${meridiem}`;
+}
+
+/**
+ * The function `mySQLDateTimeToText` converts a MySQL datetime string to a more readable text format.
+ * @param str - The `str` parameter is a string representing a date and time in the format used by
+ * MySQL. It should be in the format "YYYY-MM-DD HH:MM:SS".
+ * @returns The function `mySQLDateTimeToText` returns a formatted string that combines the result of
+ * `mySQLDateToText` and `mySQLTimeToText` functions.
+ */
+function mySQLDateTimeToText(str) {
+return `${mySQLDateToText(str.split(" ")[0])} ${mySQLTimeToText(
+    str.split(" ")[1]
+)}`;
+}
+
+/**
+ * If the month and day of the current date is less than the month and day of the birthdate, then
+ * subtract one from the age.
+ * @param dateString - The date string to be parsed.
+ * @returns The age of the person.
+ */
+function getAge(dateString) {
+var today = new Date();
+var birthDate = new Date(dateString);
+var age = today.getFullYear() - birthDate.getFullYear();
+var m = today.getMonth() - birthDate.getMonth();
+if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+}
+return age;
+}
+
+/**
  * It returns the first item in an array that has a property with a value equal to the id you pass in.
  * @param array - the array you want to search
  * @param id - the id of the item you want to find
@@ -209,6 +307,15 @@ function pageLoader(bool=false, message=null){
     }
 }
 
+/**
+ *  It's a function that capitalizes the first letter of every word in a string. */
+String.prototype.toTitleCase = function () {
+    str = this.toLowerCase();
+    return str.replace(/(^([a-zA-Z\p{M}]))|([ -][a-zA-Z\p{M}])/g, function (s) {
+      return s.toUpperCase();
+    });
+  };screenX
+
 $('#sidebar .menu-item .menu-link').each(function() {
 
     if ($(this).attr('href') == window.location.href) {
@@ -248,7 +355,7 @@ let confirm = (title, message, icon, url, type, formData, callBack) => {
     Swal.fire({
         icon: icon,
         iconColor: 'var(--kt-white)',
-        title: '<span class = "fw-semibold fs-1">CONFIRM</span>',
+        title: '<span class = "fw-semibold fs-1">'+title+'</span>',
         html: '<span class = "text-gray-600">'+message+'</span>',
         background: `var(--kt-white)`,
         customClass: {

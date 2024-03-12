@@ -1,0 +1,65 @@
+CRITICAL - 2024-02-14 11:52:19 --> Undefined variable $title
+#0 C:\xampp\htdocs\HRIS\app\Views\plantilla\dashboard.php(7): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 7)
+#1 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('plantilla/dashb...', Array, true)
+#4 C:\xampp\htdocs\HRIS\app\Controllers\Plantilla.php(21): view('plantilla/dashb...', Array)
+#5 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Plantilla->index()
+#6 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Plantilla))
+#7 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\HRIS\index.php(38): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2024-02-14 11:52:29 --> Undefined variable $title
+#0 C:\xampp\htdocs\HRIS\app\Views\plantilla\dashboard.php(7): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 7)
+#1 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('plantilla/dashb...', Array, true)
+#4 C:\xampp\htdocs\HRIS\app\Controllers\Plantilla.php(21): view('plantilla/dashb...', Array)
+#5 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Plantilla->index()
+#6 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Plantilla))
+#7 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\HRIS\index.php(38): CodeIgniter\CodeIgniter->run()
+#9 {main}
+CRITICAL - 2024-02-14 13:34:15 --> Class "App\Controllers\DataTable" not found
+#0 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Plantilla->plantillaDataTables()
+#1 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Plantilla))
+#2 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\HRIS\index.php(38): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2024-02-14 13:35:27 --> Class "App\Controllers\DataTable" not found
+#0 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Plantilla->plantillaDataTables()
+#1 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Plantilla))
+#2 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\HRIS\index.php(38): CodeIgniter\CodeIgniter->run()
+#4 {main}
+CRITICAL - 2024-02-14 13:35:46 --> Class "App\Controllers\DataTable" not found
+#0 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Plantilla->plantillaDataTables()
+#1 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Plantilla))
+#2 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 C:\xampp\htdocs\HRIS\index.php(38): CodeIgniter\CodeIgniter->run()
+#4 {main}
+ERROR - 2024-02-14 13:40:14 --> You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':0:' at line 3
+CRITICAL - 2024-02-14 13:40:14 --> You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ':0:' at line 3
+#0 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(292): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\Database\BaseConnection.php(670): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\Database\BaseConnection.php(598): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1539): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\xampp\htdocs\HRIS\vendor\hermawan\codeigniter4-datatables\src\DataTableQuery.php(53): CodeIgniter\Database\BaseBuilder->countAllResults()
+#5 C:\xampp\htdocs\HRIS\vendor\hermawan\codeigniter4-datatables\src\DataTable.php(174): Hermawan\DataTables\DataTableQuery->countAll()
+#6 C:\xampp\htdocs\HRIS\app\Controllers\Plantilla.php(35): Hermawan\DataTables\DataTable->toJson(true)
+#7 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Plantilla->plantillaDataTables()
+#8 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Plantilla))
+#9 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\xampp\htdocs\HRIS\index.php(38): CodeIgniter\CodeIgniter->run()
+#11 {main}
+CRITICAL - 2024-02-14 15:39:46 --> Undefined variable $title
+#0 C:\xampp\htdocs\HRIS\app\Views\plantilla\dashboard.php(16): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined varia...', 'C:\\xampp\\htdocs...', 16)
+#1 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\View\View.php(210): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\View\View.php(213): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+#3 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\Common.php(1089): CodeIgniter\View\View->render('plantilla/dashb...', Array, true)
+#4 C:\xampp\htdocs\HRIS\app\Controllers\Plantilla.php(22): view('plantilla/dashb...', Array)
+#5 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(832): App\Controllers\Plantilla->index()
+#6 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(419): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Plantilla))
+#7 C:\xampp\htdocs\HRIS\vendor\codeigniter4\framework\system\CodeIgniter.php(326): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\xampp\htdocs\HRIS\index.php(38): CodeIgniter\CodeIgniter->run()
+#9 {main}

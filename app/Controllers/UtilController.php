@@ -219,30 +219,32 @@ class UtilController extends BaseController
         return $result;
     }
 
-    /**
-     * It moves a file from one directory to another.
-     * 
-     * @param from the directory where the file is currently located
-     * @param to the directory you want to move the file to
-     * @param file_name The name of the file to be moved.
-     * 
-     * @return The result of the rename function.
-     */
-    public function moveFileTo($from, $to, $file_name = TRUE){
-        $slash = gettype($file_name)!=="string" ? "" : "/" ;
-        $from_dir = str_replace("\\","/",ROOTPATH).$from.$slash;
-        $to_dir = str_replace("\\","/",ROOTPATH).$to.$slash;
+    public function moveFileTo($from, $to, $file_name, $new_file_name = FALSE){
+        $from_dir = $this->addSlashToDir($this->getRootPath().$from);
+        $to_dir = $this->addSlashToDir($this->getRootPath().$to);
+
         if (!file_exists($to_dir)) {
             mkdir($to_dir, 0777, true);
         }
 
-        if(gettype($file_name)=="string"){
+        if(gettype($new_file_name)=="boolean"){
             $to_dir = $to_dir.$file_name;
+            $from_dir = $from_dir.$file_name;
+        }else{
+            $to_dir = $to_dir.$new_file_name;
             $from_dir = $from_dir.$file_name;
         }
 
-        $result = rename( $from_dir, $to_dir);
-        return $result;
+        try {
+            $renamed = rename($from_dir, $to_dir);
+            return $renamed;
+        } catch (Exception $e) {
+            if ( copy($from_dir, $to_dir) ) {
+                unlink($from_dir);
+                return TRUE;
+            }
+            return FALSE;
+        }
     }
 
     public function zipFiles($file_list, $zip_path="public/assets/media", $zip_name="archive.zip"){
@@ -323,6 +325,10 @@ class UtilController extends BaseController
     private function addSlashToDir($dir){
         $slash = substr($dir, -1) == "/" ? "" : "/";
         return $dir.$slash;
+    }
+
+    private function getRootPath(){
+        return str_replace("\\","/",ROOTPATH);
     }
 
     /**
@@ -437,6 +443,42 @@ class UtilController extends BaseController
             return json_encode($provinces);
         }
         return $provinces;
+    }
+
+    /**
+     * The function calculates the age based on a given birthdate.
+     * 
+     * @param birthdate The parameter "birthdate" is expected to be a string in the format
+     * "YYYY-MM-DD", representing the date of birth of a person.
+     * 
+     * @return the age calculated based on the given birthdate.
+     */
+    public static function getAge($birthdate){
+        $birthdate = explode("-", $birthdate);
+        $age = (date("md", date("U", mktime(0, 0, 0, $birthdate[1], $birthdate[2], $birthdate[0]))) > date("md")
+            ? ((date("Y") - $birthdate[0]) - 1)
+            : (date("Y") - $birthdate[0]));
+        return $age;
+    }
+
+    /**
+     * The offsetZero function takes a string and an optional offset value, and returns the string with
+     * leading zeros added to make its length equal to the offset value.
+     * 
+     * @param str The input string that needs to be offset with zeros.
+     * @param offset The offset parameter is an optional parameter that specifies the desired length of
+     * the resulting string. If not provided, the default value is set to 5.
+     * 
+     * @return the offsetted string.
+     */
+    public static function offsetZero($str, $offset = 5) {
+        $offsetted_string = strval($str);
+        if (strlen($offsetted_string) <= $offset) {
+          for ($index = strlen($offsetted_string); $index <= $offset; $index++) {
+            $offsetted_string = "0" . $offsetted_string;
+          }
+        }
+        return $offsetted_string;
     }
 }
 ?>
