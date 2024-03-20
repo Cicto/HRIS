@@ -1,0 +1,36 @@
+ // $(function () {
+        //     $.ajax({
+        //         url: "https://dummyjson.com/products/1",
+        //     })
+        //     .done(function( data ) {
+        //         const products_card = $("#products");
+        //         const product_img = $("#prod-img");
+        //         const image = data.images[1];
+        //         $("#prod-img").attr("src", image);
+        //         product_img
+        //         console.log(image);
+        //         console.log(data);
+        //     });
+        // });
+
+$('#plantilla_table').on('click', '.edit-btn', function () {
+            const info_modal = bootstrap.Modal.getOrCreateInstance('#add_modal');
+            let plantilla_id = this.dataset.id;
+            console.log(plantilla_id);
+            $.ajax({
+                type: "get",
+                url: "<?= base_url()?>/plantilla/getPlantilla/" + plantilla_id,
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    const plantilla_info = response.data[0];        
+                    $('#plantilla-id').val(plantilla_info.plantilla_id);
+                    $('#position_title').val(plantilla_info.position_title);
+                    $('#salary_grade').val(plantilla_info.salary_grade);
+                    $('#authorized').val(plantilla_info.authorized);
+                    $('#actual').val(plantilla_info.actual);
+                    $('#dept_id').val(plantilla_info.dept_id);
+                }
+            });
+            info_modal.show();
+        });

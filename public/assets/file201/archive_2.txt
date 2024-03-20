@@ -1,0 +1,40 @@
+,
+                {
+                    data: 'employee_id',
+                    render: function (data, type, row) {
+                        console.log(data);
+
+                        console.log(row['deleted_at']);
+                        row['deleted_at'] ? 'Archive' : 'Unarchive';
+                        console.log(row['deleted_at'] ? 'Unarchive' : 'Archive');
+                        return `<div class="dropdown ms-2">
+                                <button class="btn btn-sm btn-icon btn-light-primary btn-active-primary me-2" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="svg-icon svg-icon-5 m-0">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="10" y="10" width="4" height="4" rx="2" fill="currentColor"></rect>
+                                            <rect x="17" y="10" width="4" height="4" rx="2" fill="currentColor"></rect>
+                                            <rect x="3" y="10" width="4" height="4" rx="2" fill="currentColor"></rect>
+                                        </svg>
+                                    </span>
+                                </button>
+                                <div class="dropdown-menu menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-150px py-4" aria-labelledby="dropdownMenuButton" style="">
+                                    <div class="menu-item px-3">
+                                        <a class="menu-link px-3 edit-btn " data-id = "${data}" id ="dept-employee"  href="<?= base_url()?>/departments/deptEmployees/${data} target="_blank""  ><i class="bi bi-person"></i> Employees</a>
+                                    </div>
+                                    <div class="menu-item px-3">
+                                        <span class="menu-link px-3 access-btn" data-id = "${data}" id ="dept-edit"><i class="bi bi-pencil-square "></i> Edit</span>
+                                    </div>
+                                    <div class="menu-item px-3">
+                                        <span class="menu-link px-3 access-btn" data-id = "${data}" id ="${row['deleted_at'] ? 'dept-unarchive' : 'dept-archive'}" ><i class="bi bi-archive"></i>${row['deleted_at'] ? 'Unarchive' : 'Archive'}</span>
+                                    </div>
+                                </div>
+                            </div>`;
+                    }
+                }
+
+
+
+
+<?php foreach ($options['data'] as $option): ?>
+                <option value="<?= $option[''] ?>"><?= $option['document_type'] ?></option>
+                <?php endforeach; ?>

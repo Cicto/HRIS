@@ -25,9 +25,12 @@
             <label for="file-type" class="fs-5 fw-bold text-gray-900 mb-1 required form-label">File Type</label>
             <select class="form-select" data-control="select2" data-placeholder="Select a File Type" id="file-type">
                 <option></option>
-                <option value="pds-file">PDS File</option>
-                <option value="coe">COE</option>
-                <option value="seminars">Seminars</option>
+                <?php foreach ($requirements['data'] as $option): ?>
+    
+                <option value="<?= $option->document_type ?>"><?= $option->document_type ?></option>
+                    
+                <?php endforeach; ?>
+                
             </select>
 
             <div class="separator my-5"></div>
@@ -227,7 +230,10 @@ $(document).ready(function () {
                 $("#dz-overlay").show();
             }     
         });
-
+       
+        
 });
+
+
 </script>
 <?= $this->endSection(); ?>

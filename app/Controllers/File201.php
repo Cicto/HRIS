@@ -13,11 +13,30 @@ class File201 extends BaseController
     
 
 
-    public function index($employeeID)
+    public function index($employeeID, $employmentStatus)
     {   
+        $employeeStatus = null;
+        $statusNumber = null;
         $this->viewData['employeeID'] = $employeeID;
         $this->viewData['employeeFiles'] = $this->masterModel->get('file_201', 'employee_id, file_name, file_id', ['employee_id'=> $employeeID]);
         $this->viewData['fileID'] = $this->masterModel->get('file_201', 'file_id', ['employee_id'=> $employeeID]);
+        $this->viewData['employeeStatus'] = $this->masterModel->get('employee_status', 'employement_status_id', ['employee_id'=> $employeeID]);
+        $employeeStatus = $this->viewData['employeeStatus'] = $this->masterModel->get('employee_status', 'employement_status_id', ['employee_id'=> $employeeID]);
+        if (!empty($employeeStatus)) {
+            $employmentStatusID = isset($employeeStatus[0]['employement_status_id']) ? $employeeStatus[0]['employement_status_id'] : null;
+            if ($employmentStatusID === 4 || $employmentStatusID === 2 || $employmentStatusID === 6) {
+                $statusNumber = 0;
+            } else {
+                $statusNumber = 1;
+            }
+        } else {
+            $statusNumber = 0; 
+        }
+        $this->viewData['requirements'] = $this->masterModel->get('requirements_list', 'id, document_type, deleted_at, employee_type', ['deleted_at'=> null, 'employee_type' => $statusNumber]);
+    
+        
+        
+
         return view('files201/upload201Files', $this->viewData);  
     }
 
@@ -113,6 +132,17 @@ class File201 extends BaseController
             $archive_file = $this->masterModel->update('file_201', ['deleted_at'=>$current_date], ['file_id' => $fileID]);
             return json_encode($archive_file);
         }
+    }
+
+    public function getFileType(){
+        $this->viewData['requirements'] = $this->masterModel->get('requirements_list', 'id, document_type, deleted_at', ['deleted_at'=> null]);
+        $this->viewData['options'] = $this->viewData['requirements'] = $this->masterModel->get('requirements_list', 'document_type', ['deleted_at'=> null]);
+        return view('files201/upload201Files', $this->viewData);
+    }
+
+    public function getEmploymentStatus($employeeID){
+        $this->viewData['status'] = $this->masterModel->get('employees', 'employment_status, deleted_at', ['employee_id'=> $employeeID]);
+        return view('employees/employeeManagement', $this->viewData);
     }
 
 }

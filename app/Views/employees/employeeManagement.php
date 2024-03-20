@@ -157,6 +157,7 @@
 
 <?= $this->section('javascript'); ?>
 <script>
+    let employment_stat = '0';
     let employees_table, employees_table_data;
     $(function () {
         employees_table = $("#employees-table").DataTable({
@@ -224,7 +225,7 @@
                                     <span class="menu-link px-3 text-nowrap edit-employee-status" data-id="${data}">Employment Status</span>
                                 </div>
                                 <div class="menu-item px-3">
-                                    <a class="menu-link px-3 text-nowrap" href="<?=base_url()?>/file201/index/${data}">View 201 File </a>
+                                    <a class="menu-link px-3 text-nowrap file-201" href="<?=base_url()?>/file201/index/${data}/${employment_stat}">View 201 File </a>
                                 </div>
                                 ${row.deleted_at ? 
                                 `<div class="menu-item px-3">
@@ -351,7 +352,9 @@
                 reloadDataTable(employees_table, "<?=base_url()?>/employees/getEmployees")
                 $("#archive-toggle-label").hide();
             }
-        })
+        });
+
+       
     });
 
     /**
