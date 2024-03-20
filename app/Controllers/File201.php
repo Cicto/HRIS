@@ -21,16 +21,16 @@ class File201 extends BaseController
         $this->viewData['employeeFiles'] = $this->masterModel->get('file_201', 'employee_id, file_name, file_id', ['employee_id'=> $employeeID]);
         $this->viewData['fileID'] = $this->masterModel->get('file_201', 'file_id', ['employee_id'=> $employeeID]);
         $this->viewData['employeeStatus'] = $this->masterModel->get('employee_status', 'employement_status_id', ['employee_id'=> $employeeID]);
-        $employeeStatus = $this->viewData['employeeStatus'] = $this->masterModel->get('employee_status', 'employement_status_id', ['employee_id'=> $employeeID]);
-        if (!empty($employeeStatus)) {
-            $employmentStatusID = isset($employeeStatus[0]['employement_status_id']) ? $employeeStatus[0]['employement_status_id'] : null;
-            if ($employmentStatusID === 4 || $employmentStatusID === 2 || $employmentStatusID === 6) {
+        $employeeStatus = $this->viewData['employeeStatus'];
+        if (!$employeeStatus["error"]) {
+            $employmentStatusID = $employeeStatus['data'][0]->employement_status_id;
+            if (in_array($employmentStatusID, [4, 2, 6])) {
                 $statusNumber = 0;
             } else {
                 $statusNumber = 1;
             }
         } else {
-            $statusNumber = 0; 
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
         $this->viewData['requirements'] = $this->masterModel->get('requirements_list', 'id, document_type, deleted_at, employee_type', ['deleted_at'=> null, 'employee_type' => $statusNumber]);
     
