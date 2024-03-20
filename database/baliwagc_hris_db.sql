@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 12, 2024 at 08:07 AM
+-- Generation Time: Mar 21, 2024 at 12:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -724,7 +724,12 @@ INSERT INTO `auth_logins` (`id`, `ip_address`, `email`, `user_id`, `date`, `succ
 (606, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-03-06 08:12:24', 1),
 (607, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-03-07 07:40:13', 1),
 (608, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-03-11 08:57:33', 1),
-(609, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-03-12 07:35:51', 1);
+(609, '127.0.0.1', 'admin.darrel@baliwag.gov.ph', 2, '2024-03-12 07:35:51', 1),
+(610, '127.0.0.1', 'admin.elison@baliwag.gov.ph', 4, '2024-03-18 09:06:52', 1),
+(611, '127.0.0.1', 'admin.elison@baliwag.gov.ph', 4, '2024-03-19 09:15:37', 1),
+(612, '127.0.0.1', 'admin.elison@baliwag.gov.ph', 4, '2024-03-19 15:57:52', 1),
+(613, '127.0.0.1', 'admin.elison@baliwag.gov.ph', 4, '2024-03-20 08:16:12', 1),
+(614, '127.0.0.1', 'admin.elison@baliwag.gov.ph', 4, '2024-03-21 07:34:19', 1);
 
 -- --------------------------------------------------------
 
@@ -2062,7 +2067,12 @@ INSERT INTO `employee_educational_backgrounds` (`employee_family_background_id`,
 (17, 7, 2, 'Jesse Suarez', 'Rerum sed sunt nihil', '1985-09-09', '2014-09-21', 'Dolore ex deserunt c', 1974, 'Alias et et ullamco '),
 (18, 7, 3, 'Kelly Le', 'Saepe in quam quaera', '2016-06-04', '1974-09-11', 'Tempor eveniet perf', 1970, 'Sunt sed tenetur rep'),
 (19, 7, 4, 'Kelsey Patel', 'Libero cupidatat dol', '1986-03-21', '2005-07-12', 'Qui reprehenderit la', 2003, 'Reprehenderit eu el'),
-(20, 7, 5, '', '', '0000-00-00', '0000-00-00', '', 0, '');
+(20, 7, 5, '', '', '0000-00-00', '0000-00-00', '', 0, ''),
+(21, 8, 1, 'qwertyu', 'qwertyu', '2024-04-04', '2024-03-27', 'qwertyu', 12345, '123456'),
+(22, 8, 2, '1234567', '1234567', '2024-03-30', '2024-03-21', '1234567', 1234567, '123456789'),
+(23, 8, 3, 'qwertyuu', 'qwertyui', '2024-03-10', '2024-03-22', 'qwertyui', 123456, 'qwert'),
+(24, 8, 4, 'qwertyu', 'qwertyu', '2024-03-18', '2024-03-30', 'qwertyu', 1234564, 'qwertyu'),
+(25, 8, 5, '', '', '0000-00-00', '0000-00-00', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -2091,7 +2101,8 @@ INSERT INTO `employee_eligibilities` (`employee_eligibility_id`, `employee_id`, 
 (8, 5, 'Consequat Et error ', 'Ab sit maxime laboru', '2000-04-23', 'Asperiores eligendi ', 'Dolor aut dolore qui', '2014-06-23'),
 (9, 5, 'Maiores esse minim c', 'Amet blanditiis eiu', '2020-02-06', 'Porro qui commodi ve', 'Quo proident dolori', '2006-01-06'),
 (12, 6, 'Aut placeat ut repr', 'Magni mollit et ipsa', '1986-06-11', 'Molestiae nulla ea d', 'Nisi illo officia om', '2014-09-07'),
-(13, 6, 'Nobis illum autem n', 'Impedit obcaecati a', '2018-03-02', 'Irure elit esse an', 'Eos dolorem est non ', '2002-05-27');
+(13, 6, 'Nobis illum autem n', 'Impedit obcaecati a', '2018-03-02', 'Irure elit esse an', 'Eos dolorem est non ', '2002-05-27'),
+(16, 8, '12345678', '1234567', '2024-02-26', 'qwerty', '123456', '2024-04-06');
 
 -- --------------------------------------------------------
 
@@ -2131,7 +2142,8 @@ INSERT INTO `employee_family_backgrounds` (`employee_family_background_id`, `emp
 (4, 4, '', '', '', '', '', '', '', '', 'father_firstname', 'father_middlename', 'father_lastname', 'father_suffix', 'mother_firstname', 'mother_middlename', 'mother_lastname', '[]'),
 (5, 5, 'Winifred', 'Calista Pate', 'Weeks', 'Et nulla dolore quos', 'Animi blanditiis am', 'Vaughan Sampson', 'Labore earum autem q', '+1 (599) 944-7567', 'Owen', 'Ferris Hill', 'Kinney', '', 'Tamara', 'Dillon Chan', 'Curry', '[{\"child_name\":\"Consectetur nihil du\",\"child_birthdate\":\"1975-04-15\"},{\"child_name\":\"Juan Dela Cruz\",\"child_birthdate\":\"2024-03-05\"}]'),
 (6, 6, 'Whoopi', 'Ryan Vaughn', 'Sullivan', 'Eos distinctio Elig', 'Dolore ad occaecat c', 'Isabella Stephens', 'Porro molestias cons', '+1 (453) 203-9995', 'Kato', 'Lucas Ramirez', 'Manning', 'Ratione omnis aut di', 'Jasper', 'Ciara Dillard', 'Mcclain', '[{\"child_name\":\"Qui laborum Perfere\",\"child_birthdate\":\"2000-02-10\"}]'),
-(7, 7, 'Yvette', 'Diana Soto', 'Castro', 'Explicabo Sint vol', 'Corporis dicta ut as', 'Marcia Ray', 'Ut necessitatibus re', '+1 (759) 646-8359', 'Rhiannon', 'Larissa Cortez', 'Walls', 'Dolor incidunt nost', 'Samantha', 'Neil Guzman', 'Mccoy', '[{\"child_name\":\"Voluptates repellend\",\"child_birthdate\":\"1977-05-27\"},{\"child_name\":\"Lorem et ut sit lab\",\"child_birthdate\":\"1981-09-10\"}]');
+(7, 7, 'Yvette', 'Diana Soto', 'Castro', 'Explicabo Sint vol', 'Corporis dicta ut as', 'Marcia Ray', 'Ut necessitatibus re', '+1 (759) 646-8359', 'Rhiannon', 'Larissa Cortez', 'Walls', 'Dolor incidunt nost', 'Samantha', 'Neil Guzman', 'Mccoy', '[{\"child_name\":\"Voluptates repellend\",\"child_birthdate\":\"1977-05-27\"},{\"child_name\":\"Lorem et ut sit lab\",\"child_birthdate\":\"1981-09-10\"}]'),
+(8, 8, '', '', '', '', '', '', '', '', 'qwertyu', 'qwertyu', 'qwertyu', 'qwertyu', 'qwertyui', 'qwertyu', 'qwertyu', '[{\"child_name\":\"qwertyu\",\"child_birthdate\":\"2024-03-27\"}]');
 
 -- --------------------------------------------------------
 
@@ -2199,9 +2211,10 @@ INSERT INTO `employee_info` (`employee_id`, `qrcode`, `firstname`, `middlename`,
 (2, NULL, 'Darrel', 'Bayaras', 'Geslani', '', '2024-02-29', 'Male', 'Single', 1.67, 65, 'blood_type', 'gsis_id', 'pag_ibig_id', 'philhealth_id', 'sss_id', 'tin_id', 'agency_employee_id', 1, 0, 1, 0, '', 'residential_house_number', 'residential_street', '031403023', 'Sulivan', '031403', 'BALIWAG', '0314', 'BULACAN', '3006', 'permanent_house_number', 'permanent_street', '031403023', 'Sulivan', '031403', 'BALIWAG', '0314', 'BULACAN', '3006', '', '0905-672-0113', '', '', '2024-02-29 15:52:03', NULL, '2024-03-04 16:53:14'),
 (3, NULL, 'Wynter', 'Chanda Byers', 'Marshall', 'Totam cons', '2009-06-24', 'Male', 'Widowed', 0, 0, 'Autem dolo', 'Corrupti est conseq', 'Officiis laboriosam', 'Dolor vel quia sit s', 'Est dolorem digniss', 'Ut aut delectus odi', 'Non qui inventore et', 1, 1, 1, 0, 'Liberia', '614', 'Ullamco aperiam qui ', '036902003', 'Bangcu', '036902', 'BAMBAN', '0369', 'TARLAC', '8240', '614', 'Ullamco aperiam qui ', '036902003', 'Bangcu', '036902', 'BAMBAN', '0369', 'TARLAC', '8240', '+1 (921) 717-4068', '0', '', '', '2024-03-04 10:11:22', NULL, '2024-03-04 16:53:46'),
 (4, NULL, 'Brendan', 'Keith Hood', 'Kidd', '', '2024-03-04', 'Male', 'Single', 1.67, 65, 'blood_type', 'gsis_id', 'pag_ibig_id', 'philhealth_id', 'sss_id', 'tin_id', 'agency_employee_id', 1, 0, 1, 0, '', 'residential_house_number', 'residential_street', '031404004', 'Batia', '031404', 'BOCAUE', '0314', 'BULACAN', '3006', 'residential_house_number', 'residential_street', '031404004', 'Batia', '031404', 'BOCAUE', '0314', 'BULACAN', '3006', '', '0905-672-0113', '', '', '2024-03-04 10:16:56', NULL, '2024-03-05 11:16:36'),
-(5, 'BALIWAG-EMP-01-00005', 'Julie', 'Donna Morales', 'Rodriquez', 'Labore fac', '2016-07-05', 'Female', 'Live-in', 0, 0, 'Maiores ex', '0123-4567890-12', '0123-4567-8901', 'Saepe id autem repr', 'In consectetur est a', 'Exercitationem repel', 'Eligendi exercitatio', 1, 1, 0, 0, 'Liberia', '534', 'Molestiae et molesti', '034904002', 'Bagong Sikat', '034904', 'CABIAO', '0349', 'NUEVA ECIJA', '4480', '534', 'Molestiae et molesti', '034904002', 'Bagong Sikat', '034904', 'CABIAO', '0349', 'NUEVA ECIJA', '4480', '+1 (144) 434-9143', '0905-672-0113', 'geslanidarrel@gmail.com', '', '2024-03-04 10:21:56', '2024-03-04 16:45:41', NULL),
+(5, 'BALIWAG-EMP-01-00005', 'Julie', 'Donna Morales', 'Rodriquez', 'Labore fac', '2016-07-05', 'Female', 'Live-in', 0, 0, 'Maiores ex', '0123-4567890-12', '0123-4567-8901', 'Saepe id autem repr', 'In consectetur est a', 'Exercitationem repel', 'Eligendi exercitatio', 1, 1, 0, 0, 'Liberia', '534', 'Molestiae et molesti', '034904002', 'Bagong Sikat', '034904', 'CABIAO', '0349', 'NUEVA ECIJA', '4480', '534', 'Molestiae et molesti', '034904002', 'Bagong Sikat', '034904', 'CABIAO', '0349', 'NUEVA ECIJA', '4480', '+1 (144) 434-9143', '0905-672-0113', 'geslanidarrel@gmail.com', 'JulieDonnaMoralesRodriquez-20240318171311.png', '2024-03-04 10:21:56', '2024-03-04 16:45:41', NULL),
 (6, 'BALIWAG-EMP-02-00006', 'Upton', 'Thomas Moore', 'Montoya', 'Suscipit c', '2012-09-10', 'Female', 'Separated', 0, 0, 'Itaque rer', 'Quidem id suscipit p', 'Odio labore velit i', 'Nesciunt doloribus ', 'Fugit explicabo Mi', 'Quam vel quae non vo', 'Aliquip fugiat cons', 1, 0, 1, 0, '', '196', 'Asperiores itaque do', '013304003', 'Cambaly', '013304', 'BAGULIN', '0133', 'LA UNION', '8322', '196', 'Asperiores itaque do', '013304003', 'Cambaly', '013304', 'BAGULIN', '0133', 'LA UNION', '8322', '+1 (882) 702-7108', '', 'lanykexoja@mailinator.com', 'UptonThomasMooreMontoya-20240305131343.png', '2024-03-05 11:14:57', '2024-03-05 11:47:54', NULL),
-(7, 'BALIWAG-EMP-03-00007', 'Brenden', 'Alika Bender', 'Blevins', 'Non dignis', '1998-05-27', 'Female', 'Live-in', 0, 0, 'Est corrup', 'Veniam quasi molest', 'Voluptatem In conse', 'Sit unde voluptates', 'Cum exercitationem f', 'Sit ex maxime sed ma', 'Nam consequuntur nec', 0, 0, 1, 0, '', '456', 'Illo consequatur Qu', '045602002', 'Bacong', '045602', 'ALABAT', '0456', 'QUEZON', '6833', '456', 'Illo consequatur Qu', '045602002', 'Bacong', '045602', 'ALABAT', '0456', 'QUEZON', '6833', '+1 (636) 323-3018', '', 'xajicosa@mailinator.com', 'BrendenAlikaBenderBlevins-20240305111747.png', '2024-03-05 11:19:20', '2024-03-05 13:21:46', NULL);
+(7, 'BALIWAG-EMP-03-00007', 'Brenden', 'Alika Bender', 'Blevins', 'Non dignis', '1998-05-27', 'Female', 'Live-in', 0, 0, 'Est corrup', 'Veniam quasi molest', 'Voluptatem In conse', 'Sit unde voluptates', 'Cum exercitationem f', 'Sit ex maxime sed ma', 'Nam consequuntur nec', 0, 0, 1, 0, '', '456', 'Illo consequatur Qu', '045602002', 'Bacong', '045602', 'ALABAT', '0456', 'QUEZON', '6833', '456', 'Illo consequatur Qu', '045602002', 'Bacong', '045602', 'ALABAT', '0456', 'QUEZON', '6833', '+1 (636) 323-3018', '', 'xajicosa@mailinator.com', 'BrendenAlikaBenderBlevins-20240305111747.png', '2024-03-05 11:19:20', '2024-03-05 13:21:46', NULL),
+(8, 'BALIWAG-EMP-02-00008', 'qwerty', 'werty', 'efg', '', '2024-03-18', 'Female', 'Single', 165, 56, 'o', '1234567890', '1234567890', '1234567890', '1234567890', '1234567890', '12345', 1, 0, 0, 0, '', 'wertyu', 'wertyu', '012922026', 'Sacuyya Norte', '012922', 'SANTA', '0129', 'ILOCOS SUR', '1234', 'wertyu', 'wertyu', '012922026', 'Sacuyya Norte', '012922', 'SANTA', '0129', 'ILOCOS SUR', '1234', '1234567890', '0900-098-7654', 'qwertyuioplkjhgfdsa@gmail.com', '', '2024-03-18 17:03:39', '2024-03-18 17:06:04', NULL);
 
 -- --------------------------------------------------------
 
@@ -2250,7 +2263,8 @@ CREATE TABLE `employee_other_info` (
 INSERT INTO `employee_other_info` (`employee_other_info_id`, `employee_id`, `special_skills_and_hobbies`, `non_academic_distinctions_recognitions`, `membership_in_associations_organizations`, `related_within_the_third_degree`, `related_within_the_fourth_degree`, `related_within_the_fourth_degree_details`, `found_guilty`, `found_guilty_details`, `criminally_charged`, `criminally_charged_details`, `criminally_charged_date_filed`, `criminally_charged_case_status`, `convicted_of_crime`, `convicted_of_crime_details`, `separated_from_the_service`, `separated_from_the_service_details`, `election_candidate`, `election_candidate_details`, `resigned_for_candidacy`, `resigned_for_candidacy_details`, `resident_of_another_country`, `resident_of_another_country_details`, `indigenous_member`, `indigenous_member_specify`, `person_with_disability`, `person_with_disability_id`, `solo_parent`, `solo_parent_id`, `references`) VALUES
 (1, 5, '[]', '[{\"non_academic_distinction_or_recognition\":\"Non-Academic Distinctions / Recognitions\"}]', '[{\"membership_in_association_organization\":\"Membership In Associations / Organizations\"}]', 1, 0, '', 0, '', 0, '', '0000-00-00', '', 0, '', 0, '', 0, '', 0, '', 0, '', 0, '', 1, '12345543', 0, '', '[{\"reference_name\":\"Darrel Geslani\",\"reference_address\":\"Somewhere\",\"reference_tel_no\":\"123456\"},{\"reference_name\":\"asdasd\",\"reference_address\":\"asdasd\",\"reference_tel_no\":\"asdasd\"}]'),
 (2, 6, '[{\"special_skill_or_hobby\":\"Stealth\"},{\"special_skill_or_hobby\":\"Mugging\"}]', '[{\"non_academic_distinction_or_recognition\":\"Best Assasin\"}]', '[{\"membership_in_association_organization\":\"Rouge Club\"}]', 0, 1, 'Incestual', 1, 'Thief', 0, '', '0000-00-00', '', 1, 'Thief', 0, '', 0, '', 0, '', 0, '', 0, '', 0, '', 1, '42069', '[]'),
-(3, 7, '[{\"special_skill_or_hobby\":\"Searching\"}]', '[]', '[]', 0, 0, '', 0, '', 0, '', '0000-00-00', '', 0, '', 0, '', 0, '', 0, '', 0, '', 0, '', 1, '123123123', 0, '', '[]');
+(3, 7, '[{\"special_skill_or_hobby\":\"Searching\"}]', '[]', '[]', 0, 0, '', 0, '', 0, '', '0000-00-00', '', 0, '', 0, '', 0, '', 0, '', 0, '', 0, '', 1, '123123123', 0, '', '[]'),
+(4, 8, '[]', '[]', '[]', 0, 0, '', 0, '', 0, '', '0000-00-00', '', 0, '', 0, '', 0, '', 0, '', 0, '', 0, '', 0, '', 0, '', '[{\"reference_name\":\"qwerty\",\"reference_address\":\"qwertyu\",\"reference_tel_no\":\"1234567890-\"}]');
 
 -- --------------------------------------------------------
 
@@ -2275,7 +2289,8 @@ CREATE TABLE `employee_status` (
 INSERT INTO `employee_status` (`employee_id`, `employement_status_id`, `department_id`, `position`, `role_id`, `is_for_plantilia`, `date_hired`) VALUES
 (6, 4, 2, 'Tech Support', 8, 0, '2024-03-05'),
 (5, 4, 1, 'System Developer', 8, 1, '2024-03-07'),
-(7, 4, 3, '', 8, 0, '2024-03-07');
+(7, 4, 3, '', 8, 0, '2024-03-07'),
+(8, 3, 2, 'qwert', 6, 0, '2024-03-20');
 
 -- --------------------------------------------------------
 
@@ -2363,6 +2378,35 @@ INSERT INTO `employment_status` (`es_id`, `es_description`, `created_at`, `updat
 (4, 'Job Order', '2023-05-30 03:06:05', NULL, NULL),
 (5, 'Permanent', '2023-05-30 03:06:32', NULL, NULL),
 (6, 'Temporary', '2023-05-30 03:06:32', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `file_201`
+--
+
+CREATE TABLE `file_201` (
+  `file_id` int(11) NOT NULL,
+  `employee_id` int(11) NOT NULL,
+  `file_name` varchar(250) NOT NULL,
+  `file_type` varchar(250) NOT NULL,
+  `file_extension` varchar(50) NOT NULL,
+  `created_at` date DEFAULT NULL,
+  `deleted_at` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `file_201`
+--
+
+INSERT INTO `file_201` (`file_id`, `employee_id`, `file_name`, `file_type`, `file_extension`, `created_at`, `deleted_at`) VALUES
+(1, 7, 'archive.txt', 'pds-file', 'txt', '2024-03-18', NULL),
+(2, 5, 'archive.txt', 'pds-file', 'txt', '2024-03-18', '2024-03-18'),
+(3, 5, 'GGGGGGGGGGGGGGG.txt', 'Notice of Assumption', 'txt', '2024-03-18', NULL),
+(4, 5, 'archive.txt', 'PDS', 'txt', '2024-03-18', NULL),
+(5, 5, '201-FILE (1).pdf', 'Notice of Assumption', 'pdf', '2024-03-19', NULL),
+(6, 5, '2.jpg', 'COS Form 33-A', 'jpg', '2024-03-20', NULL),
+(7, 8, 'muscle-car-ice-road-red-moon-digital-art-4k-wallpaper-uhdpaper.com-18@0@j.jpg', 'Description Form', 'com-18@0@j', '2024-03-21', NULL);
 
 -- --------------------------------------------------------
 
@@ -49534,6 +49578,12 @@ ALTER TABLE `employment_status`
   ADD PRIMARY KEY (`es_id`);
 
 --
+-- Indexes for table `file_201`
+--
+ALTER TABLE `file_201`
+  ADD PRIMARY KEY (`file_id`);
+
+--
 -- Indexes for table `logs`
 --
 ALTER TABLE `logs`
@@ -49621,7 +49671,7 @@ ALTER TABLE `auth_groups`
 -- AUTO_INCREMENT for table `auth_logins`
 --
 ALTER TABLE `auth_logins`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=610;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=615;
 
 --
 -- AUTO_INCREMENT for table `auth_permissions`
@@ -49663,31 +49713,31 @@ ALTER TABLE `employee_attended_trainings`
 -- AUTO_INCREMENT for table `employee_educational_backgrounds`
 --
 ALTER TABLE `employee_educational_backgrounds`
-  MODIFY `employee_family_background_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `employee_family_background_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `employee_eligibilities`
 --
 ALTER TABLE `employee_eligibilities`
-  MODIFY `employee_eligibility_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `employee_eligibility_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `employee_family_backgrounds`
 --
 ALTER TABLE `employee_family_backgrounds`
-  MODIFY `employee_family_background_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `employee_family_background_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `employee_info`
 --
 ALTER TABLE `employee_info`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `employee_other_info`
 --
 ALTER TABLE `employee_other_info`
-  MODIFY `employee_other_info_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `employee_other_info_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `employee_voluntary_works`
@@ -49706,6 +49756,12 @@ ALTER TABLE `employee_work_experiences`
 --
 ALTER TABLE `employment_status`
   MODIFY `es_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `file_201`
+--
+ALTER TABLE `file_201`
+  MODIFY `file_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `logs`
