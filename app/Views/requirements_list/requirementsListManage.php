@@ -130,11 +130,15 @@
                                     <div class="w-100 mb-5">
                                         <label class="fs-6 fw-semibold mb-1">Employee Type: </label>
                                         <select name="employee_type" id="employee-type" class="form-select form-select-solid "
-                                            required>
-                                            <option value="" selected disabled>Select Employee Type</option>
-                                            <option value="0">Job Order / Contract of Service</option>
-                                            <option value="1">With Plantilla</option>
-                                        </select>
+                                                required>
+                                                <option value="" selected disabled>Select Employment Status</option>
+                                                <?php foreach ($employment_status as $employment_status) : ?>
+                                                <option value="<?= $employment_status->es_id ?>">
+                                                    <?= $employment_status->es_description ?>
+                                                </option>
+                                                <?php endforeach ?>
+                                            </select>
+                                            </select>
                                     </div>
                                 </div>
 
@@ -187,14 +191,9 @@
                     }
                 },
                 {
-                    data: 'employee_type',
-                    render: function (data, type, row) {
-                        if (row.employee_type == 1) {
-                            return `<span class="badge badge-light-primary">With Plantilla</span>`;
-                        } else {
-                            return `<span class="badge badge-light-primary">Job Order / Contract of Service</span>`;
-                        }
-
+                    data: 'es_description',
+                    render: function (data, display, row) {
+                        return `<span class="badge badge-light-primary">${data}</span>`;
                     }
                 },
                 {
@@ -293,7 +292,8 @@
                         const requirements_info = response.data[0];
                         $('#requirement-id').val(requirements_info.id);
                         $('#document-type').val(requirements_info.document_type);
-                        $('#employee-type').val(requirements_info.employee_type);
+                        $('#employee-type').val(requirements_info.es_id);
+                        console.log(requirements_info.es_description);
                     } else {
                         errorAlert('Error in retrieving data.', 'Error in retrieving data.',
                             'error');

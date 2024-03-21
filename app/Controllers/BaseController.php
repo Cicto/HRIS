@@ -87,4 +87,10 @@ class BaseController extends Controller
         );
         return (!$dept['error'] ? $dept['data'] : false);
     }
+    public function getEmploymentStatus(){
+        $dept = $this->masterModel->get('employment_status', //tablename
+             'es_id, es_description' //columns
+        );
+        return (!$dept['error'] ? $dept['data'] : false);
+    }
 }
