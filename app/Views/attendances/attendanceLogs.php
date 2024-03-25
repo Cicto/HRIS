@@ -132,7 +132,8 @@
                             <table class="table table-hover table-rounded border align-middle gx-5 my-0 w-100" id="attendance-table">
                                 <thead class="border-bottom border-gray-200">
                                     <tr>
-                                        <th class="text-nowrap w-10px">Timestamp</th>
+                                        <th class="text-nowrap w-10px">Time-in</th>
+                                        <th class="text-nowrap w-10px">Time-out</th>
                                         <th class="text-nowrap">Employee Name</th>
                                         <th class="text-nowrap d-none">Middle Name</th>
                                         <th class="text-nowrap d-none">Last Name</th>
@@ -244,6 +245,11 @@
                     className: "text-nowrap"
                 },
                 {
+                    data: "time_out",
+                    className: "text-nowrap",
+                    defaultContent: `<i class="text-muted">-</i>`
+                },
+                {
                     data: "firstname",
                     className: "border-start",
                     render: function(data, type, row){
@@ -268,7 +274,7 @@
                     className: "position-relative",
                     render: function(data, type, row){
                         return `
-                        <div class="position-absolute top-0 start-0 w-100 h-100 pe-3 d-flex align-items-center" title="${row.dept_name.toTitleCase()}">
+                        <div class="position-absolute top-0 start-0 w-100 h-100 ps-5 pe-3 d-flex align-items-center" title="${row.dept_name.toTitleCase()}">
                             <div class="text-truncate">    
                                 ${data} -  ${row.dept_name.toTitleCase()}
                             </div>    

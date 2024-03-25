@@ -11,6 +11,28 @@
         .ff-rubik{
             font-family: 'Rubik', sans-serif;
         }
+        .w-0{
+            width: 0px !important;
+        }
+        #time-toggle-label,  #time-toggle-label * {
+            transition: .2s;
+        }
+        .bg-orange{
+            background: var(--bs-orange);
+        }
+        .text-orange{
+            color: var(--bs-orange);
+        }
+
+        .bg-time-in{
+            background: linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0) 65%, rgba(var(--kt-primary-rgb), 0.1) 100%);
+            /* background: rgba(var(--kt-primary-rgb), 0.01); */
+        }
+        
+        .bg-time-out{
+            background: linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0) 65%, rgba(253, 126, 20, 0.1) 100%);
+            /* background: rgba(253, 126, 20, 0.01); */
+        }
     </style>
 <?= $this->endSection(); ?>
 
@@ -37,6 +59,14 @@
                     <span class="text-muted">Attendance Scanning</span>
                 </li>
             </ul>
+        </div>
+        <div class="">
+            <input type="checkbox" id="time-toggle" checked hidden>
+            <label for="time-toggle" id="time-toggle-label" class="d-flex rounded-pill overflow-hidden bg-primary pointer">
+                <div id="time-out-label" class="text-nowrap d-flex align-items-center text-light fw-semibold fs-4 ff-rubik overflow-hidden pointer-none w-0">Time out</div>
+                <div class="p-5 m-2 bg-white rounded-circle"></div>
+                <div id="time-in-label" class="text-nowrap d-flex align-items-center text-light fw-semibold fs-4 ff-rubik overflow-hidden pointer-none pe-4">Time in</div>
+            </label>
         </div>
     </div>
 </div>
@@ -139,8 +169,11 @@
                                                 <span id="employee_suffix"></span>
                                             </h3>
                                             <div class="mb-2"><b id="employee_dept_alias">MICTO</b> - <span id="employee_dept_name">Municipal Information Communication and Technology Office</span></div>
-                                            <div id="employee-time-in" class="border border-primary rounded bg-light-primary px-2 text-primary align-self-start">
+                                            <div id="employee-time-in" class="border border-primary rounded bg-light-primary px-2 text-primary align-self-start mb-2">
                                                 <b>Time-in:</b> <span style="font-family: 'Rubik', sans-serif;" id="employee_time_in">01:46:32 pm</span>
+                                            </div>
+                                            <div id="employee-time-out" class="border border-warning rounded bg-light-warning px-2 text-orange align-self-start">
+                                                <b>Time-out:</b> <span style="font-family: 'Rubik', sans-serif;" id="employee_time_out">01:46:32 pm</span>
                                             </div>
                                         </div>
                                         <div class="col-12">
@@ -355,6 +388,31 @@
             startScanner(current_camera_id)
         })
 
+        $("#time-toggle").change(function(){
+            console.log("asdASDASD")
+            const is_time_in = this.checked;
+            const is_time_out = !this.checked;
+            const time_toggle_label = $("#time-toggle-label");
+            const time_out_label = $("#time-out-label");
+            const time_in_label = $("#time-in-label");
+            time_toggle_label.toggleClass("bg-primary bg-orange");
+            if(is_time_in){
+                $("#kt_app_main").addClass("bg-time-in");
+                $("#kt_app_main").removeClass("bg-time-out");
+                time_out_label.addClass("w-0 opacity-0")
+                time_out_label.removeClass("ps-4 pe-1")
+                time_in_label.removeClass("w-0")
+                time_in_label.addClass("pe-4 ps-1")
+            }else{
+                $("#kt_app_main").removeClass("bg-time-in");
+                $("#kt_app_main").addClass("bg-time-out");
+                time_out_label.removeClass("w-0 opacity-0")
+                time_out_label.addClass("ps-4 pe-1")
+                time_in_label.addClass("w-0")
+                time_in_label.removeClass("pe-4 ps-1")
+            }
+        })
+
         setInterval(() => {
             const date = new Date();
             const hour = date.getHours() > 12 ? date.getHours()-12 : date.getHours();
@@ -398,12 +456,13 @@
 
     function logEmployeeAttendance(qrcode){
         if(!qr_code_scanner){ return; }
+        const is_time_in = $("#time-toggle").is(":checked");
         const loading_timeout = setTimeout(() => {
             pageLoader(true, 'Loading...');
         }, 500);
         qr_code_scanner.pause();
                 
-        fetch(`<?=base_url()?>/attendances/logEmployeeAttendance/${qrcode}`)
+        fetch(`<?=base_url()?>/attendances/logEmployeeAttendance/${qrcode}/${is_time_in ? 1 : 0 }`)
             .then(data => data.json())
             .then(response => {
                 clearTimeout(loading_timeout)
@@ -429,12 +488,12 @@
     function setLoggedEmployeeData(employee_data){
         for (const name in employee_data) {
             if (Object.hasOwnProperty.call(employee_data, name)) {
-                const value = employee_data[name];
+                const value = employee_data[name] ? employee_data[name] : `<i class="text-muted">-</i>` ;
                 $(`#employee_${name}`).html(value);
             }
         }
 
-        $("#employee_photo").attr("src", `<?=base_url()?>/public/assets/media/employee-profile/${employee_data.photo ? employee_data.photo : "" }`)
+        $("#employee_photo").attr("src", `<?=base_url()?>/public/assets/media/employee-profile/${employee_data.photo ? employee_data.photo : "default-avatar.png" }`)
 
         if(employee_data.current_month_attendance){
 

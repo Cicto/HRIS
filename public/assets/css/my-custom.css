@@ -142,6 +142,11 @@
     cursor: pointer;
 }
 
+.pointer-none{
+    pointer-events: none !important;
+    user-select: none !important;
+}
+
 .user-photo-hover-overlay{
     opacity: 0;
     transition: 0.25s;

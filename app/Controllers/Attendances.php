@@ -25,6 +25,14 @@ class Attendances extends BaseController
         return view('attendances/attendanceScan', $this->viewData);
     }
 
+    public function config(){   
+        $this->viewData['title'] = 'Attendance';
+        $this->viewData['roles'] = $this->getSystemRoles();
+        $this->viewData['departments'] = $this->getDepartments();
+
+        return view('attendances/attendanceConfig', $this->viewData);
+    }
+
     public function attendanceLogsDataTable(){
         $date = $this->request->getPost("date");
         $is_deleted = filter_var($this->request->getPost("is_deleted"), FILTER_VALIDATE_BOOLEAN) ? "IS NOT" : "IS" ;
@@ -32,7 +40,7 @@ class Attendances extends BaseController
             'employee_info',
             'employee_info.employee_id, qrcode, firstname, middlename, lastname, photo, 
              departments.dept_alias, departments.dept_name, 
-             attendance_logs.time_in, attendance_logs.attendance_id, attendance_logs.deleted_at
+             attendance_logs.time_in, attendance_logs.time_out, attendance_logs.attendance_id, attendance_logs.deleted_at
             ', 
             "DATE(`time_in`) = '$date' AND attendance_logs.deleted_at $is_deleted NULL",
             [
@@ -99,8 +107,9 @@ class Attendances extends BaseController
         return json_encode($result);
     }
 
-    public function logEmployeeAttendance($qrcode){
+    public function logEmployeeAttendance($qrcode, $is_time_in = 1){
         $this->response->setContentType('application/json');
+        $date_time = date("Y-m-d H:i:s");
         $get_employee = $this->masterModel->get("employee_info", 
             "employee_info.*,
              employee_status.employement_status_id, employee_status.department_id, employee_status.position, employee_status.role_id, employee_status.date_hired, 
@@ -118,20 +127,42 @@ class Attendances extends BaseController
 
         if(!$get_employee["error"]){
             $employee_data = $get_employee["data"][0];
+            $employee_data->time_in = $date_time;
+            $employee_data->time_out = NULL;
             $employee_id = $employee_data->employee_id;
+
             $get_attendace_today = $this->masterModel->get("attendance_logs", "*", "CURRENT_DATE() = DATE(`time_in`) AND employee_id = $employee_id");
             if($get_attendace_today["data"]){
-                return json_encode([
-                    'error' => true, 'result' => 'Employee already logged today', 'data' => FALSE
-                ]);
+                $employee_data->time_in = $get_attendace_today["data"][0]->time_in;
+                if((int)$is_time_in){
+                    return json_encode([
+                        'error' => true, 'result' => 'Employee already logged today', 'data' => FALSE
+                    ]);
+                }else{
+                    if($get_attendace_today["data"][0]->time_out){
+                        return json_encode([
+                            'error' => true, 'result' => 'Employee already timed-out today', 'data' => FALSE
+                        ]); 
+                    }
+                }
+            }else{
+                if(!(int)$is_time_in){
+                    return json_encode([
+                        'error' => true, 'result' => 'Employee has not timed-in today', 'data' => FALSE
+                    ]);
+                }
             }
 
             
 
-            $date_time = date("Y-m-d H:i:s");
-            $insert_attendance = $this->masterModel->insert("attendance_logs", ["employee_id" => $employee_id, "time_in" => $date_time]);
-            $employee_data->time_in = $date_time;
-            if(!$insert_attendance["error"]){
+            if((int)$is_time_in){
+                $attendance_operation = $this->masterModel->insert("attendance_logs", ["employee_id" => $employee_id, "time_in" => $date_time]);
+            }else{
+                $employee_data->time_out = $date_time;
+                $attendance_operation = $this->masterModel->update("attendance_logs", ["time_out" => $date_time], "employee_id = $employee_id AND CURRENT_DATE() = DATE(`time_in`)");
+            }
+
+            if(!$attendance_operation["error"]){
                 $current_month_attendance = $this->masterModel->get("attendance_logs", "*", "MONTH(CURRENT_DATE()) = MONTH(`time_in`) AND employee_id = $employee_id");
                 if(!$current_month_attendance["error"]){
                     $employee_data->current_month_attendance = $current_month_attendance["data"];
@@ -139,11 +170,11 @@ class Attendances extends BaseController
                     $employee_data->current_month_attendance = false;
                 }
                 return json_encode([
-                    'error' => false, 'message' => 'Employee successfully logged', 'data' => $employee_data
+                    'error' => false, 'message' => 'Employee successfully logged', 'data' => $employee_data, 'attendance_operation' => $attendance_operation
                 ]);
             }
 
-            return json_encode($insert_attendance);
+            return json_encode($attendance_operation);
         }
         return json_encode($get_employee);
     }
