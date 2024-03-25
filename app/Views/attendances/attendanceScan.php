@@ -19,10 +19,16 @@
 <div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
     <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex flex-stack">
         <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
-            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Attendance</h1>
+            <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Attendance Scanning</h1>
             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                 <li class="breadcrumb-item text-muted">
                     <a href="<?=base_url()?>" class="text-muted text-hover-primary">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item text-muted">
+                    <i class="bi bi-dash"></i>
+                </li>
+                <li class="breadcrumb-item text-muted">
+                    <a href="<?=base_url()?>/attendances" class="text-muted text-hover-primary">Attendance Logs</a>
                 </li>
                 <li class="breadcrumb-item text-muted">
                     <i class="bi bi-dash"></i>
@@ -123,7 +129,7 @@
                                 <div class="p-5 pb-0 position-relative">
                                     <div class="row">
                                         <div class="col-4">
-                                            <img src="<?=base_url()?>/public/assets/media/employee-profile/default-avatar.png" class="img-fluid w-100 rounded-4 border mx-auto" style="aspect-ratio: 1 / 1;" alt="Employee Photo">
+                                            <img src="<?=base_url()?>/public/assets/media/employee-profile/default-avatar.png" id="employee_photo" class="img-fluid w-100 rounded-4 border mx-auto" style="aspect-ratio: 1 / 1;" alt="Employee Photo">
                                         </div>
                                         <div class="col-8 d-flex flex-column justify-content-end pb-2">
                                             <h3 id="">
@@ -427,6 +433,9 @@
                 $(`#employee_${name}`).html(value);
             }
         }
+
+        $("#employee_photo").attr("src", `<?=base_url()?>/public/assets/media/employee-profile/${employee_data.photo ? employee_data.photo : "" }`)
+
         if(employee_data.current_month_attendance){
 
             $(".calendar-date").each(function (index, calendar_date) {

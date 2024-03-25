@@ -149,8 +149,9 @@
             <div class="col-lg-3 order-1 order-lg-2">
                 <div class="card mb-6">
                     <div class="card-body">
-                        <div class="">
+                        <div class="position-relative">
                             <div id="total-attendance-logged-chart" class="pb-3"></div>
+                            <div id="total-attendance-logged-chart-overlay" class="position-absolute h-100 w-100 top-0 p-0" style="background-color: var(--kt-card-bg);"></div>
                         </div>
                         <div class="d-flex justify-content-between align-items-end">
                             <div class="">
@@ -426,8 +427,9 @@
     //
     });
 
-    function setAttendanceLoggedStatistics(date = "2024-03-07"){
-        fetch(`<?=base_url()?>/attendances/getAttendanceLogs?date=${date}`)
+    async function setAttendanceLoggedStatistics(date = "2024-03-07"){
+        $("#total-attendance-logged-chart-overlay").fadeIn()
+        const total = await fetch(`<?=base_url()?>/attendances/getAttendanceLogs?date=${date}`)
             .then(data => data.json())
             .then(response => {
                 const attendance_logs = response.data;
@@ -494,7 +496,12 @@
                 }])
 
                 $("#total-attendance-logged-date").text(date)
+
+                return highest;
             })
+        if(total){
+            $("#total-attendance-logged-chart-overlay").fadeOut()
+        }
     }
 
     async function setCalendar(year, month) {
